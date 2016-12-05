@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file:///media/linuxData/Linux data/Projects/Library/Library.iml" filepath="/media/linuxData/Linux data/Projects/Library/Library.iml" />
+      <module fileurl="file:///media/linuxData/Linux data/Projects/Library/app/app.iml" filepath="/media/linuxData/Linux data/Projects/Library/app/app.iml" />
+      <module fileurl="file:///media/linuxData/Linux data/Projects/Library/helubottombuttonsheet/helubottombuttonsheet.iml" filepath="/media/linuxData/Linux data/Projects/Library/helubottombuttonsheet/helubottombuttonsheet.iml" />
+      <module fileurl="file:///media/linuxData/Linux data/Projects/Library/heluparallaxview/heluparallaxview.iml" filepath="/media/linuxData/Linux data/Projects/Library/heluparallaxview/heluparallaxview.iml" />
+      <module fileurl="file:///media/linuxData/Linux data/Projects/Library/heluvideoview/heluvideoview.iml" filepath="/media/linuxData/Linux data/Projects/Library/heluvideoview/heluvideoview.iml" />
+    </modules>
+  </component>
+</project>

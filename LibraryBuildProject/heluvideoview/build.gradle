@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+
+ext {
+	bintrayRepo = 'maven'
+	bintrayName = 'HeluVideoView'
+
+	publishedGroupId = 'cz.helu.android'
+	libraryName = 'HeluVideoView'
+	artifact = 'heluvideoview'
+
+	libraryDescription = 'Create Video player view easily.'
+
+	siteUrl = 'https://github.com/Tuxilero/Android-Utils'
+	gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
+
+	libraryVersion = '1.0.0'
+
+	developerId = 'tuxilero'
+	developerName = 'Lukas Hermann'
+	developerEmail = 'hermann@helu.cz'
+
+	licenseName = 'The Apache Software License, Version 2.0'
+	licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+	allLicenses = ["Apache-2.0"]
+}
+
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:2.2.2'
+		classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+	}
+}
+
+android {
+	compileSdkVersion 25
+	buildToolsVersion "25.0.0"
+
+	defaultConfig {
+		minSdkVersion 16
+		targetSdkVersion 25
+		versionCode 1
+		versionName "1.0"
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+}
+
+dependencies {
+	compile 'com.android.support:appcompat-v7:25.0.1'
+	compile 'com.android.support:design:25.0.1'
+	compile 'com.android.support:support-annotations:25.0.1'
+	compile 'org.jetbrains:annotations-java5:15.0'
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+// Place it at the end of the file
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'

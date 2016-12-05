@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="/media/linuxData/Linux data/Projects/Library" />
+            <option value="/media/linuxData/Linux data/Projects/Library/app" />
+            <option value="/media/linuxData/Linux data/Projects/Library/helubottombuttonsheet" />
+            <option value="/media/linuxData/Linux data/Projects/Library/heluparallaxview" />
+            <option value="/media/linuxData/Linux data/Projects/Library/heluvideoview" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
