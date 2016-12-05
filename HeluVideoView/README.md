@@ -3,7 +3,7 @@ This library provides you very easy to use and intuitive API to create new Video
 
 You need to use provided Builder class to create new HeluVideoView.
 
-![Alt text](../assets/HeluVideoView.png?raw=true "HeluVideoView")
+![Alt text](./extras/HeluVideoView.png?raw=true "HeluVideoView")
 
 
 ## Gradle:

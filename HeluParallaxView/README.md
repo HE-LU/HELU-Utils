@@ -1,7 +1,7 @@
 # HeluParallaxView 1.0.0 (API 16+)
 Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywhere
 
-![Alt text](../assets/HeluParallaxView.gif?raw=true "HeluParallaxView")
+![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:

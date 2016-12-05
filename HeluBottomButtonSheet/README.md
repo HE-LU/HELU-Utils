@@ -1,7 +1,7 @@
 # HeluBottomButtonSheet 1.0.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
-![Alt text](../assets/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
+![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
 
 
 ## Gradle:
