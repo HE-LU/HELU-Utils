@@ -1,9 +1,11 @@
 package cz.helu.heluvideoview;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Dimension;
 import android.util.AttributeSet;
@@ -102,10 +104,11 @@ public class HeluVideoView extends FrameLayout
 	private enum PlayerState
 	{
 		NOT_INITIALIZED(1),
-		INITIALIZED(2),
-		PREPARED(4),
-		PLAYING(8),
-		PAUSED(16);
+		DESTROYED(2),
+		INITIALIZED(4),
+		PREPARED(8),
+		PLAYING(16),
+		PAUSED(32);
 
 		private final int value;
 
@@ -148,6 +151,7 @@ public class HeluVideoView extends FrameLayout
 	}
 
 
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public HeluVideoView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
 	{
 		super(context, attrs, defStyleAttr, defStyleRes);
@@ -188,6 +192,21 @@ public class HeluVideoView extends FrameLayout
 
 		setupControlViews();
 		setupAudioViews();
+	}
+
+
+	public void reCreate()
+	{
+		if(mPlayerState == PlayerState.DESTROYED)
+		{
+			if(mImageViewPlaceholder != null)
+				mImageViewPlaceholder.setVisibility(VISIBLE);
+
+			checkControlsVisibility();
+			checkVolumeVisibility();
+
+			setupMediaPlayer();
+		}
 	}
 
 
@@ -264,6 +283,7 @@ public class HeluVideoView extends FrameLayout
 		{
 			mMediaPlayer.release();
 			mMediaPlayer = null;
+			mPlayerState = PlayerState.DESTROYED;
 		}
 	}
 
@@ -371,7 +391,7 @@ public class HeluVideoView extends FrameLayout
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b)
 			{
-				if(mPlayerState.getValue() == PlayerState.PAUSED.getValue())
+				if(mPlayerState == PlayerState.PAUSED)
 					mMediaPlayer.seekTo(i * mProgressUpdateInterval);
 			}
 
@@ -406,7 +426,7 @@ public class HeluVideoView extends FrameLayout
 				@Override
 				public void onClick(View view)
 				{
-					if(mPlayerState.getValue() >= PlayerState.PAUSED.getValue())
+					if(mPlayerState == PlayerState.PAUSED)
 						play();
 					else
 						pause();
@@ -488,7 +508,7 @@ public class HeluVideoView extends FrameLayout
 
 		if(mImageViewPlay != null)
 		{
-			if(mPlayerState.getValue() >= PlayerState.PAUSED.getValue())
+			if(mPlayerState == PlayerState.PAUSED)
 				mImageViewPlay.setVisibility(VISIBLE);
 			else
 				mImageViewPlay.setVisibility(GONE);
@@ -547,6 +567,9 @@ public class HeluVideoView extends FrameLayout
 			@Override
 			public boolean onSurfaceTextureDestroyed(SurfaceTexture surface)
 			{
+				if(mMediaPlayer == null)
+					return true;
+
 				mSurface = null;
 				mMediaPlayer.setSurface(null);
 				pause();
@@ -630,7 +653,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withVideoUrl(String videoUrl)
+		public Builder withVideoUrl(String videoUrl)
 		{
 			this.videoUrl = videoUrl;
 			return this;
@@ -638,7 +661,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withPlaceholderView(ImageView imageViewPlaceholder)
+		public Builder withPlaceholderView(ImageView imageViewPlaceholder)
 		{
 			this.imageViewPlaceholder = imageViewPlaceholder;
 			return this;
@@ -646,7 +669,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withPlayView(ImageView imageViewPlay)
+		public Builder withPlayView(ImageView imageViewPlay)
 		{
 			this.imageViewPlay = imageViewPlay;
 			return this;
@@ -654,7 +677,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withMuteOnView(ImageView imageViewMuteOn)
+		public Builder withMuteOnView(ImageView imageViewMuteOn)
 		{
 			this.imageViewMuteOn = imageViewMuteOn;
 			return this;
@@ -662,7 +685,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withMuteOffView(ImageView imageViewMuteOff)
+		public Builder withMuteOffView(ImageView imageViewMuteOff)
 		{
 			this.imageViewMuteOff = imageViewMuteOff;
 			return this;
@@ -670,7 +693,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withSeekBarView(SeekBar viewSeekBar)
+		public Builder withSeekBarView(SeekBar viewSeekBar)
 		{
 			this.viewSeekBar = viewSeekBar;
 			return this;
@@ -678,7 +701,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withScalingMode(ScaleType scalingMode)
+		public Builder withScalingMode(ScaleType scalingMode)
 		{
 			this.scalingMode = scalingMode;
 			return this;
@@ -686,7 +709,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withAttachViewPolicy(AttachPolicy attachPolicy)
+		public Builder withAttachViewPolicy(AttachPolicy attachPolicy)
 		{
 			this.attachPolicy = attachPolicy;
 			return this;
@@ -694,7 +717,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withAutoPlay(boolean autoPlay)
+		public Builder withAutoPlay(boolean autoPlay)
 		{
 			this.autoPlay = autoPlay;
 			return this;
@@ -702,7 +725,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withMuteOnStart(boolean mutedOnStart)
+		public Builder withMuteOnStart(boolean mutedOnStart)
 		{
 			this.mutedOnStart = mutedOnStart;
 			return this;
@@ -710,7 +733,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withLooping(boolean looping)
+		public Builder withLooping(boolean looping)
 		{
 			this.looping = looping;
 			return this;
@@ -718,7 +741,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withProgressUpdateInterval(int progressUpdateInterval)
+		public Builder withProgressUpdateInterval(int progressUpdateInterval)
 		{
 			this.progressUpdateInterval = progressUpdateInterval;
 			return this;
@@ -726,7 +749,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public HeluVideoView.Builder withMaxVideoHeight(@Dimension int maxVideoHeight)
+		public Builder withMaxVideoHeight(@Dimension int maxVideoHeight)
 		{
 			this.maxVideoHeight = context.getResources().getDimensionPixelSize(maxVideoHeight);
 			return this;

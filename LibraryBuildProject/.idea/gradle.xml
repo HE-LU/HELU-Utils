@@ -7,11 +7,11 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/media/linuxData/Linux data/Projects/Library" />
-            <option value="/media/linuxData/Linux data/Projects/Library/app" />
-            <option value="/media/linuxData/Linux data/Projects/Library/helubottombuttonsheet" />
-            <option value="/media/linuxData/Linux data/Projects/Library/heluparallaxview" />
-            <option value="/media/linuxData/Linux data/Projects/Library/heluvideoview" />
+            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject" />
+            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/app" />
+            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/helubottombuttonsheet" />
+            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/heluparallaxview" />
+            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/heluvideoview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
