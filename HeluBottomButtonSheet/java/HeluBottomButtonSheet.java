@@ -1,4 +1,4 @@
-package cz.helu.bottombuttonsheet;
+package cz.helu.helubottombuttonsheet;
 
 
 import android.annotation.SuppressLint;
@@ -17,6 +17,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Dimension;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -28,8 +29,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -144,21 +143,21 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 	@SuppressWarnings("unused")
-	public void addButton(@NotNull String text, @NotNull View.OnClickListener clickListener)
+	public void addButton(@NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
 		mItemList.add(SheetItem.createTextSheetItem(text, clickListener));
 	}
 
 
 	@SuppressWarnings("unused")
-	public void addButton(@NotNull Drawable drawable, @NotNull String text, @NotNull View.OnClickListener clickListener)
+	public void addButton(@NonNull Drawable drawable, @NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
 		mItemList.add(SheetItem.createTextSheetItem(drawable, text, clickListener));
 	}
 
 
 	@SuppressWarnings("unused")
-	public void addButton(int drawableResource, @NotNull String text, @NotNull View.OnClickListener clickListener)
+	public void addButton(int drawableResource, @NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
 		mItemList.add(SheetItem.createTextSheetItem(drawableResource, text, clickListener));
 	}
@@ -435,3 +434,4 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		}
 	}
 }
+

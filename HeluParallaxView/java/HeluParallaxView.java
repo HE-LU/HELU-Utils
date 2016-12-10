@@ -288,13 +288,13 @@ public class HeluParallaxView extends ImageView
 
 	private void checkAttributes(AttributeSet attrs)
 	{
-		TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.HeluParallaxViewAttrs);
-		int reverse = arr.getInt(R.styleable.HeluParallaxViewAttrs_reverse, 1);
+		TypedArray arr = getContext().obtainStyledAttributes(attrs, cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs);
+		int reverse = arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_reverse, 1);
 
-		updateOnDraw = arr.getBoolean(R.styleable.HeluParallaxViewAttrs_update_onDraw, false);
-		blockParallaxX = arr.getBoolean(R.styleable.HeluParallaxViewAttrs_block_parallax_x, false);
-		blockParallaxY = arr.getBoolean(R.styleable.HeluParallaxViewAttrs_block_parallax_y, false);
-		interpolator = InterpolatorSelector.interpolatorId(arr.getInt(R.styleable.HeluParallaxViewAttrs_interpolation, 0));
+		updateOnDraw = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_update_onDraw, false);
+		blockParallaxX = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_x, false);
+		blockParallaxY = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_y, false);
+		interpolator = InterpolatorSelector.interpolatorId(arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_interpolation, 0));
 
 		reverseX = false;
 		reverseY = false;
@@ -415,3 +415,4 @@ public class HeluParallaxView extends ImageView
 		}
 	}
 }
+
