@@ -46,10 +46,10 @@ public class HeluVideoView extends FrameLayout
 	{
 		public void run()
 		{
-			int time = mMediaPlayer.getCurrentPosition();
-
-			if(mPlayerState != PlayerState.PLAYING)
+			if(mMediaPlayer == null || mPlayerState != PlayerState.PLAYING)
 				return;
+
+			int time = mMediaPlayer.getCurrentPosition();
 
 			if(mSeekBarView != null)
 				mSeekBarView.setProgress(time / mProgressUpdateInterval);
