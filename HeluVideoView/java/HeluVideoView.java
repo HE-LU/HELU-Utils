@@ -29,6 +29,7 @@ public class HeluVideoView extends FrameLayout
 	private PlayerState mPlayerState = PlayerState.NOT_INITIALIZED;
 	private String mVideoUrl;
 	private ImageView mImageViewPlaceholder;
+	private ImageView mImageViewError;
 	private ImageView mImageViewPlay;
 	private ImageView mImageViewMuteOn;
 	private ImageView mImageViewMuteOff;
@@ -172,6 +173,7 @@ public class HeluVideoView extends FrameLayout
 
 		this.mVideoUrl = builder.videoUrl;
 		this.mImageViewPlaceholder = builder.imageViewPlaceholder;
+		this.mImageViewError = builder.imageViewError;
 		this.mImageViewPlay = builder.imageViewPlay;
 		this.mImageViewMuteOn = builder.imageViewMuteOn;
 		this.mImageViewMuteOff = builder.imageViewMuteOff;
@@ -201,6 +203,9 @@ public class HeluVideoView extends FrameLayout
 		{
 			if(mImageViewPlaceholder != null)
 				mImageViewPlaceholder.setVisibility(VISIBLE);
+
+			if(mImageViewError != null)
+				mImageViewError.setVisibility(GONE);
 
 			checkControlsVisibility();
 			checkVolumeVisibility();
@@ -299,6 +304,13 @@ public class HeluVideoView extends FrameLayout
 		if(mImageViewPlaceholder != null)
 			addView(mImageViewPlaceholder);
 
+		// Create error view
+		if(mImageViewError != null)
+		{
+			mImageViewError.setVisibility(GONE);
+			addView(mImageViewError);
+		}
+
 		// Create play view
 		if(mImageViewPlay != null)
 			addView(mImageViewPlay);
@@ -321,6 +333,7 @@ public class HeluVideoView extends FrameLayout
 		{
 			mMediaPlayer = new MediaPlayer();
 			mMediaPlayer.setOnCompletionListener(createOnCompleteListener());
+			mMediaPlayer.setOnErrorListener(createOnErrorListener());
 			mMediaPlayer.setLooping(mLooping);
 			mMediaPlayer.setDataSource(mVideoUrl);
 
@@ -497,6 +510,25 @@ public class HeluVideoView extends FrameLayout
 	}
 
 
+	private MediaPlayer.OnErrorListener createOnErrorListener()
+	{
+		return new MediaPlayer.OnErrorListener()
+		{
+			@Override
+			public boolean onError(MediaPlayer mediaPlayer, int what, int extra)
+			{
+				if(mImageViewPlaceholder != null)
+					mImageViewPlaceholder.setVisibility(GONE);
+
+				if(mImageViewError != null)
+					mImageViewError.setVisibility(VISIBLE);
+
+				return false;
+			}
+		};
+	}
+
+
 	private void checkControlsVisibility()
 	{
 		if(mPlayerState.getValue() < PlayerState.PREPARED.getValue())
@@ -633,6 +665,7 @@ public class HeluVideoView extends FrameLayout
 		private Context context;
 		private String videoUrl;
 		private ImageView imageViewPlaceholder;
+		private ImageView imageViewError;
 		private ImageView imageViewPlay;
 		private ImageView imageViewMuteOn;
 		private ImageView imageViewMuteOff;
@@ -664,6 +697,14 @@ public class HeluVideoView extends FrameLayout
 		public Builder withPlaceholderView(ImageView imageViewPlaceholder)
 		{
 			this.imageViewPlaceholder = imageViewPlaceholder;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withErrorView(ImageView imageViewError)
+		{
+			this.imageViewError = imageViewError;
 			return this;
 		}
 
