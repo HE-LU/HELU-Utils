@@ -33,11 +33,11 @@ public class HeluParallaxView extends ImageView
 	static final int REVERSE_Y = 3;
 	static final int REVERSE_BOTH = 4;
 
-	public boolean reverseX = false;
-	public boolean reverseY = false;
-	public boolean updateOnDraw = false;
-	public boolean blockParallaxX = false;
-	public boolean blockParallaxY = false;
+	private boolean reverseX = false;
+	private boolean reverseY = false;
+	private boolean updateOnDraw = true;
+	private boolean blockParallaxX = false;
+	private boolean blockParallaxY = false;
 
 	private int screenWidth;
 	private int screenHeight;
@@ -90,17 +90,7 @@ public class HeluParallaxView extends ImageView
 		if(!checkScaleType())
 			return;
 
-		mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener()
-		{
-			@Override
-			public void onScrollChanged()
-			{
-				applyParallax();
-			}
-		};
-
 		ViewTreeObserver viewTreeObserver = getViewTreeObserver();
-		viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
 
 		if(updateOnDraw)
 		{
@@ -113,6 +103,19 @@ public class HeluParallaxView extends ImageView
 				}
 			};
 			viewTreeObserver.addOnDrawListener(onDrawListener);
+		}
+		else
+		{
+			mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener()
+			{
+				@Override
+				public void onScrollChanged()
+				{
+					applyParallax();
+				}
+			};
+
+			viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
 		}
 
 		applyParallax();
@@ -128,10 +131,10 @@ public class HeluParallaxView extends ImageView
 			return;
 		}
 
-		getViewTreeObserver().removeOnScrollChangedListener(mOnScrollChangedListener);
-
 		if(updateOnDraw)
 			getViewTreeObserver().removeOnDrawListener(onDrawListener);
+		else
+			getViewTreeObserver().removeOnScrollChangedListener(mOnScrollChangedListener);
 
 		super.onDetachedFromWindow();
 	}
@@ -185,12 +188,8 @@ public class HeluParallaxView extends ImageView
 	}
 
 
-	public void applyColorFilter()
+	public void applyColorFilter(int brightness, float contrast, float alpha)
 	{
-		float alpha = 0.4f;
-		float contrast = 1.5f;
-		int brightness = -60;
-
 		ColorMatrix cm = new ColorMatrix(new float[]
 				{
 						contrast, 0, 0, 0, brightness,
@@ -291,7 +290,7 @@ public class HeluParallaxView extends ImageView
 		TypedArray arr = getContext().obtainStyledAttributes(attrs, cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs);
 		int reverse = arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_reverse, 1);
 
-		updateOnDraw = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_update_onDraw, false);
+		updateOnDraw = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_update_onDraw, true);
 		blockParallaxX = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_x, false);
 		blockParallaxY = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_y, false);
 		interpolator = InterpolatorSelector.interpolatorId(arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_interpolation, 0));
@@ -335,7 +334,7 @@ public class HeluParallaxView extends ImageView
 		int[] location = new int[2];
 		getLocationOnScreen(location);
 
-		if(scrollSpaceY != 0)
+		if(scrollSpaceY != 0 && !blockParallaxY)
 		{
 			float locationUsableY = location[1] + heightImageView / 2;
 			float scrollDeltaY = locationUsableY / screenHeight;
@@ -347,7 +346,7 @@ public class HeluParallaxView extends ImageView
 				setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
 		}
 
-		if(scrollSpaceX != 0)
+		if(scrollSpaceX != 0 && !blockParallaxX)
 		{
 			float locationUsableX = location[0] + widthImageView / 2;
 			float scrollDeltaX = locationUsableX / screenWidth;
@@ -415,3 +414,4 @@ public class HeluParallaxView extends ImageView
 		}
 	}
 }
+

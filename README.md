@@ -10,7 +10,7 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 ![Alt text](./HeluBottomButtonSheet/extras/HeluBottomButtonSheet.png?raw=true "HeluVideoView")
 
 
-### [HeluParallaxView 1.0.3 (API 16+)](./HeluParallaxView/)
+### [HeluParallaxView 1.0.4 (API 16+)](./HeluParallaxView/)
 Create ImageView with parallax effect. Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywhere
 
 ![Alt text](./HeluParallaxView/extras/HeluParallaxView.gif?raw=true "HeluVideoView")
