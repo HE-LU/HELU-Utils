@@ -1,4 +1,4 @@
-# HeluVideoView 1.0.5
+# HeluVideoView 1.0.6
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
@@ -8,7 +8,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluvideoview:1.0.5'
+compile 'cz.helu.android:heluvideoview:1.0.6'
 ```
 
 
@@ -18,24 +18,24 @@ compile 'cz.helu.android:heluvideoview:1.0.5'
 * **withVideoUrl(String)**
   URL of video load.
   
-* **withPlaceholderView(ImageView)**
-  ImageView with some placeholder image set.
+* **withPlaceholderView(View)**
+  View with some placeholder image set.
   *(Default is ```null```)*
     
-* **withErrorView(ImageView)**
-  ImageView with some error image set. Will be used in case video wont be loaded, or any error occurs.
+* **withErrorView(View)**
+  View with some error image set. Will be used in case video wont be loaded, or any error occurs.
   *(Default is ```null```)*
   
-* **withPlayView(ImageView)**
-  ImageView with some play button image set.
+* **withPlayView(View)**
+  View with some play button image set.
   *(Default is ```null```)*
   
-* **withMuteOnView(ImageView)**
-  ImageView with some mute on image set. This ImageView will be displayed when the sound is muted.
+* **withMuteOnView(View)**
+  View with some mute on image set. This View will be displayed when the sound is muted.
   *(Default is ```null```)*
   
-* **withMuteOffView(ImageView)**
-  ImageView with some mute off image set. This ImageView will be displayed when the sound is un-muted.
+* **withMuteOffView(View)**
+  View with some mute off image set. This View will be displayed when the sound is un-muted.
   *(Default is ```null```)*
   
 * **withSeekBarView(SeekBar)**

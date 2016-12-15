@@ -14,7 +14,6 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import java.io.IOException;
@@ -28,11 +27,11 @@ public class HeluVideoView extends FrameLayout
 	private Surface mSurface;
 	private PlayerState mPlayerState = PlayerState.NOT_INITIALIZED;
 	private String mVideoUrl;
-	private ImageView mImageViewPlaceholder;
-	private ImageView mImageViewError;
-	private ImageView mImageViewPlay;
-	private ImageView mImageViewMuteOn;
-	private ImageView mImageViewMuteOff;
+	private View mViewPlaceholder;
+	private View mViewError;
+	private View mViewPlay;
+	private View mViewMuteOn;
+	private View mViewMuteOff;
 	private SeekBar mSeekBarView;
 	private ScaleType mScalingMode;
 	private AttachPolicy mAttachPolicy;
@@ -172,11 +171,11 @@ public class HeluVideoView extends FrameLayout
 			return;
 
 		this.mVideoUrl = builder.videoUrl;
-		this.mImageViewPlaceholder = builder.imageViewPlaceholder;
-		this.mImageViewError = builder.imageViewError;
-		this.mImageViewPlay = builder.imageViewPlay;
-		this.mImageViewMuteOn = builder.imageViewMuteOn;
-		this.mImageViewMuteOff = builder.imageViewMuteOff;
+		this.mViewPlaceholder = builder.ViewPlaceholder;
+		this.mViewError = builder.ViewError;
+		this.mViewPlay = builder.ViewPlay;
+		this.mViewMuteOn = builder.ViewMuteOn;
+		this.mViewMuteOff = builder.ViewMuteOff;
 		this.mSeekBarView = builder.viewSeekBar;
 		this.mScalingMode = builder.scalingMode;
 		this.mAttachPolicy = builder.attachPolicy;
@@ -201,11 +200,11 @@ public class HeluVideoView extends FrameLayout
 	{
 		if(mPlayerState == PlayerState.DESTROYED)
 		{
-			if(mImageViewPlaceholder != null)
-				mImageViewPlaceholder.setVisibility(VISIBLE);
+			if(mViewPlaceholder != null)
+				mViewPlaceholder.setVisibility(VISIBLE);
 
-			if(mImageViewError != null)
-				mImageViewError.setVisibility(GONE);
+			if(mViewError != null)
+				mViewError.setVisibility(GONE);
 
 			checkControlsVisibility();
 			checkVolumeVisibility();
@@ -301,25 +300,25 @@ public class HeluVideoView extends FrameLayout
 		addView(mTextureView);
 
 		// Create placeholder view
-		if(mImageViewPlaceholder != null)
-			addView(mImageViewPlaceholder);
+		if(mViewPlaceholder != null)
+			addView(mViewPlaceholder);
 
 		// Create error view
-		if(mImageViewError != null)
+		if(mViewError != null)
 		{
-			mImageViewError.setVisibility(GONE);
-			addView(mImageViewError);
+			mViewError.setVisibility(GONE);
+			addView(mViewError);
 		}
 
 		// Create play view
-		if(mImageViewPlay != null)
-			addView(mImageViewPlay);
+		if(mViewPlay != null)
+			addView(mViewPlay);
 
 		// Create mute buttons views
-		if(mImageViewMuteOn != null && mImageViewMuteOff != null)
+		if(mViewMuteOn != null && mViewMuteOff != null)
 		{
-			addView(mImageViewMuteOn);
-			addView(mImageViewMuteOff);
+			addView(mViewMuteOn);
+			addView(mViewMuteOff);
 		}
 	}
 
@@ -366,8 +365,8 @@ public class HeluVideoView extends FrameLayout
 			{
 				mPlayerState = PlayerState.PREPARED;
 
-				if(mImageViewPlaceholder != null)
-					mImageViewPlaceholder.setVisibility(GONE);
+				if(mViewPlaceholder != null)
+					mViewPlaceholder.setVisibility(GONE);
 
 				if(mScalingMode == ScaleType.SCALE_TO_FIT_VIDEO)
 					recalculateViewSize();
@@ -432,7 +431,7 @@ public class HeluVideoView extends FrameLayout
 
 	private void setupControlViews()
 	{
-		if(mImageViewPlay != null)
+		if(mViewPlay != null)
 		{
 			setOnClickListener(new OnClickListener()
 			{
@@ -453,7 +452,7 @@ public class HeluVideoView extends FrameLayout
 
 	private void setupAudioViews()
 	{
-		if(mImageViewMuteOn != null && mImageViewMuteOff != null)
+		if(mViewMuteOn != null && mViewMuteOff != null)
 		{
 			OnClickListener clickListener = new OnClickListener()
 			{
@@ -466,8 +465,8 @@ public class HeluVideoView extends FrameLayout
 				}
 			};
 
-			mImageViewMuteOn.setOnClickListener(clickListener);
-			mImageViewMuteOff.setOnClickListener(clickListener);
+			mViewMuteOn.setOnClickListener(clickListener);
+			mViewMuteOff.setOnClickListener(clickListener);
 		}
 
 		checkVolumeVisibility();
@@ -517,11 +516,11 @@ public class HeluVideoView extends FrameLayout
 			@Override
 			public boolean onError(MediaPlayer mediaPlayer, int what, int extra)
 			{
-				if(mImageViewPlaceholder != null)
-					mImageViewPlaceholder.setVisibility(GONE);
+				if(mViewPlaceholder != null)
+					mViewPlaceholder.setVisibility(GONE);
 
-				if(mImageViewError != null)
-					mImageViewError.setVisibility(VISIBLE);
+				if(mViewError != null)
+					mViewError.setVisibility(VISIBLE);
 
 				return false;
 			}
@@ -533,17 +532,17 @@ public class HeluVideoView extends FrameLayout
 	{
 		if(mPlayerState.getValue() < PlayerState.PREPARED.getValue())
 		{
-			if(mImageViewPlay != null)
-				mImageViewPlay.setVisibility(GONE);
+			if(mViewPlay != null)
+				mViewPlay.setVisibility(GONE);
 			return;
 		}
 
-		if(mImageViewPlay != null)
+		if(mViewPlay != null)
 		{
 			if(mPlayerState == PlayerState.PAUSED)
-				mImageViewPlay.setVisibility(VISIBLE);
+				mViewPlay.setVisibility(VISIBLE);
 			else
-				mImageViewPlay.setVisibility(GONE);
+				mViewPlay.setVisibility(GONE);
 		}
 	}
 
@@ -552,25 +551,25 @@ public class HeluVideoView extends FrameLayout
 	{
 		if(mPlayerState.getValue() < PlayerState.PREPARED.getValue())
 		{
-			if(mImageViewMuteOn != null && mImageViewMuteOff != null)
+			if(mViewMuteOn != null && mViewMuteOff != null)
 			{
-				mImageViewMuteOn.setVisibility(GONE);
-				mImageViewMuteOff.setVisibility(GONE);
+				mViewMuteOn.setVisibility(GONE);
+				mViewMuteOff.setVisibility(GONE);
 			}
 			return;
 		}
 
-		if(mImageViewMuteOn != null && mImageViewMuteOff != null)
+		if(mViewMuteOn != null && mViewMuteOff != null)
 		{
 			if(mIsMuted)
 			{
-				mImageViewMuteOn.setVisibility(VISIBLE);
-				mImageViewMuteOff.setVisibility(GONE);
+				mViewMuteOn.setVisibility(VISIBLE);
+				mViewMuteOff.setVisibility(GONE);
 			}
 			else
 			{
-				mImageViewMuteOn.setVisibility(GONE);
-				mImageViewMuteOff.setVisibility(VISIBLE);
+				mViewMuteOn.setVisibility(GONE);
+				mViewMuteOff.setVisibility(VISIBLE);
 			}
 		}
 	}
@@ -664,11 +663,11 @@ public class HeluVideoView extends FrameLayout
 	{
 		private Context context;
 		private String videoUrl;
-		private ImageView imageViewPlaceholder;
-		private ImageView imageViewError;
-		private ImageView imageViewPlay;
-		private ImageView imageViewMuteOn;
-		private ImageView imageViewMuteOff;
+		private View ViewPlaceholder;
+		private View ViewError;
+		private View ViewPlay;
+		private View ViewMuteOn;
+		private View ViewMuteOff;
 		private SeekBar viewSeekBar;
 		private AttachPolicy attachPolicy = AttachPolicy.PAUSE;
 		private ScaleType scalingMode = ScaleType.SCALE_TO_FIT_VIEW;
@@ -694,41 +693,41 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
-		public Builder withPlaceholderView(ImageView imageViewPlaceholder)
+		public Builder withPlaceholderView(View ViewPlaceholder)
 		{
-			this.imageViewPlaceholder = imageViewPlaceholder;
+			this.ViewPlaceholder = ViewPlaceholder;
 			return this;
 		}
 
 
 		@SuppressWarnings("unused")
-		public Builder withErrorView(ImageView imageViewError)
+		public Builder withErrorView(View ViewError)
 		{
-			this.imageViewError = imageViewError;
+			this.ViewError = ViewError;
 			return this;
 		}
 
 
 		@SuppressWarnings("unused")
-		public Builder withPlayView(ImageView imageViewPlay)
+		public Builder withPlayView(View ViewPlay)
 		{
-			this.imageViewPlay = imageViewPlay;
+			this.ViewPlay = ViewPlay;
 			return this;
 		}
 
 
 		@SuppressWarnings("unused")
-		public Builder withMuteOnView(ImageView imageViewMuteOn)
+		public Builder withMuteOnView(View ViewMuteOn)
 		{
-			this.imageViewMuteOn = imageViewMuteOn;
+			this.ViewMuteOn = ViewMuteOn;
 			return this;
 		}
 
 
 		@SuppressWarnings("unused")
-		public Builder withMuteOffView(ImageView imageViewMuteOff)
+		public Builder withMuteOffView(View ViewMuteOff)
 		{
-			this.imageViewMuteOff = imageViewMuteOff;
+			this.ViewMuteOff = ViewMuteOff;
 			return this;
 		}
 
