@@ -8,7 +8,7 @@
 			<enum name="reverseBoth" value="4" />
 		</attr>
 
-		<attr name="update_onDraw" format="boolean" />
+		<attr name="scale" format="float" />
 		<attr name="block_parallax_x" format="boolean" />
 		<attr name="block_parallax_y" format="boolean" />
 

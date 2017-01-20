@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Point;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Display;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
@@ -35,17 +32,19 @@ public class HeluParallaxView extends ImageView
 
 	private boolean reverseX = false;
 	private boolean reverseY = false;
-	private boolean updateOnDraw = true;
 	private boolean blockParallaxX = false;
 	private boolean blockParallaxY = false;
 
 	private int screenWidth;
 	private int screenHeight;
+	private float imageScale = 1.2f;
+	private float matrixScaleToFit = 1f;
+	private float matrixTranslateX = 0f;
+	private float matrixTranslateY = 0f;
 	private float scrollSpaceX = 0;
 	private float scrollSpaceY = 0;
-	private float heightImageView;
-	private float widthImageView;
-
+	private float widthImageView = -1f;
+	private float heightImageView = -1f;
 	private Interpolator interpolator = new LinearInterpolator();
 
 	private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = null;
@@ -55,6 +54,7 @@ public class HeluParallaxView extends ImageView
 	public HeluParallaxView(Context context)
 	{
 		super(context);
+		initSizeScreen();
 	}
 
 
@@ -62,11 +62,10 @@ public class HeluParallaxView extends ImageView
 	{
 		super(context, attrs);
 
-		if(!checkScaleType())
-			return;
-
 		if(!isInEditMode())
 			checkAttributes(attrs);
+
+		initSizeScreen();
 	}
 
 
@@ -74,11 +73,10 @@ public class HeluParallaxView extends ImageView
 	{
 		super(context, attrs, defStyle);
 
-		if(!checkScaleType())
-			return;
-
 		if(!isInEditMode())
 			checkAttributes(attrs);
+
+		initSizeScreen();
 	}
 
 
@@ -87,36 +85,18 @@ public class HeluParallaxView extends ImageView
 	{
 		super.onAttachedToWindow();
 
-		if(!checkScaleType())
-			return;
-
-		ViewTreeObserver viewTreeObserver = getViewTreeObserver();
-
-		if(updateOnDraw)
+		onDrawListener = new ViewTreeObserver.OnDrawListener()
 		{
-			onDrawListener = new ViewTreeObserver.OnDrawListener()
+			@Override
+			public void onDraw()
 			{
-				@Override
-				public void onDraw()
-				{
-					applyParallax();
-				}
-			};
-			viewTreeObserver.addOnDrawListener(onDrawListener);
-		}
-		else
-		{
-			mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener()
-			{
-				@Override
-				public void onScrollChanged()
-				{
-					applyParallax();
-				}
-			};
+				applyParallax();
+			}
+		};
+		getViewTreeObserver().addOnDrawListener(onDrawListener);
 
-			viewTreeObserver.addOnScrollChangedListener(mOnScrollChangedListener);
-		}
+		setScaleType(ScaleType.CENTER);
+		applyMatrix();
 
 		applyParallax();
 	}
@@ -125,16 +105,7 @@ public class HeluParallaxView extends ImageView
 	@Override
 	protected void onDetachedFromWindow()
 	{
-		if(!checkScaleType())
-		{
-			super.onDetachedFromWindow();
-			return;
-		}
-
-		if(updateOnDraw)
-			getViewTreeObserver().removeOnDrawListener(onDrawListener);
-		else
-			getViewTreeObserver().removeOnScrollChangedListener(mOnScrollChangedListener);
+		getViewTreeObserver().removeOnDrawListener(onDrawListener);
 
 		super.onDetachedFromWindow();
 	}
@@ -144,45 +115,45 @@ public class HeluParallaxView extends ImageView
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		heightImageView = (float) getMeasuredHeight();
-		widthImageView = (float) getMeasuredWidth();
 
-		if(getDrawable() == null || !checkScaleType())
+		if(getDrawable() == null || (widthImageView == getMeasuredWidth() && heightImageView == getMeasuredHeight()))
 			return;
 
-		initSizeScreen();
+		widthImageView = (float) getMeasuredWidth();
+		heightImageView = (float) getMeasuredHeight();
 
-		int dHeight = getDrawable().getIntrinsicHeight();
-		int dWidth = getDrawable().getIntrinsicWidth();
-		int vHeight = getMeasuredHeight();
-		int vWidth = getMeasuredWidth();
-		float dNewHeight;
-		float dNewWidth;
+		int drawableWidth = getDrawable().getIntrinsicWidth();
+		int drawableHeight = getDrawable().getIntrinsicHeight();
 
-		if(dWidth * vHeight > vWidth * dHeight)
+		float drawableNewWidth;
+		float drawableNewHeight;
+
+		if(drawableWidth * heightImageView > widthImageView * drawableHeight)
 		{
-			float scale = (float) vHeight / (float) dHeight;
-			dNewWidth = dWidth * scale;
-			dNewHeight = vHeight;
+			float scale = heightImageView / (float) drawableHeight;
+			drawableNewWidth = drawableWidth * scale;
+			drawableNewHeight = heightImageView;
+
+			matrixScaleToFit = scale;
+			matrixTranslateX = (drawableNewWidth * (this.imageScale) - widthImageView) / 2 * -1;
+			matrixTranslateY = (heightImageView * (this.imageScale - 1)) / 2 * -1;
 		}
 		else
 		{
-			float scale = (float) vWidth / (float) dWidth;
-			dNewWidth = vWidth;
-			dNewHeight = dHeight * scale;
+			float scale = widthImageView / (float) drawableWidth;
+			drawableNewWidth = widthImageView;
+			drawableNewHeight = drawableHeight * scale;
+
+			matrixScaleToFit = scale;
+			matrixTranslateX = (widthImageView * (this.imageScale - 1)) / 2 * -1;
+			matrixTranslateY = (drawableNewHeight * (this.imageScale) - heightImageView) / 2 * -1;
 		}
 
 		if(scrollSpaceX == 0) // 0 = Not been initialized yet!
-		{
-			setScaleX(1.2f);
-			scrollSpaceX = dNewWidth * 0.17f;
-		}
+			scrollSpaceX = drawableNewWidth * imageScale - drawableNewWidth;
 
 		if(scrollSpaceY == 0) // 0 = Not been initialized yet!
-		{
-			setScaleY(1.2f);
-			scrollSpaceY = dNewHeight * 0.17f;
-		}
+			scrollSpaceY = drawableNewHeight * imageScale - drawableNewHeight;
 
 		onAttachedToWindow();
 	}
@@ -257,31 +228,17 @@ public class HeluParallaxView extends ImageView
 	}
 
 
-	private boolean checkScaleType()
+	private void applyMatrix()
 	{
-		switch(getScaleType())
-		{
-			case CENTER:
-			case CENTER_CROP:
-			case CENTER_INSIDE:
-				return true;
-			case FIT_CENTER:
-				Log.d("ParallaxImageView", "Scale type firCenter unsupported");
-				break;
-			case FIT_END:
-				Log.d("ParallaxImageView", "Scale type fitEnd unsupported");
-				break;
-			case FIT_START:
-				Log.d("ParallaxImageView", "Scale type fitStart unsupported");
-				break;
-			case FIT_XY:
-				Log.d("ParallaxImageView", "Scale type fitXY unsupported");
-				break;
-			case MATRIX:
-				Log.d("ParallaxImageView", "Scale type matrix unsupported");
-				break;
-		}
-		return false;
+		if((scrollSpaceX == 0 && scrollSpaceY == 0))
+			return;
+
+		setScaleType(ScaleType.MATRIX);
+
+		Matrix imageMatrix = new Matrix(getImageMatrix());
+		imageMatrix.setScale(matrixScaleToFit * imageScale, matrixScaleToFit * imageScale);
+		imageMatrix.postTranslate(matrixTranslateX, matrixTranslateY);
+		setImageMatrix(imageMatrix);
 	}
 
 
@@ -290,7 +247,7 @@ public class HeluParallaxView extends ImageView
 		TypedArray arr = getContext().obtainStyledAttributes(attrs, cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs);
 		int reverse = arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_reverse, 1);
 
-		updateOnDraw = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_update_onDraw, true);
+		imageScale = arr.getFloat(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_scale, 1.2f);
 		blockParallaxX = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_x, false);
 		blockParallaxY = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_y, false);
 		interpolator = InterpolatorSelector.interpolatorId(arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_interpolation, 0));
@@ -314,18 +271,6 @@ public class HeluParallaxView extends ImageView
 		}
 
 		arr.recycle();
-	}
-
-
-	private void initSizeScreen()
-	{
-		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-
-		Point size = new Point();
-		display.getSize(size);
-		screenHeight = size.y;
-		screenWidth = size.x;
 	}
 
 
@@ -357,6 +302,13 @@ public class HeluParallaxView extends ImageView
 			else
 				setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
 		}
+	}
+
+
+	private void initSizeScreen()
+	{
+		screenWidth = getResources().getDisplayMetrics().widthPixels;
+		screenHeight = getResources().getDisplayMetrics().heightPixels;
 	}
 
 

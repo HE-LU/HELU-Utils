@@ -1,4 +1,4 @@
-# HeluParallaxView 1.0.4 (API 16+)
+# HeluParallaxView 1.0.5 (API 16+)
 Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywhere
 
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
@@ -6,11 +6,15 @@ Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywher
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluparallaxview:1.0.4'
+compile 'cz.helu.android:heluparallaxview:1.0.5'
 ```
 
 
 ## Attributes
+  
+  * **scale**  = ``float``
+  Set the scale of how much the image will resize. Default value ``1.2``.
+  
 * **block_parallax_x** and **block_parallax_y**  = ``boolean``
   Blocks parallax effect. Default value ``false``.
   
@@ -19,9 +23,6 @@ compile 'cz.helu.android:heluparallaxview:1.0.4'
 
 * **interpolation** = ``["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]``
   Animation interpolation. Default value ``linear``.
-
-* **update_onDraw**  = ``boolean``
-  Experimental attribute: update the parallax effect on draw event. Only works on API:16+ (Jelly bean). Default value in now ``true``.
 
 
 ## Parameters
@@ -40,20 +41,23 @@ compile 'cz.helu.android:heluparallaxview:1.0.4'
   This will block ImageView from applying X or Y parallax effect.
   
   
+## Note
+HeluParallaxView is using matrix for scaling images. Be aware of that it automatically using ``ScaleType.MATRIX``!
+  
+  
 ## Usage
 
 ```xml
 <cz.helu.heluparallaxview.HeluParallaxView
 	android:layout_width="200dp"
 	android:layout_height="200dp"
-	android:scaleType="centerCrop"
 	app:imageUrlParallax="@{data.articleImg}" />
 	
 <cz.helu.heluparallaxview.HeluParallaxView
 	android:layout_width="200dp"
 	android:layout_height="200dp"
-	android:scaleType="centerCrop"
 	app:imageUrlParallax="@{data.articleImg}"
+	app:scale="1.8"
 	app:block_parallax_x="true"
 	app:block_parallax_y="false"
 	app:interpolation="linear"
@@ -86,7 +90,7 @@ Glide.with(imageView.getContext()).load(url)
 			@Override
 			public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource)
 			{
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				imageView.setScaleType(ImageView.ScaleType.MATRIX);
 				imageView.setBlockParallaxX(false);
 				return false;
 			}
