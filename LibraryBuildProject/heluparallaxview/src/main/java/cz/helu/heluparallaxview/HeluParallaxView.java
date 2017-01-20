@@ -116,7 +116,7 @@ public class HeluParallaxView extends ImageView
 	{
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		if(getDrawable() == null || (widthImageView == getMeasuredWidth() && heightImageView == getMeasuredHeight()))
+		if(getDrawable() == null)
 			return;
 
 		widthImageView = (float) getMeasuredWidth();
@@ -128,15 +128,15 @@ public class HeluParallaxView extends ImageView
 		float drawableNewWidth;
 		float drawableNewHeight;
 
-		if(drawableWidth * heightImageView > widthImageView * drawableHeight)
+		if(drawableWidth * heightImageView > drawableHeight * widthImageView)
 		{
 			float scale = heightImageView / (float) drawableHeight;
 			drawableNewWidth = drawableWidth * scale;
 			drawableNewHeight = heightImageView;
 
 			matrixScaleToFit = scale;
-			matrixTranslateX = (drawableNewWidth * (this.imageScale) - widthImageView) / 2 * -1;
-			matrixTranslateY = (heightImageView * (this.imageScale - 1)) / 2 * -1;
+			matrixTranslateX = (drawableNewWidth * (imageScale) - widthImageView) / 2 * -1;
+			matrixTranslateY = (heightImageView * (imageScale - 1)) / 2 * -1;
 		}
 		else
 		{
@@ -145,15 +145,15 @@ public class HeluParallaxView extends ImageView
 			drawableNewHeight = drawableHeight * scale;
 
 			matrixScaleToFit = scale;
-			matrixTranslateX = (widthImageView * (this.imageScale - 1)) / 2 * -1;
-			matrixTranslateY = (drawableNewHeight * (this.imageScale) - heightImageView) / 2 * -1;
+			matrixTranslateX = (widthImageView * (imageScale - 1)) / 2 * -1;
+			matrixTranslateY = (drawableNewHeight * (imageScale) - heightImageView) / 2 * -1; // OK
 		}
 
 		if(scrollSpaceX == 0) // 0 = Not been initialized yet!
-			scrollSpaceX = drawableNewWidth * imageScale - drawableNewWidth;
+			scrollSpaceX = (drawableNewWidth * imageScale - widthImageView);
 
 		if(scrollSpaceY == 0) // 0 = Not been initialized yet!
-			scrollSpaceY = drawableNewHeight * imageScale - drawableNewHeight;
+			scrollSpaceY = (drawableNewHeight * imageScale - heightImageView);
 
 		onAttachedToWindow();
 	}
@@ -228,7 +228,19 @@ public class HeluParallaxView extends ImageView
 	}
 
 
-	private void applyMatrix()
+	public float getScale()
+	{
+		return imageScale;
+	}
+
+
+	public void setScale(float imageScale)
+	{
+		this.imageScale = imageScale;
+	}
+
+
+	protected void applyMatrix()
 	{
 		if((scrollSpaceX == 0 && scrollSpaceY == 0))
 			return;
@@ -239,6 +251,37 @@ public class HeluParallaxView extends ImageView
 		imageMatrix.setScale(matrixScaleToFit * imageScale, matrixScaleToFit * imageScale);
 		imageMatrix.postTranslate(matrixTranslateX, matrixTranslateY);
 		setImageMatrix(imageMatrix);
+	}
+
+
+	protected void applyParallax()
+	{
+		int[] location = new int[2];
+		getLocationOnScreen(location);
+
+		if(scrollSpaceY != 0 && !blockParallaxY)
+		{
+			float locationUsableY = location[1] + heightImageView / 2;
+			float scrollDeltaY = locationUsableY / screenHeight;
+			float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
+
+			if(reverseY)
+				setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
+			else
+				setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+		}
+
+		if(scrollSpaceX != 0 && !blockParallaxX)
+		{
+			float locationUsableX = location[0] + widthImageView / 2;
+			float scrollDeltaX = locationUsableX / screenWidth;
+			float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
+
+			if(reverseX)
+				setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
+			else
+				setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
+		}
 	}
 
 
@@ -271,37 +314,6 @@ public class HeluParallaxView extends ImageView
 		}
 
 		arr.recycle();
-	}
-
-
-	private void applyParallax()
-	{
-		int[] location = new int[2];
-		getLocationOnScreen(location);
-
-		if(scrollSpaceY != 0 && !blockParallaxY)
-		{
-			float locationUsableY = location[1] + heightImageView / 2;
-			float scrollDeltaY = locationUsableY / screenHeight;
-			float interpolatedScrollDeltaY = interpolator.getInterpolation(scrollDeltaY);
-
-			if(reverseY)
-				setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
-			else
-				setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
-		}
-
-		if(scrollSpaceX != 0 && !blockParallaxX)
-		{
-			float locationUsableX = location[0] + widthImageView / 2;
-			float scrollDeltaX = locationUsableX / screenWidth;
-			float interpolatedScrollDeltaX = interpolator.getInterpolation(scrollDeltaX);
-
-			if(reverseX)
-				setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * -scrollSpaceX));
-			else
-				setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
-		}
 	}
 
 
