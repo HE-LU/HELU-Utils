@@ -25,6 +25,8 @@ import android.widget.ImageView;
 @SuppressWarnings("unused")
 public class HeluParallaxView extends ImageView
 {
+	static final float DEFAULT_SCALE = 1.3f;
+
 	static final int REVERSE_NONE = 1;
 	static final int REVERSE_X = 2;
 	static final int REVERSE_Y = 3;
@@ -34,10 +36,11 @@ public class HeluParallaxView extends ImageView
 	private boolean reverseY = false;
 	private boolean blockParallaxX = false;
 	private boolean blockParallaxY = false;
+	private boolean normalize = true;
 
 	private int screenWidth;
 	private int screenHeight;
-	private float imageScale = 1.2f;
+	private float imageScale = DEFAULT_SCALE;
 	private float matrixScaleToFit = 1f;
 	private float matrixTranslateX = 0f;
 	private float matrixTranslateY = 0f;
@@ -111,6 +114,7 @@ public class HeluParallaxView extends ImageView
 	}
 
 
+	@SuppressWarnings("SuspiciousNameCombination")
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
 	{
@@ -154,6 +158,14 @@ public class HeluParallaxView extends ImageView
 
 		if(scrollSpaceY == 0) // 0 = Not been initialized yet!
 			scrollSpaceY = (drawableNewHeight * imageScale - heightImageView);
+
+		if(normalize)
+		{
+			if(scrollSpaceX < scrollSpaceY)
+				scrollSpaceY = scrollSpaceX;
+			else
+				scrollSpaceX = scrollSpaceY;
+		}
 
 		onAttachedToWindow();
 	}
@@ -290,9 +302,10 @@ public class HeluParallaxView extends ImageView
 		TypedArray arr = getContext().obtainStyledAttributes(attrs, cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs);
 		int reverse = arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_reverse, 1);
 
-		imageScale = arr.getFloat(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_scale, 1.2f);
-		blockParallaxX = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_x, false);
-		blockParallaxY = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_block_parallax_y, false);
+		imageScale = arr.getFloat(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_scale, DEFAULT_SCALE);
+		blockParallaxX = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_blockParallaxX, false);
+		blockParallaxY = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_blockParallaxY, false);
+		normalize = arr.getBoolean(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_normalize, true);
 		interpolator = InterpolatorSelector.interpolatorId(arr.getInt(cz.helu.heluparallaxview.R.styleable.HeluParallaxViewAttrs_interpolation, 0));
 
 		reverseX = false;

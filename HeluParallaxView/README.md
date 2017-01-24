@@ -1,29 +1,29 @@
-# HeluParallaxView 1.0.7 (API 16+)
-Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywhere
-
+# HeluParallaxView 1.0.8 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluparallaxview:1.0.7'
+compile 'cz.helu.android:heluparallaxview:1.0.8'
 ```
 
 
 ## Attributes
   
   * **scale**  = ``float``
-  Set the scale of how much the image will resize. Default value ``1.2``.
+  Set the scale of how much the image will resize. Default value ``1.3``.
   
-* **block_parallax_x** and **block_parallax_y**  = ``boolean``
+* **blockParallaxX** and **blockParallaxY**  = ``boolean``
   Blocks parallax effect. Default value ``false``.
   
 * **reverse**  = ``["none", "reverseX", "reverseY", "reverseBoth"]``
   Change the direction of parallax effect. Default value ``none``.
 
-* **interpolation** = ``["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]``
+* **interpolation** = ``["linear", "accelerateDecelerate", "accelerate", "anticipate", "anticipateOvershoot", "bounce", "decelerate", "overshoot"]``
   Animation interpolation. Default value ``linear``.
 
+  * **normalize**  = ``boolean``
+  If set to true, the horizontal and vertical scroll size will be the same, no matter how much image width and height differ. Default value ``true``.
 
 ## Parameters
 
@@ -32,7 +32,7 @@ compile 'cz.helu.android:heluparallaxview:1.0.7'
   You can use this method to apply collor filter on the ImageView.
   
 * **setInterpolator(Interpolator** interpol**)**
-  Can be one of ``["linear", "accelerate_decelerate", "accelerate", "anticipate", "anticipate_overshoot", "bounce", "decelerate", "overshoot"]``
+  Can be one of ``["linear", "accelerateDecelerate", "accelerate", "anticipate", "anticipateOvershoot", "bounce", "decelerate", "overshoot"]``
   
 * **setReverseX()** and **setReverseY()**
   If reversion is set, the parallax will move to oposite of scrolling.
@@ -58,8 +58,8 @@ HeluParallaxView is using matrix for scaling images. Be aware of that it automat
 	android:layout_height="200dp"
 	app:imageUrlParallax="@{data.articleImg}"
 	app:scale="1.8"
-	app:block_parallax_x="true"
-	app:block_parallax_y="false"
+	app:blockParallaxX="true"
+	app:blockParallaxY="false"
 	app:interpolation="linear"
 	app:reverse="reverseY" />
 ```
