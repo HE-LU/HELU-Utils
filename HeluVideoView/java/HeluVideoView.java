@@ -292,6 +292,22 @@ public class HeluVideoView extends FrameLayout
 	}
 
 
+	public void showVolumeButton()
+	{
+		checkVolumeVisibility();
+	}
+
+
+	public void hideVolumeButton()
+	{
+		if(mViewMuteOn != null)
+			mViewMuteOn.setVisibility(GONE);
+
+		if(mViewMuteOff != null)
+			mViewMuteOff.setVisibility(GONE);
+	}
+
+
 	private void setupViews()
 	{
 		// Create texture video view
@@ -559,18 +575,19 @@ public class HeluVideoView extends FrameLayout
 			return;
 		}
 
-		if(mViewMuteOn != null && mViewMuteOff != null)
+		if(mIsMuted)
 		{
-			if(mIsMuted)
-			{
+			if(mViewMuteOn != null)
 				mViewMuteOn.setVisibility(VISIBLE);
+			if(mViewMuteOff != null)
 				mViewMuteOff.setVisibility(GONE);
-			}
-			else
-			{
+		}
+		else
+		{
+			if(mViewMuteOn != null)
 				mViewMuteOn.setVisibility(GONE);
+			if(mViewMuteOff != null)
 				mViewMuteOff.setVisibility(VISIBLE);
-			}
 		}
 	}
 
@@ -803,4 +820,3 @@ public class HeluVideoView extends FrameLayout
 		}
 	}
 }
-

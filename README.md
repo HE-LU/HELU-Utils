@@ -11,12 +11,12 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 
 ### [HeluParallaxView 1.0.8 (API 16+)](./HeluParallaxView/)
-Create ImageView with parallax effect. Inspired by **ParallaxEverywhere**:  https://github.com/Narfss/ParallaxEverywhere
+Create ImageView with parallax effect. 
 
 ![Alt text](./HeluParallaxView/extras/HeluParallaxView.gif?raw=true "HeluVideoView")
 
 
-### [HeluVideoView 1.0.6](./HeluVideoView/)
+### [HeluVideoView 1.0.7](./HeluVideoView/)
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekBar views, which you can then provide to HeluVideoView.
 
 ![Alt text](./HeluVideoView/extras/HeluVideoView.png?raw=true "HeluVideoView")

@@ -1,4 +1,4 @@
-# HeluVideoView 1.0.6
+# HeluVideoView 1.0.7
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
@@ -8,7 +8,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluvideoview:1.0.6'
+compile 'cz.helu.android:heluvideoview:1.0.7'
 ```
 
 
@@ -105,6 +105,12 @@ compile 'cz.helu.android:heluvideoview:1.0.6'
   
 * **seekToBeginning()**
   Pause and seek to first frame.
+    
+* **showVolumeButton()**
+  Show the volume button.
+  
+* **hideVolumeButton()**
+  Hide the volume button.
   
 * **setOnStateChangeListener(PlayerStateChangeInterface)**
   This interface provides you method about the mediaPlayer state change. You can use it for implementing your own logic.
@@ -118,7 +124,6 @@ compile 'cz.helu.android:heluvideoview:1.0.6'
 		void onProgressChange(int i);
 	}
   ```
-  
 
 ## Usage
 You have to use the Builder class for creating or initializing new HeluVideoView.
@@ -156,11 +161,15 @@ videoView.setOnStateChangeListener(new HeluVideoView.PlayerStateChangeInterface(
 
 	@Override
 	public void onPlay()
-	{}
+	{
+		videoView.hideVolumeButton()
+	}
 
 	@Override
 	public void onPause()
-	{}
+	{
+		videoView.showVolumeButton()
+	}
 
 	@Override
 	public void onComplete(MediaPlayer mediaPlayer)
