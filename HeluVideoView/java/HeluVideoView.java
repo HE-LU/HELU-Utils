@@ -27,6 +27,7 @@ public class HeluVideoView extends FrameLayout
 	private Surface mSurface;
 	private PlayerState mPlayerState = PlayerState.NOT_INITIALIZED;
 	private String mVideoUrl;
+	private String mBackupVideoUrl;
 	private View mViewPlaceholder;
 	private View mViewError;
 	private View mViewPlay;
@@ -171,6 +172,7 @@ public class HeluVideoView extends FrameLayout
 			return;
 
 		this.mVideoUrl = builder.videoUrl;
+		this.mBackupVideoUrl = builder.backupVideoUrl;
 		this.mViewPlaceholder = builder.ViewPlaceholder;
 		this.mViewError = builder.ViewError;
 		this.mViewPlay = builder.ViewPlay;
@@ -367,6 +369,13 @@ public class HeluVideoView extends FrameLayout
 		}
 		catch(IOException e)
 		{
+			if(mBackupVideoUrl != null)
+			{
+				mVideoUrl = mBackupVideoUrl;
+				mBackupVideoUrl = null;
+				setupMediaPlayer();
+				return;
+			}
 			e.printStackTrace();
 		}
 	}
@@ -532,6 +541,16 @@ public class HeluVideoView extends FrameLayout
 			@Override
 			public boolean onError(MediaPlayer mediaPlayer, int what, int extra)
 			{
+				destroy();
+
+				if(mBackupVideoUrl != null)
+				{
+					mVideoUrl = mBackupVideoUrl;
+					mBackupVideoUrl = null;
+					reCreate();
+					return true;
+				}
+
 				if(mViewPlaceholder != null)
 					mViewPlaceholder.setVisibility(GONE);
 
@@ -680,6 +699,7 @@ public class HeluVideoView extends FrameLayout
 	{
 		private Context context;
 		private String videoUrl;
+		private String backupVideoUrl;
 		private View ViewPlaceholder;
 		private View ViewError;
 		private View ViewPlay;
@@ -705,6 +725,14 @@ public class HeluVideoView extends FrameLayout
 		public Builder withVideoUrl(String videoUrl)
 		{
 			this.videoUrl = videoUrl;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withBackupVideoUrl(String backupVideoUrl)
+		{
+			this.backupVideoUrl = backupVideoUrl;
 			return this;
 		}
 
@@ -820,3 +848,4 @@ public class HeluVideoView extends FrameLayout
 		}
 	}
 }
+

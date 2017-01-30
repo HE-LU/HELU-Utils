@@ -1,4 +1,4 @@
-# HeluVideoView 1.0.7
+# HeluVideoView 1.0.8
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
@@ -8,7 +8,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluvideoview:1.0.7'
+compile 'cz.helu.android:heluvideoview:1.0.8'
 ```
 
 
@@ -17,6 +17,9 @@ compile 'cz.helu.android:heluvideoview:1.0.7'
 ### Builder:
 * **withVideoUrl(String)**
   URL of video load.
+  
+* **withBackupVideoUrl(String)**
+  Backup URL that will be loaded in case that loading of the first video failed.
   
 * **withPlaceholderView(View)**
   View with some placeholder image set.
@@ -140,7 +143,8 @@ SeekBar seekBarView = (SeekBar) findViewById(R.id.seek_bar);
 // Create builder.
 HeluVideoView.Builder builder = new HeluVideoView.Builder(getContext())
 		.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
-		.withVideoUrl("SomeUrl")
+		.withVideoUrl("Some URL")
+		.withBackupVideoUrl("Some backup URL")
 		.withPlaceholderView(placeholderView)
 		.withPlayView(playView)
 		.withMuteOnView(muteOnView)

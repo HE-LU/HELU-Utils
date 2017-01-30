@@ -31,6 +31,11 @@
 				android:layout_height="200dp"
 				android:background="#f33" />
 
+			<cz.helu.heluvideoview.HeluVideoView
+				android:id="@+id/video_view"
+				android:layout_width="match_parent"
+				android:layout_height="350dp" />
+
 			<View
 				android:layout_width="match_parent"
 				android:layout_height="200dp"
