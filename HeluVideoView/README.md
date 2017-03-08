@@ -1,4 +1,4 @@
-# HeluVideoView 1.0.8
+# HeluVideoView 1.0.9
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.

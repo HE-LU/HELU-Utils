@@ -348,6 +348,12 @@ public class HeluVideoView extends FrameLayout
 
 		try
 		{
+			if(mMediaPlayer != null)
+			{
+				mMediaPlayer.reset();
+				mMediaPlayer.release();
+				mMediaPlayer = null;
+			}
 			mMediaPlayer = new MediaPlayer();
 			mMediaPlayer.setOnCompletionListener(createOnCompleteListener());
 			mMediaPlayer.setOnErrorListener(createOnErrorListener());
@@ -367,7 +373,7 @@ public class HeluVideoView extends FrameLayout
 
 			mPlayerState = PlayerState.INITIALIZED;
 		}
-		catch(IOException e)
+		catch(IOException | IllegalStateException e)
 		{
 			if(mBackupVideoUrl != null)
 			{
