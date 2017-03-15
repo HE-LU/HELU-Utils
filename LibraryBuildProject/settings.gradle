@@ -1,1 +1,1 @@
-include ':app', ':helubottombuttonsheet', ':heluvideoview', ':heluparallaxview'
+include ':app', ':helubottombuttonsheet', ':heluvideoview', ':heluparallaxview', ':helucollapsingtabbar'

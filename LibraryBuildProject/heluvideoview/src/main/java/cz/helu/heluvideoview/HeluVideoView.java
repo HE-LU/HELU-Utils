@@ -1,6 +1,7 @@
 package cz.helu.heluvideoview;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -840,6 +841,7 @@ public class HeluVideoView extends FrameLayout
 
 
 		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
 		public Builder withMaxVideoHeight(@Dimension int maxVideoHeight)
 		{
 			this.maxVideoHeight = context.getResources().getDimensionPixelSize(maxVideoHeight);

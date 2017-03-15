@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 ext {
 	bintrayRepo = 'maven'
-	bintrayName = 'HeluVideoView'
+	bintrayName = 'HeluCollapsingTabBar'
 
 	publishedGroupId = 'cz.helu.android'
-	libraryName = 'HeluVideoView'
-	artifact = 'heluvideoview'
+	libraryName = 'HeluCollapsingTabBar'
+	artifact = 'helucollapsingtabbar'
 
-	libraryDescription = 'Create Video player view easily.'
+	libraryDescription = 'Create Collapsing Tab Bar easily.'
 
 	siteUrl = 'https://github.com/Tuxilero/Android-Utils'
 	gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'

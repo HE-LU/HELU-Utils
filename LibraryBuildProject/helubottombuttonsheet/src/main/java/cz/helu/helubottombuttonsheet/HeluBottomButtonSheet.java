@@ -294,6 +294,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
 		public Builder withTitleItemHeight(@Dimension int dimension)
 		{
 			this.titleItemHeight = mContext.getResources().getDimensionPixelSize(dimension);
@@ -302,6 +303,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
 		public Builder withItemHeight(@Dimension int dimension)
 		{
 			this.itemHeight = mContext.getResources().getDimensionPixelSize(dimension);
@@ -310,6 +312,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
 		public Builder withImageSize(@Dimension int dimension)
 		{
 			this.itemImageSize = mContext.getResources().getDimensionPixelSize(dimension);
@@ -318,6 +321,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
 		public Builder withHorizontalSpacing(@Dimension int dimension)
 		{
 			this.spacingHorizontal = mContext.getResources().getDimensionPixelSize(dimension);

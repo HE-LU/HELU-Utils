@@ -16,14 +16,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ImageView;
 
 
 /*
 	This class is usable only on API >= 16
 */
 @SuppressWarnings("unused")
-public class HeluParallaxView extends ImageView
+public class HeluParallaxView extends android.support.v7.widget.AppCompatImageView
 {
 	static final float DEFAULT_SCALE = 1.3f;
 
