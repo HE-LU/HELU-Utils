@@ -10,7 +10,11 @@ This repository provides various utility classes to make android development les
 
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
-![Alt text](./LibraryBuildProject/helubottombuttonsheet/extras/HeluBottomButtonSheet.png?raw=true "HeluVideoView")
+```
+compile 'cz.helu.android:helubottombuttonsheet:1.1.0'
+```
+
+![Alt text](./LibraryBuildProject/helubottombuttonsheet/extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
 
 
 
@@ -18,6 +22,10 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 [![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluCollapsingTabBar.svg)](https://bintray.com/tuxilero/maven/HeluCollapsingTabBar)
 
 Create Collapsing Tab Bar with buttons easily. 
+
+```
+compile 'cz.helu.android:helucollapsingtabbar:1.1.0'
+```
 
 ![Alt text](./LibraryBuildProject/helucollapsingtabbar/extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")
 
@@ -28,7 +36,11 @@ Create Collapsing Tab Bar with buttons easily.
 
 Create ImageView with parallax effect. 
 
-![Alt text](./LibraryBuildProject/heluparallaxview/extras/HeluParallaxView.gif?raw=true "HeluVideoView")
+```
+compile 'cz.helu.android:heluparallaxview:1.1.0'
+```
+
+![Alt text](./LibraryBuildProject/heluparallaxview/extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 
@@ -36,5 +48,9 @@ Create ImageView with parallax effect.
 [![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluVideoView.svg)](https://bintray.com/tuxilero/maven/HeluVideoView)
 
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekBar views, which you can then provide to HeluVideoView.
+
+```
+compile 'cz.helu.android:heluvideoview:1.1.0'
+```
 
 ![Alt text](./LibraryBuildProject/heluvideoview/extras/HeluVideoView.png?raw=true "HeluVideoView")

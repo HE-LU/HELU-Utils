@@ -1,5 +1,5 @@
-# HeluParallaxView 1.0.8 (API 16+)
-![Alt text](./extras/HeluCollapsingTabBar.gif?raw=true "HeluParallaxView")
+# HeluCollapsingTabBar 1.1.0
+![Alt text](./extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")
 
 
 ## Gradle:
