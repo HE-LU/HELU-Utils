@@ -2,6 +2,6 @@
 	package="cz.helu.heluparallaxview">
 
 	<application
-		android:allowBackup="true"
+		android:allowBackup="false"
 		android:supportsRtl="true" />
 </manifest>

@@ -8,7 +8,7 @@ import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.Dimension;
+import android.support.annotation.DimenRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.Surface;
@@ -319,25 +319,28 @@ public class HeluVideoView extends FrameLayout
 		addView(mTextureView);
 
 		// Create placeholder view
-		if(mViewPlaceholder != null)
+		if(mViewPlaceholder != null && mViewPlaceholder.getParent() == null)
 			addView(mViewPlaceholder);
 
 		// Create error view
 		if(mViewError != null)
 		{
 			mViewError.setVisibility(GONE);
-			addView(mViewError);
+			if(mViewError.getParent() == null)
+				addView(mViewError);
 		}
 
 		// Create play view
-		if(mViewPlay != null)
+		if(mViewPlay != null && mViewPlay.getParent() == null)
 			addView(mViewPlay);
 
 		// Create mute buttons views
 		if(mViewMuteOn != null && mViewMuteOff != null)
 		{
-			addView(mViewMuteOn);
-			addView(mViewMuteOff);
+			if(mViewMuteOn.getParent() == null)
+				addView(mViewMuteOn);
+			if(mViewMuteOff.getParent() == null)
+				addView(mViewMuteOff);
 		}
 	}
 
@@ -644,6 +647,9 @@ public class HeluVideoView extends FrameLayout
 				if(mMediaPlayer == null)
 					return true;
 
+				if(mSurface != null)
+					mSurface.release();
+
 				mSurface = null;
 				mMediaPlayer.setSurface(null);
 				pause();
@@ -842,7 +848,7 @@ public class HeluVideoView extends FrameLayout
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withMaxVideoHeight(@Dimension int maxVideoHeight)
+		public Builder withMaxVideoHeight(@DimenRes int maxVideoHeight)
 		{
 			this.maxVideoHeight = context.getResources().getDimensionPixelSize(maxVideoHeight);
 			return this;

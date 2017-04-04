@@ -19,126 +19,74 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical"
-				android:background="#C1C">
+				android:background="#fff">
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#f99" />
 
-				<View
+				<!-- TT HeluVideoView -->
+				<TextView
 					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#f66" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#f33" />
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Helu Video View" />
 
 				<cz.helu.heluvideoview.HeluVideoView
 					android:id="@+id/video_view"
 					android:layout_width="match_parent"
-					android:layout_height="350dp" />
+					android:layout_height="250dp" />
 
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#f00" />
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+
+				<!-- TT HeluParallaxView-->
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Helu Parallax View" />
 
 				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_view"
+					android:id="@+id/parallax_image_view_wide"
 					android:layout_width="match_parent"
-					android:layout_height="350dp"
-					android:alpha="0.75"
+					android:layout_height="200dp"
 					android:src="@drawable/ic_helu"
 					app:scale="1.5" />
 
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#0f0" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#3f3" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="400dp"
-					android:background="#666" />
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
 
 				<cz.helu.heluparallaxview.HeluParallaxView
+					android:id="@+id/parallax_image_view_tall"
 					android:layout_width="match_parent"
-					android:layout_height="300dp"
-					android:src="@drawable/ic_twitter_512" />
+					android:layout_height="450dp"
+					android:src="@drawable/ic_helu"
+					app:scale="1.5" />
 
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="10dp"
-					android:background="#666" />
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
 
-				<cz.helu.heluparallaxview.HeluParallaxView
+
+				<!-- TT Others-->
+				<TextView
 					android:layout_width="match_parent"
-					android:layout_height="300dp"
-					android:src="@drawable/ic_twitter_512w" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="10dp"
-					android:background="#666" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="300dp"
-					android:src="@drawable/ic_twitter_512h" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#666" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="550dp"
-					android:src="@drawable/ic_twitter_512" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="10dp"
-					android:background="#666" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="550dp"
-					android:src="@drawable/ic_twitter_512w" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="10dp"
-					android:background="#666" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="550dp"
-					android:src="@drawable/ic_twitter_512h" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="400dp"
-					android:background="#666" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#6f6" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:background="#9f9" />
-
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Others" />
 			</LinearLayout>
 		</android.support.v4.widget.NestedScrollView>
 
