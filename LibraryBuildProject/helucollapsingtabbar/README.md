@@ -1,10 +1,10 @@
-# HeluCollapsingTabBar 1.1.0
+# HeluCollapsingTabBar 1.1.1
 ![Alt text](./extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")
 
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:helucollapsingtabbar:1.1.0'
+compile 'cz.helu.android:helucollapsingtabbar:1.1.1'
 ```
 
 ## Parameters

@@ -16,7 +16,7 @@ import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.Dimension;
+import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -102,6 +102,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	@Override
 	public void setupDialog(final Dialog dialog, int style)
 	{
+		//noinspection RestrictedApi
 		super.setupDialog(dialog, style);
 		int verticalContentPadding = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING);
 
@@ -295,7 +296,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withTitleItemHeight(@Dimension int dimension)
+		public Builder withTitleItemHeight(@DimenRes int dimension)
 		{
 			this.titleItemHeight = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -304,7 +305,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withItemHeight(@Dimension int dimension)
+		public Builder withItemHeight(@DimenRes int dimension)
 		{
 			this.itemHeight = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -313,7 +314,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withImageSize(@Dimension int dimension)
+		public Builder withImageSize(@DimenRes int dimension)
 		{
 			this.itemImageSize = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -322,7 +323,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withHorizontalSpacing(@Dimension int dimension)
+		public Builder withHorizontalSpacing(@DimenRes int dimension)
 		{
 			this.spacingHorizontal = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;

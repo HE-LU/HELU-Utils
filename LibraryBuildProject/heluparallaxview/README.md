@@ -1,10 +1,10 @@
-# HeluParallaxView 1.1.0 (API 16+)
+# HeluParallaxView 1.1.1 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluparallaxview:1.1.0'
+compile 'cz.helu.android:heluparallaxview:1.1.1'
 ```
 
 
