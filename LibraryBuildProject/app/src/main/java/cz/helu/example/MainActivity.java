@@ -28,17 +28,28 @@ public class MainActivity extends AppCompatActivity
 
 	private void setupVideoView()
 	{
-		HeluVideoView videoView = (HeluVideoView) findViewById(R.id.video_view);
+		HeluVideoView videoViewFitVideo = (HeluVideoView) findViewById(R.id.video_view_fit_video);
+		HeluVideoView videoViewFitView = (HeluVideoView) findViewById(R.id.video_view_fit_view);
+		HeluVideoView videoViewWitchCropping = (HeluVideoView) findViewById(R.id.video_view_with_cropping);
+		HeluVideoView videoViewWitchCropping2 = (HeluVideoView) findViewById(R.id.video_view_with_cropping_2);
 
 		HeluVideoView.Builder builder = new HeluVideoView.Builder(this)
-				.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
-				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp44")
+				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
 				.withBackupVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
 				.withAutoPlay(true)
 				.withMuteOnStart(true)
 				.withLooping(true);
 
-		videoView.initFromBuilder(builder);
+
+		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO);
+		videoViewFitVideo.initFromBuilder(builder);
+
+		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIEW);
+		videoViewFitView.initFromBuilder(builder);
+
+		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_WITH_CROPPING);
+		videoViewWitchCropping.initFromBuilder(builder);
+		videoViewWitchCropping2.initFromBuilder(builder);
 	}
 
 
@@ -51,7 +62,7 @@ public class MainActivity extends AppCompatActivity
 		Drawable arrowLeftSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left_selected);
 		Drawable arrowLeft = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left);
 		Drawable arrowRightSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_right_selected);
-		Drawable arrowRight= ContextCompat.getDrawable(this, R.drawable.ic_arrow_right);
+		Drawable arrowRight = ContextCompat.getDrawable(this, R.drawable.ic_arrow_right);
 		Drawable pauseSelected = ContextCompat.getDrawable(this, R.drawable.ic_pause_selected);
 		Drawable pause = ContextCompat.getDrawable(this, R.drawable.ic_pause);
 

@@ -22,7 +22,7 @@
 				android:background="#fff">
 
 
-				<!-- TT HeluVideoView -->
+				<!-- TT HeluVideoView SCALE_TO_FIT_VIDEO -->
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/global_spacing_160"
@@ -32,10 +32,72 @@
 					android:textSize="34sp"
 					android:text="Helu Video View" />
 
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view"
+				<TextView
 					android:layout_width="match_parent"
-					android:layout_height="250dp" />
+					android:layout_height="@dimen/global_spacing_48"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#363636"
+					android:textSize="17sp"
+					android:text="SCALE_TO_FIT_VIDEO" />
+
+				<cz.helu.heluvideoview.HeluVideoView
+					android:id="@+id/video_view_fit_video"
+					android:layout_width="match_parent"
+					android:layout_height="160dp"
+					android:layout_gravity="center" />
+
+
+				<!-- TT HeluVideoView SCALE_TO_FIT_VIEW -->
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_48"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#363636"
+					android:textSize="17sp"
+					android:text="SCALE_TO_FIT_VIEW" />
+
+				<cz.helu.heluvideoview.HeluVideoView
+					android:id="@+id/video_view_fit_view"
+					android:layout_width="match_parent"
+					android:layout_height="160dp" />
+
+
+				<!-- TT HeluVideoView SCALE_TO_FIT_WITH_CROPPING -->
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_48"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#363636"
+					android:textSize="17sp"
+					android:text="SCALE_TO_FIT_WITH_CROPPING" />
+
+				<cz.helu.heluvideoview.HeluVideoView
+					android:id="@+id/video_view_with_cropping"
+					android:layout_width="match_parent"
+					android:layout_height="160dp" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<cz.helu.heluvideoview.HeluVideoView
+					android:id="@+id/video_view_with_cropping_2"
+					android:layout_width="match_parent"
+					android:layout_height="400dp" />
 
 				<View
 					android:layout_width="match_parent"

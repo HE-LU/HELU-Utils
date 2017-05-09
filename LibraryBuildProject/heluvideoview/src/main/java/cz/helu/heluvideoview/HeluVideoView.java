@@ -405,6 +405,8 @@ public class HeluVideoView extends FrameLayout
 
 				if(mScalingMode == ScaleType.SCALE_TO_FIT_VIDEO)
 					recalculateViewSize();
+				else if(mScalingMode == ScaleType.SCALE_TO_FIT_WITH_CROPPING)
+					recalculateSurfaceSize();
 
 				if(mAutoPlay)
 					playFromBeginning();
@@ -702,6 +704,33 @@ public class HeluVideoView extends FrameLayout
 		layoutParams.width = newWidth;
 		layoutParams.height = newHeight;
 		setLayoutParams(layoutParams);
+
+		invalidate();
+		mTextureView.invalidate();
+	}
+
+
+	private void recalculateSurfaceSize()
+	{
+		if(mMediaPlayer == null || mTextureView == null)
+			return;
+
+		int maxWidth = getWidth();
+		int maxHeight = mMaxVideoHeight;
+		if(mMaxVideoHeight <= 0)
+			maxHeight = getMeasuredHeight();
+
+		double scale = (maxWidth * 1.0) / (mMediaPlayer.getVideoWidth() * 1.0);
+		int newHeight = ((int) (mMediaPlayer.getVideoHeight() * scale));
+
+		if(maxHeight >= newHeight)
+			scale = (maxHeight * 1.0) / (mMediaPlayer.getVideoHeight() * 1.0);
+
+		FrameLayout.LayoutParams paramsTextureView = (FrameLayout.LayoutParams) mTextureView.getLayoutParams();
+		paramsTextureView.width = (int) (mMediaPlayer.getVideoWidth() * scale);
+		paramsTextureView.height = (int) (mMediaPlayer.getVideoHeight() * scale);
+		paramsTextureView.gravity = Gravity.CENTER;
+		mTextureView.setLayoutParams(paramsTextureView);
 
 		invalidate();
 		mTextureView.invalidate();
