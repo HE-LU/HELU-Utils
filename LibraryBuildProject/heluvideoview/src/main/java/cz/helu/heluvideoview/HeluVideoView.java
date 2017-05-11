@@ -228,8 +228,7 @@ public class HeluVideoView extends FrameLayout
 		if(mPlayerStateChangeListener != null)
 			mPlayerStateChangeListener.onPlay();
 
-		if(mSeekBarView != null)
-			mProgressHandler.postDelayed(mProgressRunnable, mProgressUpdateInterval);
+		mProgressHandler.postDelayed(mProgressRunnable, mProgressUpdateInterval);
 
 		mPlayerState = PlayerState.PLAYING;
 
