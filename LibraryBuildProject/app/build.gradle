@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 25
-	buildToolsVersion "25.0.2"
+	compileSdkVersion 26
+	buildToolsVersion "26.0.2"
 	defaultConfig {
 		applicationId "cz.helu.library"
 		minSdkVersion 16
-		targetSdkVersion 25
+		targetSdkVersion 26
 		versionCode 1
 		versionName "1.0"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,10 +21,17 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:appcompat-v7:25.3.0'
+	compile 'com.android.support:appcompat-v7:26.1.0'
 
 	compile project(path: ':heluparallaxview')
 	compile project(path: ':heluvideoview')
 	compile project(path: ':helubottombuttonsheet')
 	compile project(path: ':helucollapsingtabbar')
+}
+
+repositories {
+	maven {
+		url 'https://maven.google.com/'
+		name 'Google'
+	}
 }

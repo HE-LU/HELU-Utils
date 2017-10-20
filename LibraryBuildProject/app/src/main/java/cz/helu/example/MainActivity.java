@@ -3,13 +3,16 @@ package cz.helu.example;
 import android.animation.LayoutTransition;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import cz.helu.helucollapsingtabbar.HeluCollapsingTabBar;
+import cz.helu.heluparallaxview.HeluParallaxView;
 import cz.helu.heluvideoview.HeluVideoView;
 
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 
 		setupVideoView();
+		setupImageView();
 		setupTabBar();
 	}
 
@@ -50,6 +54,21 @@ public class MainActivity extends AppCompatActivity
 		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_WITH_CROPPING);
 		videoViewWitchCropping.initFromBuilder(builder);
 		videoViewWitchCropping2.initFromBuilder(builder);
+	}
+
+
+	private void setupImageView()
+	{
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run()
+			{
+				HeluParallaxView parallaxDisabled = (HeluParallaxView) findViewById(R.id.parallax_image_disabled);
+				parallaxDisabled.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+				parallaxDisabled.setScale(0.15f);
+				parallaxDisabled.disableParallax();
+			}
+		}, 5000);
 	}
 
 

@@ -251,6 +251,22 @@ public class HeluParallaxView extends android.support.v7.widget.AppCompatImageVi
 	}
 
 
+	public void resetParallax()
+	{
+		setMyScrollX(0);
+		setMyScrollY(0);
+	}
+
+
+	public void disableParallax()
+	{
+		blockParallaxX = true;
+		blockParallaxY = true;
+		setMyScrollX(0);
+		setMyScrollY(0);
+	}
+
+
 	protected void applyMatrix()
 	{
 		if((scrollSpaceX == 0 && scrollSpaceY == 0))

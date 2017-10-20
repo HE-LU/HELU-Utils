@@ -139,6 +139,17 @@
 					android:layout_height="@dimen/global_spacing_16"
 					android:background="#000" />
 
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:id="@+id/parallax_image_disabled"
+					android:layout_width="match_parent"
+					android:layout_height="450dp"
+					android:src="@drawable/ic_helu"
+					app:scale="0.25" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
 
 				<!-- TT Others-->
 				<TextView

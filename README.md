@@ -31,26 +31,26 @@ compile 'cz.helu.android:helucollapsingtabbar:1.1.1'
 
 
 
-### [HeluParallaxView 1.1.1 (API 16+)](./LibraryBuildProject/heluparallaxview/)
+### [HeluParallaxView 1.1.2 (API 16+)](./LibraryBuildProject/heluparallaxview/)
 [![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluParallaxView.svg)](https://bintray.com/tuxilero/maven/HeluParallaxView)
 
 Create ImageView with parallax effect. 
 
 ```
-compile 'cz.helu.android:heluparallaxview:1.1.1'
+compile 'cz.helu.android:heluparallaxview:1.1.2'
 ```
 
 ![Alt text](./LibraryBuildProject/heluparallaxview/extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 
-### [HeluVideoView 1.1.3](./LibraryBuildProject/heluvideoview/)
+### [HeluVideoView 1.1.4](./LibraryBuildProject/heluvideoview/)
 [![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluVideoView.svg)](https://bintray.com/tuxilero/maven/HeluVideoView)
 
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekBar views, which you can then provide to HeluVideoView.
 
 ```
-compile 'cz.helu.android:heluvideoview:1.1.3'
+compile 'cz.helu.android:heluvideoview:1.1.4'
 ```
 
 ![Alt text](./LibraryBuildProject/heluvideoview/extras/HeluVideoView.png?raw=true "HeluVideoView")

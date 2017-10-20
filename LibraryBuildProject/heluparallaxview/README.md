@@ -1,10 +1,10 @@
-# HeluParallaxView 1.1.1 (API 16+)
+# HeluParallaxView 1.1.2 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluparallaxview:1.1.1'
+compile 'cz.helu.android:heluparallaxview:1.1.2'
 ```
 
 
@@ -39,6 +39,12 @@ compile 'cz.helu.android:heluparallaxview:1.1.1'
   
 * **setBlockParallaxX()** and **setBlockParallaxY()**
   This will block ImageView from applying X or Y parallax effect.
+  
+* **resetParallax()**
+  This will reset parallax X and Y to 0.
+  
+* **disableParallax()**
+  This will block parallax for both X and Y, and also reset parallax position.
   
   
 ## Note

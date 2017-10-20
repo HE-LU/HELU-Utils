@@ -169,7 +169,7 @@ public class HeluVideoView extends FrameLayout
 
 	public void initFromBuilder(Builder builder)
 	{
-		if(mPlayerState != PlayerState.NOT_INITIALIZED)
+		if(mPlayerState != PlayerState.NOT_INITIALIZED && mPlayerState != PlayerState.DESTROYED)
 			return;
 
 		this.mVideoUrl = builder.videoUrl;
@@ -310,8 +310,17 @@ public class HeluVideoView extends FrameLayout
 	}
 
 
+	public MediaPlayer getMediaPlayer()
+	{
+		return mMediaPlayer;
+	}
+
+
 	private void setupViews()
 	{
+		// Remove all views first!
+		removeAllViews();
+
 		// Create texture video view
 		mTextureView = new TextureView(getContext());
 		setupSurfaceViewChangeListener();
