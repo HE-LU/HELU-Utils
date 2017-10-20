@@ -2,11 +2,11 @@
 
 This repository provides various utility classes to make android development less painful.
 
-##Utilities:
+## List of Utilities:
 
 
 ### [HeluBottomButtonSheet 1.1.1](./LibraryBuildProject/helubottombuttonsheet/) 
-[![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluBottomButtonSheet.svg)](https://bintray.com/tuxilero/maven/HeluBottomButtonSheet)
+[![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluBottomButtonSheet/images/download.svg)](https://bintray.com/tuxilero/maven/HeluBottomButtonSheet)
 
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
@@ -19,7 +19,7 @@ compile 'cz.helu.android:helubottombuttonsheet:1.1.1'
 
 
 ### [HeluCollapsingTabBar 1.1.1](./LibraryBuildProject/helucollapsingtabbar/)
-[![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluCollapsingTabBar.svg)](https://bintray.com/tuxilero/maven/HeluCollapsingTabBar)
+[![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluCollapsingTabBar/images/download.svg)](https://bintray.com/tuxilero/maven/HeluCollapsingTabBar)
 
 Create Collapsing Tab Bar with buttons easily. 
 
@@ -32,7 +32,7 @@ compile 'cz.helu.android:helucollapsingtabbar:1.1.1'
 
 
 ### [HeluParallaxView 1.1.2 (API 16+)](./LibraryBuildProject/heluparallaxview/)
-[![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluParallaxView.svg)](https://bintray.com/tuxilero/maven/HeluParallaxView)
+[![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluParallaxView/images/download.svg)](https://bintray.com/tuxilero/maven/HeluParallaxView)
 
 Create ImageView with parallax effect. 
 
@@ -45,7 +45,7 @@ compile 'cz.helu.android:heluparallaxview:1.1.2'
 
 
 ### [HeluVideoView 1.1.4](./LibraryBuildProject/heluvideoview/)
-[![Bintray](https://img.shields.io/bintray/v/tuxilero/maven/HeluVideoView.svg)](https://bintray.com/tuxilero/maven/HeluVideoView)
+[![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluVideoView/images/download.svg)](https://bintray.com/tuxilero/maven/HeluVideoView)
 
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekBar views, which you can then provide to HeluVideoView.
 
