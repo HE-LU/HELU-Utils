@@ -51,7 +51,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	private int itemTextColor;
 	private int dividerColor;
 	private String title;
-	private List<SheetItem> mItemList = new ArrayList<>();
+	private List<BaseSheetItem> mItemList = new ArrayList<>();
 
 
 	@SuppressLint("ValidFragment")
@@ -99,10 +99,10 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	}
 
 
+	@SuppressLint("RestrictedApi")
 	@Override
 	public void setupDialog(final Dialog dialog, int style)
 	{
-		//noinspection RestrictedApi
 		super.setupDialog(dialog, style);
 		int verticalContentPadding = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING);
 
@@ -121,15 +121,20 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 			contentLayout.setPadding(0, verticalContentPadding, 0, verticalContentPadding);
 		}
 
-		for(SheetItem entity : mItemList)
+		for(BaseSheetItem entity : mItemList)
 		{
-			if(entity.type == SheetItem.SheetItemType.DIVIDER)
+			if(entity instanceof DividerSheetItem)
 			{
 				contentLayout.addView(createDividerItemView());
 			}
-			else
+			else if(entity instanceof TextSheetItem)
 			{
-				contentLayout.addView(createTextItemView(entity));
+				contentLayout.addView(createTextItemView((TextSheetItem) entity));
+			}
+			else if(entity instanceof CustomViewSheetItem)
+			{
+				if(((CustomViewSheetItem) entity).customView.getParent() == null)
+					contentLayout.addView(((CustomViewSheetItem) entity).customView);
 			}
 		}
 
@@ -146,32 +151,46 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	@SuppressWarnings("unused")
 	public void addButton(@NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
-		mItemList.add(SheetItem.createTextSheetItem(text, clickListener));
+		mItemList.add(new TextSheetItem(text, clickListener));
 	}
 
 
 	@SuppressWarnings("unused")
 	public void addButton(@NonNull Drawable drawable, @NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
-		mItemList.add(SheetItem.createTextSheetItem(drawable, text, clickListener));
+		mItemList.add(new TextSheetItem(drawable, text, clickListener));
 	}
 
 
 	@SuppressWarnings("unused")
 	public void addButton(int drawableResource, @NonNull String text, @NonNull View.OnClickListener clickListener)
 	{
-		mItemList.add(SheetItem.createTextSheetItem(drawableResource, text, clickListener));
+		mItemList.add(new TextSheetItem(drawableResource, text, clickListener));
 	}
 
 
 	@SuppressWarnings("unused")
 	public void addDivider()
 	{
-		mItemList.add(SheetItem.createDividerSheetItem());
+		mItemList.add(new DividerSheetItem());
 	}
 
 
-	int convertDpToPx(int dp)
+	@SuppressWarnings("unused")
+	public void addCustomView(@NonNull View customView)
+	{
+		mItemList.add(new CustomViewSheetItem(customView));
+	}
+
+
+	@SuppressWarnings("unused")
+	public void addCustomView(@NonNull View customView, @NonNull View.OnClickListener clickListener)
+	{
+		mItemList.add(new CustomViewSheetItem(customView, clickListener));
+	}
+
+
+	private int convertDpToPx(int dp)
 	{
 		return Math.round(dp * getContext().getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT);
 	}
@@ -205,7 +224,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	}
 
 
-	private LinearLayout createTextItemView(SheetItem entity)
+	private LinearLayout createTextItemView(TextSheetItem entity)
 	{
 		Drawable drawable = getAdaptiveRippleDrawable(sheetBackgroundColor, itemTouchFeedbackColor);
 		LinearLayout item = new LinearLayout(getContext());
@@ -384,58 +403,59 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	}
 
 
-	private static class SheetItem
+	private static class BaseSheetItem {}
+
+
+	private static class DividerSheetItem extends BaseSheetItem {}
+
+
+	private static class TextSheetItem extends BaseSheetItem
 	{
-		private SheetItemType type;
 		private Drawable drawable;
 		private int drawableResource = -1;
 		private String text;
 		private View.OnClickListener clickListener;
 
 
-		enum SheetItemType
+		TextSheetItem(Drawable drawable, String text, View.OnClickListener clickListener)
 		{
-			DIVIDER, TEXT
+			this.drawable = drawable;
+			this.text = text;
+			this.clickListener = clickListener;
 		}
 
 
-		static SheetItem createTextSheetItem(Drawable drawable, String text, View.OnClickListener clickListener)
+		TextSheetItem(int drawableResource, String text, View.OnClickListener clickListener)
 		{
-			SheetItem item = new SheetItem();
-			item.type = SheetItemType.TEXT;
-			item.drawable = drawable;
-			item.text = text;
-			item.clickListener = clickListener;
-			return item;
+			this.drawableResource = drawableResource;
+			this.text = text;
+			this.clickListener = clickListener;
 		}
 
 
-		static SheetItem createTextSheetItem(int drawableResource, String text, View.OnClickListener clickListener)
+		TextSheetItem(String text, View.OnClickListener clickListener)
 		{
-			SheetItem item = new SheetItem();
-			item.type = SheetItemType.TEXT;
-			item.drawableResource = drawableResource;
-			item.text = text;
-			item.clickListener = clickListener;
-			return item;
+			this.text = text;
+			this.clickListener = clickListener;
+		}
+	}
+
+
+	private static class CustomViewSheetItem extends BaseSheetItem
+	{
+		private View customView;
+
+
+		CustomViewSheetItem(View customView)
+		{
+			this.customView = customView;
 		}
 
 
-		static SheetItem createTextSheetItem(String text, View.OnClickListener clickListener)
+		CustomViewSheetItem(View customView, View.OnClickListener clickListener)
 		{
-			SheetItem item = new SheetItem();
-			item.type = SheetItemType.TEXT;
-			item.text = text;
-			item.clickListener = clickListener;
-			return item;
-		}
-
-
-		static SheetItem createDividerSheetItem()
-		{
-			SheetItem item = new SheetItem();
-			item.type = SheetItemType.DIVIDER;
-			return item;
+			this.customView = customView;
+			customView.setOnClickListener(clickListener);
 		}
 	}
 }

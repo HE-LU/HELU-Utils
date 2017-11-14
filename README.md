@@ -5,13 +5,13 @@ This repository provides various utility classes to make android development les
 ## List of Utilities:
 
 
-### [HeluBottomButtonSheet 1.1.1](./LibraryBuildProject/helubottombuttonsheet/) 
+### [HeluBottomButtonSheet 1.2.0](./LibraryBuildProject/helubottombuttonsheet/) 
 [![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluBottomButtonSheet/images/download.svg)](https://bintray.com/tuxilero/maven/HeluBottomButtonSheet)
 
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ```
-compile 'cz.helu.android:helubottombuttonsheet:1.1.1'
+compile 'cz.helu.android:helubottombuttonsheet:1.2.0'
 ```
 
 ![Alt text](./LibraryBuildProject/helubottombuttonsheet/extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")

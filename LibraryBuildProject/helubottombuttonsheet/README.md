@@ -1,4 +1,4 @@
-# HeluBottomButtonSheet 1.1.1
+# HeluBottomButtonSheet 1.2.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
@@ -6,11 +6,11 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:helubottombuttonsheet:1.1.1'
+compile 'cz.helu.android:helubottombuttonsheet:1.2.0'
 ```
 
 
-## Parameters
+## Builder Parameters
 * **withTitle(String)** or **withTitle(int)**
   Set **string** or **string resource** as a title text to the Bottom sheet. 
   *Note: Sheet wont contain any title if the title is not set.*
@@ -50,6 +50,16 @@ compile 'cz.helu.android:helubottombuttonsheet:1.1.1'
 * **withImageSize(int)**
   Set **dimension resource** to change default item icon size. 
   *(Default is ```24dp```)*
+  
+  
+## BottomButtonSheet Methods
+* **addButtom(String text, View.OnClickListener())**
+* **addButtom(Drawable image, String text, View.OnClickListener listener)**
+* **addButtom(drawableResourceId int, String text, View.OnClickListener listener)**
+* **addDivider()**
+* **addCustomView(View customView)**
+* **addCustomView(View customView, View.OnClickListener listener)**
+* **show()**
 
 
 ## Usage

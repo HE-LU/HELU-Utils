@@ -11,6 +11,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import cz.helu.helubottombuttonsheet.HeluBottomButtonSheet;
 import cz.helu.helucollapsingtabbar.HeluCollapsingTabBar;
 import cz.helu.heluparallaxview.HeluParallaxView;
 import cz.helu.heluvideoview.HeluVideoView;
@@ -32,10 +33,10 @@ public class MainActivity extends AppCompatActivity
 
 	private void setupVideoView()
 	{
-		HeluVideoView videoViewFitVideo = (HeluVideoView) findViewById(R.id.video_view_fit_video);
-		HeluVideoView videoViewFitView = (HeluVideoView) findViewById(R.id.video_view_fit_view);
-		HeluVideoView videoViewWitchCropping = (HeluVideoView) findViewById(R.id.video_view_with_cropping);
-		HeluVideoView videoViewWitchCropping2 = (HeluVideoView) findViewById(R.id.video_view_with_cropping_2);
+		HeluVideoView videoViewFitVideo = findViewById(R.id.video_view_fit_video);
+		HeluVideoView videoViewFitView = findViewById(R.id.video_view_fit_view);
+		HeluVideoView videoViewWitchCropping = findViewById(R.id.video_view_with_cropping);
+		HeluVideoView videoViewWitchCropping2 = findViewById(R.id.video_view_with_cropping_2);
 
 		HeluVideoView.Builder builder = new HeluVideoView.Builder(this)
 				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void run()
 			{
-				HeluParallaxView parallaxDisabled = (HeluParallaxView) findViewById(R.id.parallax_image_disabled);
+				HeluParallaxView parallaxDisabled = findViewById(R.id.parallax_image_disabled);
 				parallaxDisabled.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 				parallaxDisabled.setScale(0.15f);
 				parallaxDisabled.disableParallax();
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity
 
 	private void setupTabBar()
 	{
-		HeluCollapsingTabBar bar = (HeluCollapsingTabBar) findViewById(R.id.helu_tab_bar);
+		HeluCollapsingTabBar bar = findViewById(R.id.helu_tab_bar);
 		HeluCollapsingTabBar.Builder builder = new HeluCollapsingTabBar.Builder(this);
 
 		// Setup drawables
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void onClick(View view)
 			{
-				showToast("Left");
+				showBottomButtonSheet();
 			}
 		});
 		builder.addButton(pauseSelected, pause, new View.OnClickListener()
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void onClick(View view)
 			{
-				showToast("Pause");
+				showBottomButtonSheet();
 			}
 		});
 		builder.addButton(arrowRightSelected, arrowRight, new View.OnClickListener()
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 			@Override
 			public void onClick(View view)
 			{
-				showToast("Right");
+				showBottomButtonSheet();
 			}
 		});
 
@@ -129,6 +130,41 @@ public class MainActivity extends AppCompatActivity
 		bar.getLayoutTransition().setInterpolator(LayoutTransition.CHANGE_APPEARING, new OvershootInterpolator());
 	}
 
+
+	private void showBottomButtonSheet()
+	{
+		// Create custom view
+		View customView = getLayoutInflater().inflate(R.layout.bottom_button_sheet_custom_view, null);
+		customView.findViewById(R.id.button_one).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				showToast("Button One Click");
+			}
+		});
+		customView.findViewById(R.id.button_two).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				showToast("Button Two Click");
+			}
+		});
+
+		// Crete Bottom Button Sheet
+		HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(this).withTitle("Bottom button sheet title").build();
+		sheet.setRetainInstance(true);
+		sheet.addCustomView(customView);
+		sheet.addDivider();
+		sheet.addButton("Test Button", new View.OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				showToast("Test Button clicked!");
+			}});
+
+
+		sheet.show(getSupportFragmentManager());
+	}
 
 	private void showToast(String text)
 	{
