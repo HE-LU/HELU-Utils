@@ -7,10 +7,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +35,6 @@ import cz.helu.helubottombuttonsheet.entity.TextSheetItem;
 import cz.helu.helubottombuttonsheet.utility.DrawableUtility;
 
 
-@SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
 public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 {
@@ -51,20 +52,29 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	private List<BaseSheetItem> mItemList = new ArrayList<>();
 
 
-	@SuppressLint("ValidFragment")
-	public HeluBottomButtonSheet(Builder builder)
+	public HeluBottomButtonSheet() {}
+
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
-		this.titleItemHeight = builder.titleItemHeight;
-		this.itemHeight = builder.itemHeight;
-		this.itemImageSize = builder.itemImageSize;
-		this.spacingHorizontal = builder.spacingHorizontal;
-		this.paddingVertical = builder.paddingVertical;
-		this.itemTouchFeedbackColor = builder.itemTouchFeedbackColor;
-		this.sheetBackgroundColor = builder.sheetBackgroundColor;
-		this.sheetTitleColor = builder.sheetTitleColor;
-		this.itemTextColor = builder.itemTextColor;
-		this.dividerColor = builder.dividerColor;
-		this.title = builder.title;
+		super.onCreate(savedInstanceState);
+
+		Bundle arguments = getArguments();
+		if(arguments != null)
+		{
+			this.titleItemHeight = arguments.getInt(Builder.ARGUMENTS_TITLE_ITEM_HEIGHT);
+			this.itemHeight = arguments.getInt(Builder.ARGUMENTS_ITEM_HEIGHT);
+			this.itemImageSize = arguments.getInt(Builder.ARGUMENTS_ITEM_IMAGE_SIZE);
+			this.spacingHorizontal = arguments.getInt(Builder.ARGUMENTS_SPACING_HORIZONTAL);
+			this.paddingVertical = arguments.getInt(Builder.ARGUMENTS_PADDING_VERTICAL);
+			this.itemTouchFeedbackColor = arguments.getInt(Builder.ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR);
+			this.sheetBackgroundColor = arguments.getInt(Builder.ARGUMENTS_SHEET_BACKGROUND_COLOR);
+			this.sheetTitleColor = arguments.getInt(Builder.ARGUMENTS_SHEET_TITLE_COLOR);
+			this.itemTextColor = arguments.getInt(Builder.ARGUMENTS_ITEM_TEXT_COLOR);
+			this.dividerColor = arguments.getInt(Builder.ARGUMENTS_DIVIDER_COLOR);
+			this.title = arguments.getString(Builder.ARGUMENTS_TITLE);
+		}
 	}
 
 
@@ -231,6 +241,18 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 	public static class Builder
 	{
+		static final String ARGUMENTS_TITLE_ITEM_HEIGHT = "ARGUMENTS_TITLE_ITEM_HEIGHT";
+		static final String ARGUMENTS_ITEM_HEIGHT = "ARGUMENTS_ITEM_HEIGHT";
+		static final String ARGUMENTS_ITEM_IMAGE_SIZE = "ARGUMENTS_ITEM_IMAGE_SIZE";
+		static final String ARGUMENTS_SPACING_HORIZONTAL = "ARGUMENTS_SPACING_HORIZONTAL";
+		static final String ARGUMENTS_PADDING_VERTICAL = "ARGUMENTS_PADDING_VERTICAL";
+		static final String ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR = "ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR";
+		static final String ARGUMENTS_SHEET_BACKGROUND_COLOR = "ARGUMENTS_SHEET_BACKGROUND_COLOR";
+		static final String ARGUMENTS_SHEET_TITLE_COLOR = "ARGUMENTS_SHEET_TITLE_COLOR";
+		static final String ARGUMENTS_ITEM_TEXT_COLOR = "ARGUMENTS_ITEM_TEXT_COLOR";
+		static final String ARGUMENTS_DIVIDER_COLOR = "ARGUMENTS_DIVIDER_COLOR";
+		static final String ARGUMENTS_TITLE = "ARGUMENTS_TITLE";
+
 		static final int DEFAULT_TITLE_ITEM_HEIGHT = 56;
 		static final int DEFAULT_ITEM_HEIGHT = 48;
 		static final int DEFAULT_ITEM_IMAGE_SIZE = 24;
@@ -457,11 +479,27 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		@SuppressWarnings("unused")
 		public HeluBottomButtonSheet build()
 		{
-			return new HeluBottomButtonSheet(this);
+			HeluBottomButtonSheet fragment = new HeluBottomButtonSheet();
+			Bundle arguments = new Bundle();
+
+			arguments.putInt(ARGUMENTS_TITLE_ITEM_HEIGHT, this.titleItemHeight);
+			arguments.putInt(ARGUMENTS_ITEM_HEIGHT, this.itemHeight);
+			arguments.putInt(ARGUMENTS_ITEM_IMAGE_SIZE, this.itemImageSize);
+			arguments.putInt(ARGUMENTS_SPACING_HORIZONTAL, this.spacingHorizontal);
+			arguments.putInt(ARGUMENTS_PADDING_VERTICAL, this.paddingVertical);
+			arguments.putInt(ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR, this.itemTouchFeedbackColor);
+			arguments.putInt(ARGUMENTS_SHEET_BACKGROUND_COLOR, this.sheetBackgroundColor);
+			arguments.putInt(ARGUMENTS_SHEET_TITLE_COLOR, this.sheetTitleColor);
+			arguments.putInt(ARGUMENTS_ITEM_TEXT_COLOR, this.itemTextColor);
+			arguments.putInt(ARGUMENTS_DIVIDER_COLOR, this.dividerColor);
+			arguments.putString(ARGUMENTS_TITLE, this.title);
+
+			fragment.setArguments(arguments);
+			return fragment;
 		}
 
 
-		int convertDpToPx(int dp)
+		private int convertDpToPx(int dp)
 		{
 			return Math.round(dp * mContext.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT);
 		}

@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity
 
 	private void setupImageView()
 	{
-		new Handler().postDelayed(new Runnable() {
+		new Handler().postDelayed(new Runnable()
+		{
 			@Override
 			public void run()
 			{
@@ -135,14 +136,16 @@ public class MainActivity extends AppCompatActivity
 	{
 		// Create custom view
 		View customView = getLayoutInflater().inflate(R.layout.bottom_button_sheet_custom_view, null);
-		customView.findViewById(R.id.button_one).setOnClickListener(new View.OnClickListener() {
+		customView.findViewById(R.id.button_one).setOnClickListener(new View.OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
 				showToast("Button One Click");
 			}
 		});
-		customView.findViewById(R.id.button_two).setOnClickListener(new View.OnClickListener() {
+		customView.findViewById(R.id.button_two).setOnClickListener(new View.OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
@@ -155,16 +158,18 @@ public class MainActivity extends AppCompatActivity
 		sheet.setRetainInstance(true);
 		sheet.addCustomView(customView);
 		sheet.addDivider();
-		sheet.addButton("Test Button", new View.OnClickListener() {
+		sheet.addButton("Test Button", new View.OnClickListener()
+		{
 			@Override
 			public void onClick(View v)
 			{
 				showToast("Test Button clicked!");
-			}});
-
+			}
+		});
 
 		sheet.show(getSupportFragmentManager());
 	}
+
 
 	private void showToast(String text)
 	{
