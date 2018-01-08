@@ -5,15 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
@@ -31,20 +24,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import cz.helu.helubottombuttonsheet.entity.BaseSheetItem;
+import cz.helu.helubottombuttonsheet.entity.CustomViewSheetItem;
+import cz.helu.helubottombuttonsheet.entity.DividerSheetItem;
+import cz.helu.helubottombuttonsheet.entity.TextSheetItem;
+import cz.helu.helubottombuttonsheet.utility.DrawableUtility;
 
 
 @SuppressLint("ValidFragment")
 @SuppressWarnings("unused")
 public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 {
-	private final int DEFAULT_CONTENT_VERTICAL_SPACING = 8;
-
 	private int titleItemHeight;
 	private int itemHeight;
 	private int itemImageSize;
 	private int spacingHorizontal;
+	private int paddingVertical;
 	private int itemTouchFeedbackColor;
 	private int sheetBackgroundColor;
 	private int sheetTitleColor;
@@ -61,6 +58,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		this.itemHeight = builder.itemHeight;
 		this.itemImageSize = builder.itemImageSize;
 		this.spacingHorizontal = builder.spacingHorizontal;
+		this.paddingVertical = builder.paddingVertical;
 		this.itemTouchFeedbackColor = builder.itemTouchFeedbackColor;
 		this.sheetBackgroundColor = builder.sheetBackgroundColor;
 		this.sheetTitleColor = builder.sheetTitleColor;
@@ -70,41 +68,11 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	}
 
 
-	public static Drawable getAdaptiveRippleDrawable(int normalColor, int pressedColor)
-	{
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-		{
-			return new RippleDrawable(ColorStateList.valueOf(pressedColor), null, getRippleMask(normalColor));
-		}
-		else
-		{
-			StateListDrawable states = new StateListDrawable();
-			states.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(pressedColor));
-			states.addState(new int[]{android.R.attr.state_focused}, new ColorDrawable(pressedColor));
-			states.addState(new int[]{android.R.attr.state_activated}, new ColorDrawable(pressedColor));
-			states.addState(new int[]{}, new ColorDrawable(normalColor));
-			return states;
-		}
-	}
-
-
-	private static Drawable getRippleMask(int color)
-	{
-		float[] outerRadii = new float[8];
-		Arrays.fill(outerRadii, 3);// 3 is radius of final ripple, instead of 3 you can give required final radius
-
-		ShapeDrawable shapeDrawable = new ShapeDrawable(new RoundRectShape(outerRadii, null, null));
-		shapeDrawable.getPaint().setColor(color);
-		return shapeDrawable;
-	}
-
-
 	@SuppressLint("RestrictedApi")
 	@Override
 	public void setupDialog(final Dialog dialog, int style)
 	{
 		super.setupDialog(dialog, style);
-		int verticalContentPadding = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING);
 
 		// Setup View
 		LinearLayout contentLayout = new LinearLayout(getContext());
@@ -113,12 +81,12 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		if(!title.isEmpty())
 		{
-			contentLayout.setPadding(0, 0, 0, verticalContentPadding);
+			contentLayout.setPadding(0, 0, 0, paddingVertical);
 			contentLayout.addView(createTitleView());
 		}
 		else
 		{
-			contentLayout.setPadding(0, verticalContentPadding, 0, verticalContentPadding);
+			contentLayout.setPadding(0, paddingVertical, 0, paddingVertical);
 		}
 
 		for(BaseSheetItem entity : mItemList)
@@ -192,7 +160,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 	private int convertDpToPx(int dp)
 	{
-		return Math.round(dp * getContext().getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT);
+		return (getContext() != null) ? (Math.round(dp * getContext().getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT)) : 0;
 	}
 
 
@@ -213,7 +181,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 	private View createDividerItemView()
 	{
-		int verticalContentPadding = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING);
+		int verticalContentPadding = convertDpToPx(Builder.DEFAULT_CONTENT_VERTICAL_SPACING);
 		LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, convertDpToPx(1));
 		dividerParams.setMargins(0, verticalContentPadding, 0, verticalContentPadding);
 
@@ -226,7 +194,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 	private LinearLayout createTextItemView(TextSheetItem entity)
 	{
-		Drawable drawable = getAdaptiveRippleDrawable(sheetBackgroundColor, itemTouchFeedbackColor);
+		Drawable drawable = DrawableUtility.getAdaptiveRippleDrawable(sheetBackgroundColor, itemTouchFeedbackColor);
 		LinearLayout item = new LinearLayout(getContext());
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, itemHeight);
 
@@ -263,16 +231,18 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 	public static class Builder
 	{
-		private final int DEFAULT_TITLE_ITEM_HEIGHT = 56;
-		private final int DEFAULT_ITEM_HEIGHT = 48;
-		private final int DEFAULT_ITEM_IMAGE_SIZE = 24;
-		private final int DEFAULT_HORIZONTAL_SPACING = 16;
+		static final int DEFAULT_TITLE_ITEM_HEIGHT = 56;
+		static final int DEFAULT_ITEM_HEIGHT = 48;
+		static final int DEFAULT_ITEM_IMAGE_SIZE = 24;
+		static final int DEFAULT_HORIZONTAL_SPACING = 16;
+		static final int DEFAULT_CONTENT_VERTICAL_SPACING = 8;
 
 		private Context mContext;
 		private int titleItemHeight;
 		private int itemHeight;
 		private int itemImageSize;
 		private int spacingHorizontal;
+		private int paddingVertical;
 		private String title = "";
 		@ColorInt
 		private int itemTouchFeedbackColor = Color.LTGRAY;
@@ -294,11 +264,12 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 			itemHeight = convertDpToPx(DEFAULT_ITEM_HEIGHT);
 			itemImageSize = convertDpToPx(DEFAULT_ITEM_IMAGE_SIZE);
 			spacingHorizontal = convertDpToPx(DEFAULT_HORIZONTAL_SPACING);
+			paddingVertical = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING);
 		}
 
 
 		@SuppressWarnings("unused")
-		public Builder withTitle(@StringRes int titleResId)
+		public Builder withTitleRes(@StringRes int titleResId)
 		{
 			this.title = mContext.getResources().getString(titleResId);
 			return this;
@@ -315,7 +286,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withTitleItemHeight(@DimenRes int dimension)
+		public Builder withTitleItemHeightRes(@DimenRes int dimension)
 		{
 			this.titleItemHeight = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -324,7 +295,16 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withItemHeight(@DimenRes int dimension)
+		public Builder withTitleItemHeight(int pixelSize)
+		{
+			this.titleItemHeight = pixelSize;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
+		public Builder withItemHeightRes(@DimenRes int dimension)
 		{
 			this.itemHeight = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -333,7 +313,16 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withImageSize(@DimenRes int dimension)
+		public Builder withItemHeight(int pixelSize)
+		{
+			this.itemHeight = pixelSize;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
+		public Builder withImageSizeRes(@DimenRes int dimension)
 		{
 			this.itemImageSize = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -342,7 +331,16 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 		@SuppressWarnings("unused")
 		@SuppressLint("ResourceType")
-		public Builder withHorizontalSpacing(@DimenRes int dimension)
+		public Builder withImageSize(@DimenRes int pixelSize)
+		{
+			this.itemImageSize = pixelSize;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
+		public Builder withHorizontalSpacingRes(@DimenRes int dimension)
 		{
 			this.spacingHorizontal = mContext.getResources().getDimensionPixelSize(dimension);
 			return this;
@@ -350,7 +348,34 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
-		public Builder withBackgroundColor(@ColorRes int color)
+		@SuppressLint("ResourceType")
+		public Builder withHorizontalSpacing(int pixelSize)
+		{
+			this.spacingHorizontal = pixelSize;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
+		public Builder withVerticalPaddingRes(@DimenRes int dimension)
+		{
+			this.paddingVertical = mContext.getResources().getDimensionPixelSize(dimension);
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		@SuppressLint("ResourceType")
+		public Builder withVerticalPadding(int pixelSize)
+		{
+			this.paddingVertical = pixelSize;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withBackgroundColorRes(@ColorRes int color)
 		{
 			this.sheetBackgroundColor = ContextCompat.getColor(mContext, color);
 			return this;
@@ -358,7 +383,15 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
-		public Builder withItemTouchFeedbackColor(@ColorRes int color)
+		public Builder withBackgroundColor(int color)
+		{
+			this.sheetBackgroundColor = color;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withItemTouchFeedbackColorRes(@ColorRes int color)
 		{
 			this.itemTouchFeedbackColor = ContextCompat.getColor(mContext, color);
 			return this;
@@ -366,7 +399,15 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
-		public Builder withTitleColor(@ColorRes int color)
+		public Builder withItemTouchFeedbackColor(int color)
+		{
+			this.itemTouchFeedbackColor = color;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withTitleColorRes(@ColorRes int color)
 		{
 			this.sheetTitleColor = ContextCompat.getColor(mContext, color);
 			return this;
@@ -374,7 +415,15 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
-		public Builder withItemTextColor(@ColorRes int color)
+		public Builder withTitleColor(int color)
+		{
+			this.sheetTitleColor = color;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withItemTextColorRes(@ColorRes int color)
 		{
 			this.itemTextColor = ContextCompat.getColor(mContext, color);
 			return this;
@@ -382,9 +431,25 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 
 
 		@SuppressWarnings("unused")
-		public Builder withDividerColor(@ColorRes int color)
+		public Builder withItemTextColor(int color)
+		{
+			this.itemTextColor = color;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withDividerColorRes(@ColorRes int color)
 		{
 			this.dividerColor = ContextCompat.getColor(mContext, color);
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withDividerColor(int color)
+		{
+			this.dividerColor = color;
 			return this;
 		}
 
@@ -399,63 +464,6 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		int convertDpToPx(int dp)
 		{
 			return Math.round(dp * mContext.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT);
-		}
-	}
-
-
-	private static class BaseSheetItem {}
-
-
-	private static class DividerSheetItem extends BaseSheetItem {}
-
-
-	private static class TextSheetItem extends BaseSheetItem
-	{
-		private Drawable drawable;
-		private int drawableResource = -1;
-		private String text;
-		private View.OnClickListener clickListener;
-
-
-		TextSheetItem(Drawable drawable, String text, View.OnClickListener clickListener)
-		{
-			this.drawable = drawable;
-			this.text = text;
-			this.clickListener = clickListener;
-		}
-
-
-		TextSheetItem(int drawableResource, String text, View.OnClickListener clickListener)
-		{
-			this.drawableResource = drawableResource;
-			this.text = text;
-			this.clickListener = clickListener;
-		}
-
-
-		TextSheetItem(String text, View.OnClickListener clickListener)
-		{
-			this.text = text;
-			this.clickListener = clickListener;
-		}
-	}
-
-
-	private static class CustomViewSheetItem extends BaseSheetItem
-	{
-		private View customView;
-
-
-		CustomViewSheetItem(View customView)
-		{
-			this.customView = customView;
-		}
-
-
-		CustomViewSheetItem(View customView, View.OnClickListener clickListener)
-		{
-			this.customView = customView;
-			customView.setOnClickListener(clickListener);
 		}
 	}
 }

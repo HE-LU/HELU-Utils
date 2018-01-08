@@ -1,4 +1,4 @@
-# HeluBottomButtonSheet 1.2.0
+# HeluBottomButtonSheet 1.3.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
@@ -6,49 +6,53 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:helubottombuttonsheet:1.2.0'
+compile 'cz.helu.android:helubottombuttonsheet:1.3.0'
 ```
 
 
 ## Builder Parameters
-* **withTitle(String)** or **withTitle(int)**
+* **withTitle(String)** or **withTitleRes(int)**
   Set **string** or **string resource** as a title text to the Bottom sheet. 
   *Note: Sheet wont contain any title if the title is not set.*
   
-* **withTitleColor(int)**
-  Set **color resource** to change default title color. 
+* **withTitleColor(int)** or **withTitleColorRes(int)**
+  Set **color** or **color resource** to change default title color. 
   *(Default is ```Color.GRAY```)*
 
-* **withTitleItemHeight(int)**
-  Set **dimension resource** to change default title item height. 
+* **withTitleItemHeight(int)** or **withTitleItemHeightRes(int)**
+  Set **pixel size** or **dimension resource** to change default title item height. 
   *(Default is ```56dp```)*
 
-* **withBackgroundColor(int)**
-  Set **color resource** to change default background sheet color. 
+* **withBackgroundColor(int)** or **withBackgroundColorRes(int)**
+  Set **color** or **color resource** to change default background sheet color. 
   *(Default is ```Color.WHITE```)*
   
-* **withItemHeight(int)**
-  Set **dimension resource** to change default item height. 
+* **withItemHeight(int)** or **withItemHeightRes(int)**
+  Set **pixel size** or **dimension resource** to change default item height. 
   *(Default is ```48dp```)*
   
-* **withItemTextColor(int)**
-  Set **color resource** to change default item text color. 
+* **withItemTextColor(int)** or **withItemTextColorRes(int)**
+  Set **color** or **color resource** to change default item text color. 
   *(Default is ```Color.BLACK```)*
 
-* **withDividerColor(int)**
-  Set **color resource** to change default divider color. 
+* **withDividerColor(int)** or **withDividerColorRes(int)**
+  Set **color** or **color resource** to change default divider color. 
   *(Default is ```Color.LTGRAY```)*
 
-* **withItemTouchFeedbackColor(int)**
-  Set **color resource** to change default ripple color. 
+* **withItemTouchFeedbackColor(int)** or **withItemTouchFeedbackColorRes(int)**
+  Set **color** or **color resource** to change default ripple color. 
   *(Default is ```Color.LTGRAY```)*
   
-* **withHorizontalSpacing(int)**
-  Set **dimension resource** to change default horizontal spacing. 
+* **withHorizontalSpacing(int)** or **withHorizontalSpacingRes(int)**
+  Set **pixel size** or **dimension resource** to change default horizontal spacing. 
   *(Default is ```16dp```)*
   
-* **withImageSize(int)**
-  Set **dimension resource** to change default item icon size. 
+* **withVerticalPadding(int)** or **withVerticalPaddingRes(int)**
+  Set **pixel size** or **dimension resource** to change default vertical padding of the content view. 
+  *(Default is ```8dp```)*
+  
+* **withImageSize(int)** or **withImageSizeRes(int)**
+  Set **pixel size** or **dimension resource** to change default item icon size. 
   *(Default is ```24dp```)*
   
   

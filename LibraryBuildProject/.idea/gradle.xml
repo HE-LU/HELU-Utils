@@ -8,12 +8,12 @@
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1" />
         <option name="modules">
           <set>
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject" />
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/app" />
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/helubottombuttonsheet" />
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/helucollapsingtabbar" />
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/heluparallaxview" />
-            <option value="/media/linuxData/Linux data/Projects/Android-Utils/LibraryBuildProject/heluvideoview" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/app" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helubottombuttonsheet" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helucollapsingtabbar" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluparallaxview" />
+            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluvideoview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
