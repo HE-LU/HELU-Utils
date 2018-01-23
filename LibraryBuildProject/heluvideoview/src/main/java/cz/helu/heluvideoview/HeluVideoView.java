@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.Surface;
@@ -38,6 +39,7 @@ public class HeluVideoView extends FrameLayout
 	private ScaleType mScalingMode;
 	private AttachPolicy mAttachPolicy;
 	private boolean mAutoPlay;
+	private boolean mPauseOnVisibilityChange;
 	private boolean mIsMuted;
 	private boolean mLooping;
 	private int mProgressUpdateInterval;
@@ -167,6 +169,27 @@ public class HeluVideoView extends FrameLayout
 	}
 
 
+	@Override
+	protected void onVisibilityChanged(@NonNull View changedView, int visibility)
+	{
+		super.onVisibilityChanged(changedView, visibility);
+		if(mPauseOnVisibilityChange)
+		{
+			if(visibility == View.VISIBLE)
+			{
+				if(mAutoPlay)
+				{
+					play();
+				}
+			}
+			else
+			{
+				pause();
+			}
+		}
+	}
+
+
 	public void initFromBuilder(Builder builder)
 	{
 		if(mPlayerState != PlayerState.NOT_INITIALIZED && mPlayerState != PlayerState.DESTROYED)
@@ -183,6 +206,7 @@ public class HeluVideoView extends FrameLayout
 		this.mScalingMode = builder.scalingMode;
 		this.mAttachPolicy = builder.attachPolicy;
 		this.mAutoPlay = builder.autoPlay;
+		this.mPauseOnVisibilityChange = builder.pauseOnVisibilityChange;
 		this.mIsMuted = builder.mutedOnStart;
 		this.mLooping = builder.looping;
 		this.mProgressUpdateInterval = builder.progressUpdateInterval;
@@ -702,7 +726,7 @@ public class HeluVideoView extends FrameLayout
 			newHeight = maxHeight;
 		}
 
-		FrameLayout.LayoutParams paramsTextureView = (FrameLayout.LayoutParams) mTextureView.getLayoutParams();
+		LayoutParams paramsTextureView = (LayoutParams) mTextureView.getLayoutParams();
 		paramsTextureView.width = newWidth;
 		paramsTextureView.height = newHeight;
 		paramsTextureView.gravity = Gravity.CENTER;
@@ -734,7 +758,7 @@ public class HeluVideoView extends FrameLayout
 		if(maxHeight >= newHeight)
 			scale = (maxHeight * 1.0) / (mMediaPlayer.getVideoHeight() * 1.0);
 
-		FrameLayout.LayoutParams paramsTextureView = (FrameLayout.LayoutParams) mTextureView.getLayoutParams();
+		LayoutParams paramsTextureView = (LayoutParams) mTextureView.getLayoutParams();
 		paramsTextureView.width = (int) (mMediaPlayer.getVideoWidth() * scale);
 		paramsTextureView.height = (int) (mMediaPlayer.getVideoHeight() * scale);
 		paramsTextureView.gravity = Gravity.CENTER;
@@ -760,6 +784,7 @@ public class HeluVideoView extends FrameLayout
 		private ScaleType scalingMode = ScaleType.SCALE_TO_FIT_VIEW;
 		private boolean autoPlay = false;
 		private boolean mutedOnStart = false;
+		private boolean pauseOnVisibilityChange = true;
 		private boolean looping = false;
 		private int progressUpdateInterval = 1000;
 		private int maxVideoHeight;
@@ -863,6 +888,14 @@ public class HeluVideoView extends FrameLayout
 		public Builder withMuteOnStart(boolean mutedOnStart)
 		{
 			this.mutedOnStart = mutedOnStart;
+			return this;
+		}
+
+
+		@SuppressWarnings("unused")
+		public Builder withPauseOnVisibilityChange(boolean pauseOnVisibilityChange)
+		{
+			this.pauseOnVisibilityChange = pauseOnVisibilityChange;
 			return this;
 		}
 
