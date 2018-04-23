@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import cz.helu.helubottombuttonsheet.HeluBottomButtonSheet;
+import cz.helu.helubottombuttonsheet.entity.TextSheetItem;
 import cz.helu.helucollapsingtabbar.HeluCollapsingTabBar;
 import cz.helu.heluparallaxview.HeluParallaxView;
 import cz.helu.heluvideoview.HeluVideoView;
@@ -19,6 +20,9 @@ import cz.helu.heluvideoview.HeluVideoView;
 
 public class MainActivity extends AppCompatActivity
 {
+	private int counter = 0;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -134,31 +138,9 @@ public class MainActivity extends AppCompatActivity
 
 	private void showBottomButtonSheet()
 	{
-		// Create custom view
-		View customView = getLayoutInflater().inflate(R.layout.bottom_button_sheet_custom_view, null);
-		customView.findViewById(R.id.button_one).setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				showToast("Button One Click");
-			}
-		});
-		customView.findViewById(R.id.button_two).setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				showToast("Button Two Click");
-			}
-		});
-
 		// Crete Bottom Button Sheet
-		HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(this).withTitle("Bottom button sheet title").build();
-		sheet.setRetainInstance(true);
-		sheet.addCustomView(customView);
-		sheet.addDivider();
-		sheet.addButton("Test Button", new View.OnClickListener()
+		final HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(this).withTitle("Bottom button sheet title").build();
+		final TextSheetItem button = new TextSheetItem("Test Button value: " + counter, new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -166,6 +148,34 @@ public class MainActivity extends AppCompatActivity
 				showToast("Test Button clicked!");
 			}
 		});
+
+		// Create custom view
+		View customView = getLayoutInflater().inflate(R.layout.bottom_button_sheet_custom_view, null);
+		customView.findViewById(R.id.button_decrease).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				counter--;
+				button.text = "Test Button value: " + counter;
+				sheet.invalidate();
+			}
+		});
+		customView.findViewById(R.id.button_increase).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				counter++;
+				button.text = "Test Button value: " + counter;
+				sheet.invalidate();
+			}
+		});
+
+		sheet.setRetainInstance(true);
+		sheet.addCustomView(customView);
+		sheet.addDivider();
+		sheet.addButton(button);
 
 		sheet.show(getSupportFragmentManager());
 	}

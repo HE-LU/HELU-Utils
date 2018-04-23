@@ -4,7 +4,7 @@
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluparallaxview:1.1.2'
+implementation 'cz.helu.android:heluparallaxview:1.1.2'
 ```
 
 

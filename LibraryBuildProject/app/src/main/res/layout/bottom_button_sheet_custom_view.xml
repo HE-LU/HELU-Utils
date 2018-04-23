@@ -3,19 +3,19 @@
 	android:orientation="horizontal"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#ff0000">
+	android:background="#ababab">
 
 	<Button
-		android:id="@+id/button_one"
+		android:id="@+id/button_decrease"
 		android:layout_width="0dp"
 		android:layout_height="@dimen/global_spacing_48"
 		android:layout_weight="1"
-		android:text="Button One" />
+		android:text="Decrease" />
 
 	<Button
-		android:id="@+id/button_two"
+		android:id="@+id/button_increase"
 		android:layout_width="0dp"
 		android:layout_height="@dimen/global_spacing_48"
 		android:layout_weight="1"
-		android:text="Button Two" />
+		android:text="Increase" />
 </LinearLayout>

@@ -8,7 +8,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:heluvideoview:1.2.0'
+implementation 'cz.helu.android:heluvideoview:1.2.0'
 ```
 
 

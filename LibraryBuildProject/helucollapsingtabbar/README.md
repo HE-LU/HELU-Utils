@@ -4,7 +4,7 @@
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:helucollapsingtabbar:1.1.1'
+implementation 'cz.helu.android:helucollapsingtabbar:1.1.1'
 ```
 
 ## Parameters

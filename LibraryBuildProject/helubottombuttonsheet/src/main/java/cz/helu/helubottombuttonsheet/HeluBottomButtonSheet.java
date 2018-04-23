@@ -50,6 +50,7 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	private int dividerColor;
 	private String title;
 	private List<BaseSheetItem> mItemList = new ArrayList<>();
+	private LinearLayout contentLayout;
 
 
 	public HeluBottomButtonSheet() {}
@@ -85,36 +86,11 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		super.setupDialog(dialog, style);
 
 		// Setup View
-		LinearLayout contentLayout = new LinearLayout(getContext());
+		contentLayout = new LinearLayout(getContext());
 		contentLayout.setOrientation(LinearLayout.VERTICAL);
 		contentLayout.setBackgroundColor(sheetBackgroundColor);
 
-		if(!title.isEmpty())
-		{
-			contentLayout.setPadding(0, 0, 0, paddingVertical);
-			contentLayout.addView(createTitleView());
-		}
-		else
-		{
-			contentLayout.setPadding(0, paddingVertical, 0, paddingVertical);
-		}
-
-		for(BaseSheetItem entity : mItemList)
-		{
-			if(entity instanceof DividerSheetItem)
-			{
-				contentLayout.addView(createDividerItemView());
-			}
-			else if(entity instanceof TextSheetItem)
-			{
-				contentLayout.addView(createTextItemView((TextSheetItem) entity));
-			}
-			else if(entity instanceof CustomViewSheetItem)
-			{
-				if(((CustomViewSheetItem) entity).customView.getParent() == null)
-					contentLayout.addView(((CustomViewSheetItem) entity).customView);
-			}
-		}
+		inflateViews();
 
 		dialog.setContentView(contentLayout);
 	}
@@ -126,45 +102,80 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 	}
 
 
-	@SuppressWarnings("unused")
-	public void addButton(@NonNull String text, @NonNull View.OnClickListener clickListener)
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public TextSheetItem addButton(@NonNull TextSheetItem button)
 	{
-		mItemList.add(new TextSheetItem(text, clickListener));
+		mItemList.add(button);
+		return button;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public TextSheetItem addButton(@NonNull String text, @NonNull View.OnClickListener clickListener)
+	{
+		TextSheetItem item = new TextSheetItem(text, clickListener);
+		mItemList.add(item);
+		return item;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public TextSheetItem addButton(@NonNull Drawable drawable, @NonNull String text, @NonNull View.OnClickListener clickListener)
+	{
+		TextSheetItem item = new TextSheetItem(drawable, text, clickListener);
+		mItemList.add(item);
+		return item;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public TextSheetItem addButton(int drawableResource, @NonNull String text, @NonNull View.OnClickListener clickListener)
+	{
+		TextSheetItem item = new TextSheetItem(drawableResource, text, clickListener);
+		mItemList.add(item);
+		return item;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public DividerSheetItem addDivider()
+	{
+		DividerSheetItem item = new DividerSheetItem();
+		mItemList.add(item);
+		return item;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public CustomViewSheetItem addCustomView(@NonNull View customView)
+	{
+		CustomViewSheetItem item = new CustomViewSheetItem(customView);
+		mItemList.add(item);
+		return item;
+	}
+
+
+	@SuppressWarnings({"unused", "UnusedReturnValue"})
+	public CustomViewSheetItem addCustomView(@NonNull View customView, @NonNull View.OnClickListener clickListener)
+	{
+		CustomViewSheetItem item = new CustomViewSheetItem(customView, clickListener);
+		mItemList.add(item);
+		return item;
 	}
 
 
 	@SuppressWarnings("unused")
-	public void addButton(@NonNull Drawable drawable, @NonNull String text, @NonNull View.OnClickListener clickListener)
+	public BaseSheetItem getItem(int position)
 	{
-		mItemList.add(new TextSheetItem(drawable, text, clickListener));
+		return mItemList.get(position);
 	}
 
 
 	@SuppressWarnings("unused")
-	public void addButton(int drawableResource, @NonNull String text, @NonNull View.OnClickListener clickListener)
+	public void invalidate()
 	{
-		mItemList.add(new TextSheetItem(drawableResource, text, clickListener));
-	}
-
-
-	@SuppressWarnings("unused")
-	public void addDivider()
-	{
-		mItemList.add(new DividerSheetItem());
-	}
-
-
-	@SuppressWarnings("unused")
-	public void addCustomView(@NonNull View customView)
-	{
-		mItemList.add(new CustomViewSheetItem(customView));
-	}
-
-
-	@SuppressWarnings("unused")
-	public void addCustomView(@NonNull View customView, @NonNull View.OnClickListener clickListener)
-	{
-		mItemList.add(new CustomViewSheetItem(customView, clickListener));
+		contentLayout.removeAllViews();
+		inflateViews();
 	}
 
 
@@ -236,6 +247,37 @@ public class HeluBottomButtonSheet extends BottomSheetDialogFragment
 		item.addView(textView);
 
 		return item;
+	}
+
+
+	private void inflateViews()
+	{
+		if(!title.isEmpty())
+		{
+			contentLayout.setPadding(0, 0, 0, paddingVertical);
+			contentLayout.addView(createTitleView());
+		}
+		else
+		{
+			contentLayout.setPadding(0, paddingVertical, 0, paddingVertical);
+		}
+
+		for(BaseSheetItem entity : mItemList)
+		{
+			if(entity instanceof DividerSheetItem)
+			{
+				contentLayout.addView(createDividerItemView());
+			}
+			else if(entity instanceof TextSheetItem)
+			{
+				contentLayout.addView(createTextItemView((TextSheetItem) entity));
+			}
+			else if(entity instanceof CustomViewSheetItem)
+			{
+				if(((CustomViewSheetItem) entity).customView.getParent() == null)
+					contentLayout.addView(((CustomViewSheetItem) entity).customView);
+			}
+		}
 	}
 
 

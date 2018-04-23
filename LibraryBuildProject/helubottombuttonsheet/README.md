@@ -1,4 +1,4 @@
-# HeluBottomButtonSheet 1.3.1
+# HeluBottomButtonSheet 1.4.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
@@ -6,7 +6,7 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 ## Gradle:
 ```groovy
-compile 'cz.helu.android:helubottombuttonsheet:1.3.1'
+implementation 'cz.helu.android:helubottombuttonsheet:1.4.0'
 ```
 
 
@@ -57,13 +57,35 @@ compile 'cz.helu.android:helubottombuttonsheet:1.3.1'
   
   
 ## BottomButtonSheet Methods
-* **addButtom(String text, View.OnClickListener())**
-* **addButtom(Drawable image, String text, View.OnClickListener listener)**
-* **addButtom(drawableResourceId int, String text, View.OnClickListener listener)**
-* **addDivider()**
-* **addCustomView(View customView)**
-* **addCustomView(View customView, View.OnClickListener listener)**
-* **show()**
+* ```TextSheetItem addButton(TextSheetItem item)```
+  Add custom created ```TextSheetItem```.
+
+* ```TextSheetItem addButton(String text, View.OnClickListener())```
+  Add button with custom ```text``` and ```OnClickListener```.
+
+* ```TextSheetItem addButton(Drawable image, String text, View.OnClickListener listener)```
+  Add button with custom ```drawable```,  ```text``` and ```OnClickListener```.
+
+* ```TextSheetItem addButton(drawableResourceId int, String text, View.OnClickListener listener)```
+  Add button with custom ```drawableResourceId```,  ```text``` and ```OnClickListener```.
+
+* ```DividerSheetItem addDivider()```
+  Add divider line.
+
+* ```CustomViewSheetItem addCustomView(View customView)```
+  Add custom view.
+
+* ```CustomViewSheetItem addCustomView(View customView, View.OnClickListener listener)```
+  Add custom view with ```OnClickListener```.
+
+* ```BaseSheetItem getItem(int position)``` 
+  Return ```BaseSheetItem``` on specified position. You can make some changes above that item, and redraw the sheet using ```invalidate(```) method.
+
+* ```void show()```
+  Render and show the Sheet.
+
+* ```void invalidate()```
+  Redraw all sheet views. Need to be called after item change.
 
 
 ## Usage
@@ -102,6 +124,43 @@ sheet.addButton(R.drawable.some_image_drawable, "Second button with drawable ima
 	{
 		Timber.d("Second Item clicked!");
 		sheet.dismiss(); // Call dismiss to hide the bottom sheet
+	}
+});
+
+// Finally show the bottom sheet
+sheet.show(getActivity().getSupportFragmentManager());
+```
+
+
+
+
+
+
+You can also create a button first and change it content later:
+```java
+// Create new bottom sheet using Builder class.
+HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(getContext())
+		.withTitle("Some title")
+		.build();
+
+// Craete first button
+final TextSheetItem button = new TextSheetItem("HELLO", new View.OnClickListener(){
+	@Override
+	public void onClick(View v)
+	{
+		showToast("Click");
+	}
+});
+
+// Add Views inside sheet
+sheet.addButton(button);
+sheet.addDivider();
+sheet.addButton("Click me to change text of first button!", new OnClickListener() {
+	@Override
+	public void onClick(View view)
+	{
+		button.text = "WORLD"
+		sheet.invalidate();
 	}
 });
 
