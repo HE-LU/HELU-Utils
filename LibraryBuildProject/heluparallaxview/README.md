@@ -1,10 +1,10 @@
-# HeluParallaxView 1.1.2 (API 16+)
+# HeluParallaxView 1.1.3 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluparallaxview:1.1.2'
+implementation 'cz.helu.android:heluparallaxview:1.1.'
 ```
 
 
@@ -101,5 +101,5 @@ Glide.with(imageView.getContext()).load(url)
 				return false;
 			}
 		})
-		.into(imageView);
+		.into(imageView);	
 ```

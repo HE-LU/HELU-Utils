@@ -255,6 +255,9 @@ public class HeluParallaxView extends android.support.v7.widget.AppCompatImageVi
 	{
 		setMyScrollX(0);
 		setMyScrollY(0);
+		scrollSpaceX = 0;
+		scrollSpaceY = 0;
+		requestLayout();
 	}
 
 
