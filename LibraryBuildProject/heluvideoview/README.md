@@ -1,14 +1,14 @@
-# HeluVideoView 1.2.0
+# HeluVideoView 2.0.0
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
 
-![Alt text](./extras/HeluVideoView.png?raw=true "HeluVideoView")
+![Alt text](./extras/HeluVideoView.jpg?raw=true "HeluVideoView")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluvideoview:1.2.0'
+implementation 'cz.helu.android:heluvideoview:2.0.0'
 ```
 
 
@@ -122,13 +122,12 @@ implementation 'cz.helu.android:heluvideoview:1.2.0'
 * **setOnStateChangeListener(PlayerStateChangeInterface)**
   This interface provides you method about the mediaPlayer state change. You can use it for implementing your own logic.
   ```
-  interface PlayerStateChangeInterface
-	{
-		void onPrepare(MediaPlayer mediaPlayer);
-		void onPlay();
-		void onPause();
-		void onComplete(MediaPlayer mediaPlayer);
-		void onProgressChange(int i);
+  interface PlayerStateChangeInterface {
+		fun onPrepare(mediaPlayer: MediaPlayer?)
+		fun onPlay()
+		fun onPause()
+		fun onComplete(mediaPlayer: MediaPlayer)
+		fun onProgressChange(i: Int)
 	}
   ```
 
@@ -136,16 +135,16 @@ implementation 'cz.helu.android:heluvideoview:1.2.0'
 You have to use the Builder class for creating or initializing new HeluVideoView.
 
 ```java
-// Create and prepare all view we want to use.
-HeluVideoView videoView = (HeluVideoView) findViewById(R.id.helu_video_view);
-ImageView placeholderView = ViewGeneratorUtility.generatePlaceholderView(getContext());
-ImageView playView = ViewGeneratorUtility.generatePlayButtonView(getContext());
-ImageView muteOnView = ViewGeneratorUtility.generateMuteOnView(getContext());
-ImageView muteOffView = ViewGeneratorUtility.generateMuteOffView(getContext());
-SeekBar seekBarView = (SeekBar) findViewById(R.id.seek_bar);
+// Create and prepare all view we want to use
+val videoView: HeluVideoView = findViewById(R.id.helu_video_view)
+val placeholderView: ImageView = ViewGeneratorUtility.generatePlaceholderView(context)
+val playView: ImageView = ViewGeneratorUtility.generatePlayButtonView(context)
+val muteOnView: ImageView = ViewGeneratorUtility.generateMuteOnView(context)
+val muteOffView: ImageView = ViewGeneratorUtility.generateMuteOffView(context)
+val seekBarView: SeekBar = findViewById(R.id.seek_bar)
 
-// Create builder.
-HeluVideoView.Builder builder = new HeluVideoView.Builder(getContext())
+// Create builder
+val builder = HeluVideoView.Builder(context)
 		.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
 		.withVideoUrl("Some URL")
 		.withBackupVideoUrl("Some backup URL")
@@ -156,36 +155,26 @@ HeluVideoView.Builder builder = new HeluVideoView.Builder(getContext())
 		.withSeekBarView(seekBarView)
 		.withAutoPlay(true)
 		.withMuteOnStart(true)
-		.withProgressUpdateInterval(75);
+		.withProgressUpdateInterval(75)
 
-// Init already created HeluVideoView from the builder.
-videoView.initFromBuilder(builder);
+// Init already created HeluVideoView from the builder
+videoView.initFromBuilder(builder)
 
-// Set OnStateChangeListener if necessary.
-videoView.setOnStateChangeListener(new HeluVideoView.PlayerStateChangeInterface() {
-	@Override
-	public void onPrepare(MediaPlayer mediaPlayer)
-	{}
+// Set OnStateChangeListener if necessary
+videoView.setOnStateChangeListener(object: HeluVideoView.PlayerStateChangeInterface(){
+	override fun onPrepare(mediaPlayer: MediaPlayer?) {}
 
-	@Override
-	public void onPlay()
-	{
+	override fun onPlay() {
 		videoView.hideVolumeButton()
 	}
 
-	@Override
-	public void onPause()
-	{
+	override fun onPause() {
 		videoView.showVolumeButton()
 	}
 
-	@Override
-	public void onComplete(MediaPlayer mediaPlayer)
-	{}
+	override fun onComplete(mediaPlayer: MediaPlayer) {}
 
-	@Override
-	public void onProgressChange(int i)
-	{}
-});
+	override fun onProgressChange(progress: Int) {}
+})
 
 ```
