@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
 			public void onClick(View v)
 			{
 				counter--;
-				button.text = "Test Button value: " + counter;
+				button.setText("Test Button value: " + counter);
 				sheet.invalidate();
 			}
 		});
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
 			public void onClick(View v)
 			{
 				counter++;
-				button.text = "Test Button value: " + counter;
+				button.setText("Test Button value: " + counter);
 				sheet.invalidate();
 			}
 		});

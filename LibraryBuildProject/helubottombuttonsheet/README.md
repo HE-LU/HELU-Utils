@@ -1,4 +1,4 @@
-# HeluBottomButtonSheet 1.4.0
+# HeluBottomButtonSheet 2.0.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
@@ -6,7 +6,7 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:helubottombuttonsheet:1.4.0'
+implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
 ```
 
 
@@ -93,7 +93,7 @@ You can create new HeluBottomButtonSheet using the Builder class. Then you can a
 
 ```java
 // Create new bottom sheet using Builder class.
-HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(getContext())
+val sheet = HeluBottomButtonSheet.Builder(context)
 		.withTitle("Some title")
 		.withTitleColor(R.color.some_title_color)
 		.withTitleItemHeight(R.dimen.some_title_item_height)
@@ -104,31 +104,23 @@ HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(getContext())
 		.withItemTouchFeedbackColor(R.color.some_ripple_color)
 		.withHorizontalSpacing(R.dimen.some_horizontal_spacing)
 		.withImageSize(R.dimen.some_image_size)
-		.build();
+		.build()
 
 // Add two buttons and one divider into the bottom sheet.
-sheet.addButton("First Button without image!", new OnClickListener() {
-	@Override
-	public void onClick(View view)
-	{
-		Timber.d("First Item clicked!");
-	}
-});
+sheet.addButton("First Button without image!", View.OnClickListener {
+	Timber.d("First Item clicked!")
+})
 
 // Here we add the divider
-sheet.addDivider();
+sheet.addDivider()
 
-sheet.addButton(R.drawable.some_image_drawable, "Second button with drawable image!", new OnClickListener() {
-	@Override
-	public void onClick(View view)
-	{
-		Timber.d("Second Item clicked!");
-		sheet.dismiss(); // Call dismiss to hide the bottom sheet
-	}
-});
+sheet.addButton(R.drawable.some_image_drawable, "Second button with drawable image!", View.OnClickListener {
+	Timber.d("Second Item clicked!")
+	sheet.dismiss() // Call dismiss to hide the bottom sheet
+})
 
 // Finally show the bottom sheet
-sheet.show(getActivity().getSupportFragmentManager());
+sheet.show(activity.getSupportFragmentManager())
 ```
 
 
@@ -139,31 +131,23 @@ sheet.show(getActivity().getSupportFragmentManager());
 You can also create a button first and change it content later:
 ```java
 // Create new bottom sheet using Builder class.
-HeluBottomButtonSheet sheet = new HeluBottomButtonSheet.Builder(getContext())
+val sheet = HeluBottomButtonSheet.Builder(context)
 		.withTitle("Some title")
-		.build();
+		.build()
 
-// Craete first button
-final TextSheetItem button = new TextSheetItem("HELLO", new View.OnClickListener(){
-	@Override
-	public void onClick(View v)
-	{
-		showToast("Click");
-	}
-});
+// Create first button
+val button = TextSheetItem("HELLO", View.OnClickListener{
+	showToast("Click")
+})
 
 // Add Views inside sheet
-sheet.addButton(button);
-sheet.addDivider();
-sheet.addButton("Click me to change text of first button!", new OnClickListener() {
-	@Override
-	public void onClick(View view)
-	{
-		button.text = "WORLD"
-		sheet.invalidate();
-	}
-});
+sheet.addButton(button)
+sheet.addDivider()
+sheet.addButton("Click me to change text of first button!", View.OnClickListener {
+	button.text = "WORLD"
+	sheet.invalidate()
+})
 
 // Finally show the bottom sheet
-sheet.show(getActivity().getSupportFragmentManager());
+sheet.show(activity.getSupportFragmentManager())
 ```
