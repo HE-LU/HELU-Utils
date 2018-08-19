@@ -1,4 +1,4 @@
-# Android-Utils
+# HELU-Utils
 
 This repository provides various utility classes to make android development less painful.
 
@@ -18,26 +18,26 @@ implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
 
 
 
-### [HeluCollapsingTabBar 1.1.1](./LibraryBuildProject/helucollapsingtabbar/)
+### [HeluCollapsingTabBar 2.0.0](./LibraryBuildProject/helucollapsingtabbar/)
 [![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluCollapsingTabBar/images/download.svg)](https://bintray.com/tuxilero/maven/HeluCollapsingTabBar)
 
 Create Collapsing Tab Bar with buttons easily. 
 
 ```
-implementation 'cz.helu.android:helucollapsingtabbar:1.1.1'
+implementation 'cz.helu.android:helucollapsingtabbar:2.0.0'
 ```
 
 ![Alt text](./LibraryBuildProject/helucollapsingtabbar/extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")
 
 
 
-### [HeluParallaxView 1.1.3 (API 16+)](./LibraryBuildProject/heluparallaxview/)
+### [HeluParallaxView 2.0.0 (API 16+)](./LibraryBuildProject/heluparallaxview/)
 [![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluParallaxView/images/download.svg)](https://bintray.com/tuxilero/maven/HeluParallaxView)
 
 Create ImageView with parallax effect. 
 
 ```
-implementation 'cz.helu.android:heluparallaxview:1.1.3'
+implementation 'cz.helu.android:heluparallaxview:2.0.0'
 ```
 
 ![Alt text](./LibraryBuildProject/heluparallaxview/extras/HeluParallaxView.gif?raw=true "HeluParallaxView")

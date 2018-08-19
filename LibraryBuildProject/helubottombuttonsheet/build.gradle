@@ -59,8 +59,8 @@ dependencies {
 	implementation 'com.android.support:appcompat-v7:27.1.1'
 	implementation 'com.android.support:design:27.1.1'
 	implementation 'com.android.support:support-annotations:27.1.1'
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // Place it at the end of the file

@@ -1,15 +1,10 @@
 package cz.helu.helubottombuttonsheet.utility
 
 import android.content.res.ColorStateList
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.StateListDrawable
+import android.graphics.drawable.*
 import android.graphics.drawable.shapes.RoundRectShape
 import android.os.Build
-
-import java.util.Arrays
+import java.util.*
 
 
 object DrawableUtility {

@@ -1,10 +1,10 @@
-# HeluParallaxView 1.1.3 (API 16+)
+# HeluParallaxView 2.0.0 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluparallaxview:1.1.'
+implementation 'cz.helu.android:heluparallaxview:2.0.0'
 ```
 
 
@@ -25,13 +25,13 @@ implementation 'cz.helu.android:heluparallaxview:1.1.'
   * **normalize**  = ``boolean``
   If set to true, the horizontal and vertical scroll size will be the same, no matter how much image width and height differ. Default value ``true``.
 
-## Parameters
+## Methods
 
 ### Instance:
-* **applyColorFilter(int** brightness, **float** contrast, **float** alpha**)**
+* **applyColorFilter(brightness: Int, contrast: Float, alpha: Float)**
   You can use this method to apply collor filter on the ImageView.
   
-* **setInterpolator(Interpolator** interpol**)**
+* **setInterpolator(interpolator: Interpolator)**
   Can be one of ``["linear", "accelerateDecelerate", "accelerate", "anticipate", "anticipateOvershoot", "bounce", "decelerate", "overshoot"]``
   
 * **setReverseX()** and **setReverseY()**
@@ -45,6 +45,9 @@ implementation 'cz.helu.android:heluparallaxview:1.1.'
   
 * **disableParallax()**
   This will block parallax for both X and Y, and also reset parallax position.
+  
+* **enableParallax()**
+  This will enable parallax for both X and Y, and also reset parallax position.
   
   
 ## Note
@@ -73,33 +76,29 @@ HeluParallaxView is using matrix for scaling images. Be aware of that it automat
 
 ### Example of usage with Glide 4.0.0:
 ```java
-Glide.with(imageView.getContext()).load(url)
-		.apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-		.apply(RequestOptions.centerCropTransform(imageView.getContext()))
-		// We need specify that glide should keep the SIZE_ORIGINAL, otherwise glide will crop the image
-		// and we will only see cropped image with black borders in our parallax view.
-		.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
-		// If we want to specify some loading error image, we may also like to change the scale type of it
-		// or if there should be parallax effect for the error image. 
-		// We can use following listener for this:
-		.apply(RequestOptions.errorOf(R.drawable.ic_error))
-		.listener(new RequestListener<Drawable>() {
-			@Override
-			public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource)
-			{
-				imageView.setScaleType(ImageView.ScaleType.CENTER);
-				imageView.setBlockParallaxX(true);
-				return false;
-			}
+Glide.with(imageView.context).load(url)
+	// We need to set overrideOf SIZE_ORIGINAL, otherwise Glide will crop the image during the caching process, and the parallax won’t work. 
+	// We do not need to do this in case of setting:
+	// .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+	.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
+	
+	.apply(RequestOptions.centerCropTransform())
+	// If we want to specify some loading error image, we may also like to change the scale type of it
+	// or if there should be parallax effect for the error image.
+	// We can use following listener for this:
+	.apply(RequestOptions.errorOf(R.drawable.ic_error))
+	.listener(object : RequestListener<Drawable> {
+		override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+			imageView.enableParallax()
+			imageView.scale = 1.35f
+			return false
+		}
 
-
-			@Override
-			public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource)
-			{
-				imageView.setScaleType(ImageView.ScaleType.MATRIX);
-				imageView.setBlockParallaxX(false);
-				return false;
-			}
-		})
-		.into(imageView);	
+		override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+			imageView.disableParallax()
+			imageView.scale = 0.35f
+			return false
+		}
+	})
+	.into(imageView)
 ```

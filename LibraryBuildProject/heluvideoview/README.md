@@ -12,40 +12,40 @@ implementation 'cz.helu.android:heluvideoview:2.0.0'
 ```
 
 
-## Parameters
+## Methods
 
 ### Builder:
-* **withVideoUrl(String)**
+* **withVideoUrl(url: String)**
   URL of video load.
   
-* **withBackupVideoUrl(String)**
+* **withBackupVideoUrl(url: String)**
   Backup URL that will be loaded in case that loading of the first video failed.
   
-* **withPlaceholderView(View)**
+* **withPlaceholderView(placeholder: View)**
   View with some placeholder image set.
   *(Default is ```null```)*
     
-* **withErrorView(View)**
+* **withErrorView(error: View)**
   View with some error image set. Will be used in case video wont be loaded, or any error occurs.
   *(Default is ```null```)*
   
-* **withPlayView(View)**
+* **withPlayView(play: View)**
   View with some play button image set.
   *(Default is ```null```)*
   
-* **withMuteOnView(View)**
+* **withMuteOnView(muteOn: View)**
   View with some mute on image set. This View will be displayed when the sound is muted.
   *(Default is ```null```)*
   
-* **withMuteOffView(View)**
+* **withMuteOffView(muteOff: View)**
   View with some mute off image set. This View will be displayed when the sound is un-muted.
   *(Default is ```null```)*
   
-* **withSeekBarView(SeekBar)**
+* **withSeekBarView(seekbar: SeekBar)**
   SeekBar view which will be used for navigation.
   *(Default is ```null```)*
   
-* **withScalingMode(ScaleType)**
+* **withScalingMode(scaleType: ScaleType)**
   Specify how the view should be resized when prepare is called.
   ```
   enum ScaleType {
@@ -56,7 +56,7 @@ implementation 'cz.helu.android:heluvideoview:2.0.0'
   ```
   *(Default is ```SCALE_TO_FIT_VIEW```)*
   
-* **withAttachViewPolicy(AttachPolicy)**
+* **withAttachViewPolicy(attachPolicy: AttachPolicy)**
   Specify what should happen when the view is re-attached.
   ```
   enum AttachPolicy {
@@ -67,32 +67,32 @@ implementation 'cz.helu.android:heluvideoview:2.0.0'
   ```
   *(Default is ```PAUSE```)*
   
-* **withAutoPlay(boolean)**
+* **withAutoPlay(autoplay: Boolean)**
   If set to ```true```, video will start automatically playing once prepare is called.
    *(Default is ```false```)*
   
-* **withPauseOnVisibilityChange(boolean)**
+* **withPauseOnVisibilityChange(pause: Boolean)**
   If set to ```true```, video will automatically pause and play once View change its visibility. For example, when app goes to background, or another activity is started above the current one.
    *(Default is ```true```)*
   
-* **withMuteOnStart(boolean)**
+* **withMuteOnStart(muteOnStart: Boolean)**
   If set to ```true```, video will start automaticly muted once prepare is called.
    *(Default is ```false```)*
   
-* **withLooping(boolean)**
+* **withLooping(looping: Boolean)**
   If set to ```true```, video will start from beginning once onCompleteListener is called.
    *(Default is ```false```)*
   
-* **withProgressUpdateInterval(int)**
+* **withProgressUpdateInterval(interval: Int)**
   This values specify how often should be progress updated. (This affects how often is onProgressChange called, how often is seekbar state updated, etc.)
    *(Default is ```1000ms```)*
 
-* **withMaxVideoHeight(int)**
+* **withMaxVideoHeight(maxHeight: Int)**
   If ```value > 0 && ScaleType == SCALE_TO_FIT_VIDEO``` then this is the max height on which the view will be scaled.
    *(Default is ```0```)*
 
 ### Instance:
-* **initFromBuilder(Builder)**
+* **initFromBuilder(builder: Builder)**
   Use this in case you have the HeluVideoView already created in layout file, and you just want to initialize it.
   
 * **destroy()**
@@ -119,7 +119,7 @@ implementation 'cz.helu.android:heluvideoview:2.0.0'
 * **hideVolumeButton()**
   Hide the volume button.
   
-* **setOnStateChangeListener(PlayerStateChangeInterface)**
+* **setOnStateChangeListener(interface: PlayerStateChangeInterface)**
   This interface provides you method about the mediaPlayer state change. You can use it for implementing your own logic.
   ```
   interface PlayerStateChangeInterface {

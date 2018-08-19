@@ -1,17 +1,17 @@
-# HeluCollapsingTabBar 1.1.1
+# HeluCollapsingTabBar 2.0.0
 ![Alt text](./extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:helucollapsingtabbar:1.1.1'
+implementation 'cz.helu.android:helucollapsingtabbar:2.0.0'
 ```
 
-## Parameters
+## Methods
 
 
 ### Instance:
-* **setSelectedItem(int** position**)**
+* **setSelectedItem(position: Int)**
   Set selected button in tab bar.
   
 * **collapseView()**
@@ -25,40 +25,40 @@ implementation 'cz.helu.android:helucollapsingtabbar:1.1.1'
 
 
 ### Builder:
-* **withBackground(Drawable** backgorundDrawable**)**
+* **withBackground(backgorundDrawable: Drawable)**
   Set background drawable.
   
-* **withButtonSize(int** dimension**)**
+* **withButtonSize(dimension: Int)**
   Set button size.
   *(Default is ```56dp```)*
   
-* **withButtonPadding(int** dimension**)**
+* **withButtonPadding(dimension: Int)**
   Set background drawable.
   *(Default is ```16dp```)*
   
-* **withButtonSpacing(int** dimension**)**
+* **withButtonSpacing(dimension: Int)**
   Set background drawable.
   *(Default is ```12dp```)*
     
-* **withButtonSizePx(int** pixelSize**)**
+* **withButtonSizePx(pixelSize: Int)**
   Set background drawable.
   *(Default is ```56dp```)*
   
-* **withButtonPaddingPx(int** pixelSize**)**
+* **withButtonPaddingPx(pixelSize: Int)**
   Set background drawable.
   *(Default is ```16dp```)*
   
-* **withButtonSpacingPx(int** pixelSize**)**
+* **withButtonSpacingPx(pixelSize: Int)**
   Set background drawable.
   *(Default is ```12dp```)*
   
-* **addButton(HeluCollapsingTabBarButton** button**)**
+* **addButton(button: HeluCollapsingTabBarButton)**
   Add custom button.
   
-* **addButton(Drawable** activeIcon**,OnClickListener** clickListener**)**
+* **addButton(activeIcon: Drawable, clickListener: View.OnClickListener)**
   Add button with ``activeIcon`` and ``clickListener``.
   
-* **addButton(Drawable** activeIcon**,Drawable** inactiveIcon**,OnClickListener** clickListener**)**
+* **addButton(activeIcon: Drawable, inactiveIcon: Drawable, clickListener: View.OnClickListener)**
   Add button with ``activeIcon``, ``inactiveIcon`` and ``clickListener``.
 
 
@@ -77,65 +77,40 @@ implementation 'cz.helu.android:helucollapsingtabbar:1.1.1'
 	app:layout_behavior="cz.helu.example.behavior.HeluTabBarBehavior" />
 ```
 
-### JAVA
-
-
-### Example of usage with Glide 4.0.0:
+### Kotlin
 ```java
-private void setupTabBar()
-{
-	HeluCollapsingTabBar bar = (HeluCollapsingTabBar) findViewById(R.id.helu_tab_bar);
-	HeluCollapsingTabBar.Builder builder = new HeluCollapsingTabBar.Builder(this);
+fun setupTabBar() {
+	val bar = findViewById(R.id.helu_tab_bar) as HeluCollapsingTabBar
+	val builder = HeluCollapsingTabBar.Builder(context)
 
 	// Setup drawables
-	Drawable arrowLeftSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left_selected);
-	Drawable arrowLeft = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left);
-	Drawable arrowRightSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_right_selected);
-	Drawable arrowRight= ContextCompat.getDrawable(this, R.drawable.ic_arrow_right);
-	Drawable pauseSelected = ContextCompat.getDrawable(this, R.drawable.ic_pause_selected);
-	Drawable pause = ContextCompat.getDrawable(this, R.drawable.ic_pause);
+	val arrowLeftSelected = ContextCompat.getDrawable(context, R.drawable.ic_arrow_left_selected)!!
+	val arrowLeft = ContextCompat.getDrawable(context, R.drawable.ic_arrow_left)!!
+	val arrowRightSelected = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right_selected)!!
+	val arrowRight = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right)!!
+	val pauseSelected = ContextCompat.getDrawable(context, R.drawable.ic_pause_selected)!!
+	val pause = ContextCompat.getDrawable(context, R.drawable.ic_pause)!!
 
 	// Setup builder
-	builder.withBackground(ContextCompat.getDrawable(this, R.drawable.shape_collapsing_tab_bar));
-	builder.withButtonSize(R.dimen.global_spacing_48);
-	builder.withButtonPadding(R.dimen.global_spacing_12);
-	builder.withButtonSpacing(R.dimen.global_spacing_16);
+	builder.withBackground(ContextCompat.getDrawable(context, R.drawable.shape_collapsing_tab_bar)!!)
+	builder.withButtonSize(R.dimen.global_spacing_48)
+	builder.withButtonPadding(R.dimen.global_spacing_12)
+	builder.withButtonSpacing(R.dimen.global_spacing_16)
 
 	// Add buttons
-	builder.addButton(arrowLeftSelected, arrowLeft, new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View view)
-		{
-			showToast("Left");
-		}
-	});
-	builder.addButton(pauseSelected, pause, new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View view)
-		{
-			showToast("Pause");
-		}
-	});
-	builder.addButton(arrowRightSelected, arrowRight, new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View view)
-		{
-			showToast("Right");
-		}
-	});
+	builder.addButton(arrowLeftSelected, arrowLeft, View.OnClickListener { showToast("Left") })
+	builder.addButton(pauseSelected, pause, View.OnClickListener { showToast("Pause") })
+	builder.addButton(arrowRightSelected, arrowRight, View.OnClickListener { showToast("Right") })
 
 	// Setup bar
-	bar.initFromBuilder(builder);
-	bar.setSelectedItem(0);
+	bar.initFromBuilder(builder)
+	bar.setSelectedItem(0)
 
 	// Customize animation using LayoutTransition
-	bar.getLayoutTransition().setDuration(150); // Translation duration
-	bar.getLayoutTransition().setDuration(LayoutTransition.CHANGE_APPEARING, 200); // Translation duration
-	bar.getLayoutTransition().setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 125); // Start Delay
-	bar.getLayoutTransition().setStartDelay(LayoutTransition.APPEARING, 100); // Start Delay
-	bar.getLayoutTransition().setInterpolator(LayoutTransition.CHANGE_APPEARING, new OvershootInterpolator());
+	bar.layoutTransition.setDuration(150) // Translation duration
+	bar.layoutTransition.setDuration(LayoutTransition.CHANGE_APPEARING, 200) // Translation duration
+	bar.layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 125) // Start Delay
+	bar.layoutTransition.setStartDelay(LayoutTransition.APPEARING, 100) // Start Delay
+	bar.layoutTransition.setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator())
 }
 ```

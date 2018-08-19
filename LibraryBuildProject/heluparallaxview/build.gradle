@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 ext {
 	bintrayRepo = 'maven'
@@ -13,7 +14,7 @@ ext {
 	siteUrl = 'https://github.com/Tuxilero/Android-Utils'
 	gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
 
-	libraryVersion = '1.1.3'
+	libraryVersion = '2.0.0'
 
 	developerId = 'tuxilero'
 	developerName = 'Lukas Hermann'
@@ -58,9 +59,14 @@ dependencies {
 	implementation 'com.android.support:appcompat-v7:27.1.1'
 	implementation 'com.android.support:design:27.1.1'
 	implementation 'com.android.support:support-annotations:27.1.1'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // Place it at the end of the file
 apply from: '../install.gradle'
 apply from: '../bintray.gradle'
+
+tasks.withType(Javadoc).all {
+	enabled = false
+}

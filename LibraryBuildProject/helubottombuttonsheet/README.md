@@ -10,81 +10,87 @@ implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
 ```
 
 
-## Builder Parameters
-* **withTitle(String)** or **withTitleRes(int)**
+## Methods
+
+
+### Builder:
+
+* **withTitle(text: String)** or **withTitleRes(res: Int)**
   Set **string** or **string resource** as a title text to the Bottom sheet. 
   *Note: Sheet wont contain any title if the title is not set.*
   
-* **withTitleColor(int)** or **withTitleColorRes(int)**
+* **withTitleColor(color: Int)** or **withTitleColorRes(res: Int)**
   Set **color** or **color resource** to change default title color. 
   *(Default is ```Color.GRAY```)*
 
-* **withTitleItemHeight(int)** or **withTitleItemHeightRes(int)**
+* **withTitleItemHeight(size: Int)** or **withTitleItemHeightRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default title item height. 
   *(Default is ```56dp```)*
 
-* **withBackgroundColor(int)** or **withBackgroundColorRes(int)**
+* **withBackgroundColor(color: Int)** or **withBackgroundColorRes(res: Int)**
   Set **color** or **color resource** to change default background sheet color. 
   *(Default is ```Color.WHITE```)*
   
-* **withItemHeight(int)** or **withItemHeightRes(int)**
+* **withItemHeight(height: Int)** or **withItemHeightRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default item height. 
   *(Default is ```48dp```)*
   
-* **withItemTextColor(int)** or **withItemTextColorRes(int)**
+* **withItemTextColor(color: Int)** or **withItemTextColorRes(res: Int)**
   Set **color** or **color resource** to change default item text color. 
   *(Default is ```Color.BLACK```)*
 
-* **withDividerColor(int)** or **withDividerColorRes(int)**
+* **withDividerColor(color: Int)** or **withDividerColorRes(res: Int)**
   Set **color** or **color resource** to change default divider color. 
   *(Default is ```Color.LTGRAY```)*
 
-* **withItemTouchFeedbackColor(int)** or **withItemTouchFeedbackColorRes(int)**
+* **withItemTouchFeedbackColor(color: Int)** or **withItemTouchFeedbackColorRes(res: Int)**
   Set **color** or **color resource** to change default ripple color. 
   *(Default is ```Color.LTGRAY```)*
   
-* **withHorizontalSpacing(int)** or **withHorizontalSpacingRes(int)**
+* **withHorizontalSpacing(spacing: Int)** or **withHorizontalSpacingRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default horizontal spacing. 
   *(Default is ```16dp```)*
   
-* **withVerticalPadding(int)** or **withVerticalPaddingRes(int)**
+* **withVerticalPadding(padding: Int)** or **withVerticalPaddingRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default vertical padding of the content view. 
   *(Default is ```8dp```)*
   
-* **withImageSize(int)** or **withImageSizeRes(int)**
+* **withImageSize(size: Int)** or **withImageSizeRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default item icon size. 
   *(Default is ```24dp```)*
   
   
-## BottomButtonSheet Methods
-* ```TextSheetItem addButton(TextSheetItem item)```
+### Instance:
+
+
+* **addButton(item: TextSheetItem)**
   Add custom created ```TextSheetItem```.
 
-* ```TextSheetItem addButton(String text, View.OnClickListener())```
+* **addButton(text: String, listener: View.OnClickListener())**
   Add button with custom ```text``` and ```OnClickListener```.
 
-* ```TextSheetItem addButton(Drawable image, String text, View.OnClickListener listener)```
+* **addButton(image: Drawable, text: String, listener: View.OnClickListener)**
   Add button with custom ```drawable```,  ```text``` and ```OnClickListener```.
 
-* ```TextSheetItem addButton(drawableResourceId int, String text, View.OnClickListener listener)```
+* **addButton(drawableResourceId: Int, text: String, listener: View.OnClickListener)**
   Add button with custom ```drawableResourceId```,  ```text``` and ```OnClickListener```.
 
-* ```DividerSheetItem addDivider()```
+* **addDivider()**
   Add divider line.
 
-* ```CustomViewSheetItem addCustomView(View customView)```
+* **addCustomView(customView: View)**
   Add custom view.
 
-* ```CustomViewSheetItem addCustomView(View customView, View.OnClickListener listener)```
+* **addCustomView(customView: View, listener: View.OnClickListener)**
   Add custom view with ```OnClickListener```.
 
-* ```BaseSheetItem getItem(int position)``` 
+* **getItem(position: Int)** 
   Return ```BaseSheetItem``` on specified position. You can make some changes above that item, and redraw the sheet using ```invalidate(```) method.
 
-* ```void show()```
+* **show()**
   Render and show the Sheet.
 
-* ```void invalidate()```
+* **invalidate()**
   Redraw all sheet views. Need to be called after item change.
 
 
