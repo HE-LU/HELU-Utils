@@ -1,4 +1,4 @@
-# HeluBottomButtonSheet 2.0.0
+# HeluBottomButtonSheet 2.1.0
 Create Bottom Sheet acording to Google Material guidelines simply: https://material.google.com/components/bottom-sheets.html
 
 ![Alt text](./extras/HeluBottomButtonSheet.png?raw=true "HeluBottomButtonSheet")
@@ -6,7 +6,7 @@ Create Bottom Sheet acording to Google Material guidelines simply: https://mater
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
+implementation 'cz.helu.android:helubottombuttonsheet:2.1.0'
 ```
 
 
@@ -26,6 +26,10 @@ implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
 * **withTitleItemHeight(size: Int)** or **withTitleItemHeightRes(res: Int)**
   Set **pixel size** or **dimension resource** to change default title item height. 
   *(Default is ```56dp```)*
+  
+* **withTitleTextSize(size: Int)** or **withTitleTextSizeRes(res: Int)**
+  Set **pixel size** or **dimension resource** to change default title text size. 
+  *(Default is ```14sp```)*
 
 * **withBackgroundColor(color: Int)** or **withBackgroundColorRes(res: Int)**
   Set **color** or **color resource** to change default background sheet color. 
@@ -38,6 +42,10 @@ implementation 'cz.helu.android:helubottombuttonsheet:2.0.0'
 * **withItemTextColor(color: Int)** or **withItemTextColorRes(res: Int)**
   Set **color** or **color resource** to change default item text color. 
   *(Default is ```Color.BLACK```)*
+  
+* **withItemTextSize(size: Int)** or **withItemTextSize(res: Int)**
+  Set **pixel size** or **dimension resource** to change default item text size. 
+  *(Default is ```14sp```)*
 
 * **withDividerColor(color: Int)** or **withDividerColorRes(res: Int)**
   Set **color** or **color resource** to change default divider color. 

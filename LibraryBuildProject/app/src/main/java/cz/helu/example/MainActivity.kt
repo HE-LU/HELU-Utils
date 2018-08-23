@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Toast
@@ -111,8 +113,8 @@ class MainActivity : AppCompatActivity() {
 		builder.withButtonSpacing(R.dimen.global_spacing_16)
 
 		// Add buttons
-		builder.addButton(arrowLeftSelected!!, arrowLeft!!, View.OnClickListener { showBottomButtonSheet() })
-		builder.addButton(pauseSelected!!, pause!!, View.OnClickListener { showBottomButtonSheet() })
+		builder.addButton(arrowLeftSelected!!, arrowLeft!!, View.OnClickListener { showBottomButtonSheetSimple() })
+		builder.addButton(pauseSelected!!, pause!!, View.OnClickListener { showBottomButtonSheetComplex() })
 		builder.addButton(arrowRightSelected!!, arrowRight!!, View.OnClickListener { showBottomButtonSheet() })
 
 		// Setup bar
@@ -125,6 +127,38 @@ class MainActivity : AppCompatActivity() {
 		bar.layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 125) // Start Delay
 		bar.layoutTransition.setStartDelay(LayoutTransition.APPEARING, 100) // Start Delay
 		bar.layoutTransition.setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator())
+	}
+
+
+	@SuppressLint("InflateParams")
+	private fun showBottomButtonSheetSimple() {
+		val sheet = HeluBottomButtonSheet.Builder(this).build()
+
+		sheet.addButton("First button", View.OnClickListener {
+			Log.d("TAG", "First button click")
+		})
+
+		sheet.addButton("Second button", View.OnClickListener {
+			Log.d("TAG", "First button click")
+		})
+
+		sheet.show(supportFragmentManager)
+	}
+
+
+	private fun showBottomButtonSheetComplex() {
+		val sheet = HeluBottomButtonSheet.Builder(this)
+				.withTitle("Complex sheet")
+				.withItemHeightRes(R.dimen.global_size_36)
+				.withTitleTextSizeRes(R.dimen.global_text_20)
+				.build()
+
+		sheet.addButton(R.drawable.ic_edit, "Edit", View.OnClickListener { /* click */ })
+		sheet.addButton(R.drawable.ic_delete, "Delete", View.OnClickListener { /* click */ })
+		sheet.addDivider()
+		sheet.addCustomView(EditText(this).apply { hint = "Custom EditText view" })
+
+		sheet.show(supportFragmentManager)
 	}
 
 

@@ -16,6 +16,7 @@ import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 	private var titleItemHeight: Int = 0
 	private var itemHeight: Int = 0
 	private var itemImageSize: Int = 0
+	private var titleTextSize: Int = 0
+	private var itemTextSize: Int = 0
 	private var spacingHorizontal: Int = 0
 	private var paddingVertical: Int = 0
 	private var itemTouchFeedbackColor: Int = 0
@@ -56,6 +59,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 			this.titleItemHeight = arguments.getInt(Builder.ARGUMENTS_TITLE_ITEM_HEIGHT)
 			this.itemHeight = arguments.getInt(Builder.ARGUMENTS_ITEM_HEIGHT)
 			this.itemImageSize = arguments.getInt(Builder.ARGUMENTS_ITEM_IMAGE_SIZE)
+			this.titleTextSize = arguments.getInt(Builder.ARGUMENTS_TITLE_TEXT_SIZE)
+			this.itemTextSize = arguments.getInt(Builder.ARGUMENTS_ITEM_TEXT_SIZE)
 			this.spacingHorizontal = arguments.getInt(Builder.ARGUMENTS_SPACING_HORIZONTAL)
 			this.paddingVertical = arguments.getInt(Builder.ARGUMENTS_PADDING_VERTICAL)
 			this.itemTouchFeedbackColor = arguments.getInt(Builder.ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR)
@@ -179,6 +184,7 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 		textView.setTextColor(sheetTitleColor)
 		textView.layoutParams = textViewParams
 		textView.gravity = Gravity.CENTER_VERTICAL
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize.toFloat())
 		textView.setPadding(spacingHorizontal, 0, spacingHorizontal, 0)
 
 		return textView
@@ -225,6 +231,7 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 		val textView = TextView(context)
 		textView.text = entity.text
 		textView.setTextColor(itemTextColor)
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize.toFloat())
 
 		item.addView(textView)
 
@@ -258,6 +265,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 			internal const val ARGUMENTS_TITLE_ITEM_HEIGHT = "ARGUMENTS_TITLE_ITEM_HEIGHT"
 			internal const val ARGUMENTS_ITEM_HEIGHT = "ARGUMENTS_ITEM_HEIGHT"
 			internal const val ARGUMENTS_ITEM_IMAGE_SIZE = "ARGUMENTS_ITEM_IMAGE_SIZE"
+			internal const val ARGUMENTS_TITLE_TEXT_SIZE = "ARGUMENTS_TITLE_TEXT_SIZE"
+			internal const val ARGUMENTS_ITEM_TEXT_SIZE = "ARGUMENTS_ITEM_TEXT_SIZE"
 			internal const val ARGUMENTS_SPACING_HORIZONTAL = "ARGUMENTS_SPACING_HORIZONTAL"
 			internal const val ARGUMENTS_PADDING_VERTICAL = "ARGUMENTS_PADDING_VERTICAL"
 			internal const val ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR = "ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR"
@@ -270,6 +279,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 			internal const val DEFAULT_TITLE_ITEM_HEIGHT = 56
 			internal const val DEFAULT_ITEM_HEIGHT = 48
 			internal const val DEFAULT_ITEM_IMAGE_SIZE = 24
+			internal const val DEFAULT_TITLE_TEXT_SIZE = 14
+			internal const val DEFAULT_ITEM_TEXT_SIZE = 14
 			internal const val DEFAULT_HORIZONTAL_SPACING = 16
 			internal const val DEFAULT_CONTENT_VERTICAL_SPACING = 8
 		}
@@ -277,13 +288,15 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 		private var titleItemHeight: Int = 0
 		private var itemHeight: Int = 0
 		private var itemImageSize: Int = 0
+		private var titleTextSize: Int = 0
+		private var itemTextSize: Int = 0
 		private var spacingHorizontal: Int = 0
 		private var paddingVertical: Int = 0
 		private var title = ""
 		@ColorInt
 		private var itemTouchFeedbackColor = Color.LTGRAY
 		@ColorInt
-		private var sheetBackgroundColor = Color.WHITE
+		private var sheetBackgroundColor = Color.parseColor("#FAFAFA")
 		@ColorInt
 		private var sheetTitleColor = Color.GRAY
 		@ColorInt
@@ -297,6 +310,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 			titleItemHeight = convertDpToPx(DEFAULT_TITLE_ITEM_HEIGHT)
 			itemHeight = convertDpToPx(DEFAULT_ITEM_HEIGHT)
 			itemImageSize = convertDpToPx(DEFAULT_ITEM_IMAGE_SIZE)
+			titleTextSize = convertDpToPx(DEFAULT_TITLE_TEXT_SIZE)
+			itemTextSize = convertDpToPx(DEFAULT_ITEM_TEXT_SIZE)
 			spacingHorizontal = convertDpToPx(DEFAULT_HORIZONTAL_SPACING)
 			paddingVertical = convertDpToPx(DEFAULT_CONTENT_VERTICAL_SPACING)
 		}
@@ -352,6 +367,34 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 		@SuppressLint("ResourceType")
 		fun withImageSize(@DimenRes pixelSize: Int): Builder {
 			this.itemImageSize = pixelSize
+			return this
+		}
+
+
+		@SuppressLint("ResourceType")
+		fun withTitleTextSizeRes(@DimenRes dimension: Int): Builder {
+			this.titleTextSize = context.resources.getDimensionPixelSize(dimension)
+			return this
+		}
+
+
+		@SuppressLint("ResourceType")
+		fun withTitleTextSize(@DimenRes pixelSize: Int): Builder {
+			this.titleTextSize = pixelSize
+			return this
+		}
+
+
+		@SuppressLint("ResourceType")
+		fun withItemTextSizeRes(@DimenRes dimension: Int): Builder {
+			this.itemTextSize = context.resources.getDimensionPixelSize(dimension)
+			return this
+		}
+
+
+		@SuppressLint("ResourceType")
+		fun withItemTextSize(@DimenRes pixelSize: Int): Builder {
+			this.itemTextSize = pixelSize
 			return this
 		}
 
@@ -451,6 +494,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 			arguments.putInt(ARGUMENTS_TITLE_ITEM_HEIGHT, this.titleItemHeight)
 			arguments.putInt(ARGUMENTS_ITEM_HEIGHT, this.itemHeight)
 			arguments.putInt(ARGUMENTS_ITEM_IMAGE_SIZE, this.itemImageSize)
+			arguments.putInt(ARGUMENTS_TITLE_TEXT_SIZE, this.titleTextSize)
+			arguments.putInt(ARGUMENTS_ITEM_TEXT_SIZE, this.itemTextSize)
 			arguments.putInt(ARGUMENTS_SPACING_HORIZONTAL, this.spacingHorizontal)
 			arguments.putInt(ARGUMENTS_PADDING_VERTICAL, this.paddingVertical)
 			arguments.putInt(ARGUMENTS_ITEM_TOUCH_FEEDBACK_COLOR, this.itemTouchFeedbackColor)

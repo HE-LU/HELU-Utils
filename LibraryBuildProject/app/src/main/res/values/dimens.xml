@@ -23,4 +23,12 @@
 	<dimen name="global_spacing_96">96dp</dimen>
 	<dimen name="global_spacing_120">120dp</dimen>
 	<dimen name="global_spacing_160">160dp</dimen>
+
+
+	<dimen name="global_size_32">32dp</dimen>
+	<dimen name="global_size_36">36dp</dimen>
+	<dimen name="global_size_72">72dp</dimen>
+
+	<dimen name="global_text_16">16sp</dimen>
+	<dimen name="global_text_20">20sp</dimen>
 </resources>

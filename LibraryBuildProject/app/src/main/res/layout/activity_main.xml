@@ -21,7 +21,6 @@
 				android:orientation="vertical"
 				android:background="#fff">
 
-
 				<!-- TT HeluVideoView SCALE_TO_FIT_VIDEO -->
 				<TextView
 					android:layout_width="match_parent"
@@ -171,6 +170,18 @@
 					android:background="#181818"
 					android:textSize="34sp"
 					android:text="Helu Parallax View" />
+
+
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:src="@drawable/kitten"
+					app:interpolation="bounce" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
 
 				<cz.helu.heluparallaxview.HeluParallaxView
 					android:id="@+id/parallax_image_view_wide"
