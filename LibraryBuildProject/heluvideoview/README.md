@@ -1,14 +1,15 @@
-# HeluVideoView 2.0.0
+# HeluVideoView 2.1.0
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
 
 ![Alt text](./extras/HeluVideoView.jpg?raw=true "HeluVideoView")
+![Alt text](./extras/HeluVideoView.gif?raw=true "HeluVideoView")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluvideoview:2.0.0'
+implementation 'cz.helu.android:heluvideoview:2.1.0'
 ```
 
 
@@ -31,6 +32,14 @@ implementation 'cz.helu.android:heluvideoview:2.0.0'
   
 * **withPlayView(play: View)**
   View with some play button image set.
+  *(Default is ```null```)*
+  
+* **withPauseView(play: View)**
+  View with some pause button image set.
+  *(Default is ```null```)*
+  
+* **withReplayView(play: View)**
+  View with some replay button image set.
   *(Default is ```null```)*
   
 * **withMuteOnView(muteOn: View)**
@@ -139,6 +148,7 @@ You have to use the Builder class for creating or initializing new HeluVideoView
 val videoView: HeluVideoView = findViewById(R.id.helu_video_view)
 val placeholderView: ImageView = ViewGeneratorUtility.generatePlaceholderView(context)
 val playView: ImageView = ViewGeneratorUtility.generatePlayButtonView(context)
+val pauseView: ImageView = ViewGeneratorUtility.generatePauseButtonView(context)
 val muteOnView: ImageView = ViewGeneratorUtility.generateMuteOnView(context)
 val muteOffView: ImageView = ViewGeneratorUtility.generateMuteOffView(context)
 val seekBarView: SeekBar = findViewById(R.id.seek_bar)
@@ -150,6 +160,7 @@ val builder = HeluVideoView.Builder(context)
 		.withBackupVideoUrl("Some backup URL")
 		.withPlaceholderView(placeholderView)
 		.withPlayView(playView)
+		.withPauseView(pauseView)
 		.withMuteOnView(muteOnView)
 		.withMuteOffView(muteOffView)
 		.withSeekBarView(seekBarView)

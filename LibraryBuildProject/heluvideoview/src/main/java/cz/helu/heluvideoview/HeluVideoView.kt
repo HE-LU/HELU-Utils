@@ -25,6 +25,8 @@ class HeluVideoView : FrameLayout {
 	private var viewPlaceholder: View? = null
 	private var viewError: View? = null
 	private var viewPlay: View? = null
+	private var viewPause: View? = null
+	private var viewReplay: View? = null
 	private var viewMuteOn: View? = null
 	private var viewMuteOff: View? = null
 	private var seekBarView: SeekBar? = null
@@ -34,7 +36,7 @@ class HeluVideoView : FrameLayout {
 	private var pauseOnVisibilityChange: Boolean = false
 	private var isMuted: Boolean = false
 	private var looping: Boolean = false
-	private var progressUpdateInterval: Int = 0
+	private var progressUpdateInterval: Int = 1000
 	private var maxVideoHeight = -1
 	private var playerStateChangeListener: PlayerStateChangeInterface? = null
 	private val progressHandler = Handler()
@@ -45,7 +47,7 @@ class HeluVideoView : FrameLayout {
 
 			val time = mediaPlayer?.currentPosition ?: 0
 
-			seekBarView?.progress = time / progressUpdateInterval
+			seekBarView?.progress = time
 			playerStateChangeListener?.onProgressChange(time)
 			progressHandler.postDelayed(this, progressUpdateInterval.toLong())
 		}
@@ -122,6 +124,8 @@ class HeluVideoView : FrameLayout {
 		this.viewPlaceholder = builder.viewPlaceholder
 		this.viewError = builder.viewError
 		this.viewPlay = builder.viewPlay
+		this.viewPause = builder.viewPause
+		this.viewReplay = builder.viewReplay
 		this.viewMuteOn = builder.viewMuteOn
 		this.viewMuteOff = builder.viewMuteOff
 		this.seekBarView = builder.viewSeekBar
@@ -262,6 +266,14 @@ class HeluVideoView : FrameLayout {
 		if (viewPlay != null && viewPlay?.parent == null)
 			addView(viewPlay)
 
+		// Create pause view
+		if (viewPause != null && viewPause?.parent == null)
+			addView(viewPause)
+
+		// Create pause view
+		if (viewReplay != null && viewReplay?.parent == null)
+			addView(viewReplay)
+
 		// Create mute buttons views
 		if (viewMuteOn != null && viewMuteOff != null) {
 			if (viewMuteOn?.parent == null)
@@ -343,18 +355,15 @@ class HeluVideoView : FrameLayout {
 
 
 	private fun checkSeekBar() {
-		if (seekBarView == null)
-			return
-
-		seekBarView?.max = mediaPlayer?.duration ?: 0 / progressUpdateInterval
-		seekBarView?.progress = mediaPlayer?.currentPosition ?: 0 / progressUpdateInterval
+		seekBarView?.max = mediaPlayer?.duration ?: 0
+		seekBarView?.progress = mediaPlayer?.currentPosition ?: 0
 		seekBarView?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 			private var wasRunning = false
 
 
 			override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
 				if (playerState == PlayerState.PAUSED)
-					mediaPlayer?.seekTo(i * progressUpdateInterval)
+					mediaPlayer?.seekTo(i)
 			}
 
 
@@ -376,13 +385,20 @@ class HeluVideoView : FrameLayout {
 
 
 	private fun setupControlViews() {
-		if (viewPlay != null) {
-			setOnClickListener {
-				if (playerState == PlayerState.PAUSED)
-					play()
-				else
-					pause()
-			}
+		val playPauseClickListener = OnClickListener {
+			if (playerState == PlayerState.PAUSED)
+				play()
+			else
+				pause()
+		}
+
+		setOnClickListener(playPauseClickListener)
+		viewPlay?.setOnClickListener(playPauseClickListener)
+		viewPause?.setOnClickListener(playPauseClickListener)
+
+		viewReplay?.setOnClickListener {
+			seekToBeginning()
+			play()
 		}
 
 		checkControlsVisibility()
@@ -390,16 +406,14 @@ class HeluVideoView : FrameLayout {
 
 
 	private fun setupAudioViews() {
-		if (viewMuteOn != null && viewMuteOff != null) {
-			val clickListener = OnClickListener {
-				isMuted = !isMuted
-				checkVolumeMute()
-				checkVolumeVisibility()
-			}
-
-			viewMuteOn?.setOnClickListener(clickListener)
-			viewMuteOff?.setOnClickListener(clickListener)
+		val clickListener = OnClickListener {
+			isMuted = !isMuted
+			checkVolumeMute()
+			checkVolumeVisibility()
 		}
+
+		viewMuteOn?.setOnClickListener(clickListener)
+		viewMuteOff?.setOnClickListener(clickListener)
 
 		checkVolumeVisibility()
 	}
@@ -455,16 +469,20 @@ class HeluVideoView : FrameLayout {
 
 	private fun checkControlsVisibility() {
 		if (playerState.value < PlayerState.PREPARED.value) {
-			if (viewPlay != null)
-				viewPlay?.visibility = View.GONE
+			viewPlay?.visibility = View.GONE
+			viewPause?.visibility = View.GONE
+			viewReplay?.visibility = View.GONE
 			return
+		} else {
+			viewReplay?.visibility = View.VISIBLE
 		}
 
-		if (viewPlay != null) {
-			if (playerState == PlayerState.PAUSED)
-				viewPlay?.visibility = View.VISIBLE
-			else
-				viewPlay?.visibility = View.GONE
+		if (playerState == PlayerState.PAUSED) {
+			viewPlay?.visibility = View.VISIBLE
+			viewPause?.visibility = View.GONE
+		} else {
+			viewPlay?.visibility = View.GONE
+			viewPause?.visibility = View.VISIBLE
 		}
 	}
 
@@ -592,6 +610,8 @@ class HeluVideoView : FrameLayout {
 		internal var viewPlaceholder: View? = null
 		internal var viewError: View? = null
 		internal var viewPlay: View? = null
+		internal var viewPause: View? = null
+		internal var viewReplay: View? = null
 		internal var viewMuteOn: View? = null
 		internal var viewMuteOff: View? = null
 		internal var viewSeekBar: SeekBar? = null
@@ -631,6 +651,18 @@ class HeluVideoView : FrameLayout {
 
 		fun withPlayView(ViewPlay: View): Builder {
 			this.viewPlay = ViewPlay
+			return this
+		}
+
+
+		fun withPauseView(ViewPause: View): Builder {
+			this.viewPause = ViewPause
+			return this
+		}
+
+
+		fun withReplayView(ViewReplay: View): Builder {
+			this.viewReplay = ViewReplay
 			return this
 		}
 
@@ -689,8 +721,8 @@ class HeluVideoView : FrameLayout {
 		}
 
 
-		fun withProgressUpdateInterval(progressUpdateInterval: Int): Builder {
-			this.progressUpdateInterval = progressUpdateInterval
+		fun withProgressUpdateInterval(progressUpdateIntervalMs: Int): Builder {
+			this.progressUpdateInterval = progressUpdateIntervalMs
 			return this
 		}
 

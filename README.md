@@ -44,13 +44,13 @@ implementation 'cz.helu.android:heluparallaxview:2.0.0'
 
 
 
-### [HeluVideoView 2.0.0](./LibraryBuildProject/heluvideoview/)
+### [HeluVideoView 2.1.0](./LibraryBuildProject/heluvideoview/)
 [![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluVideoView/images/download.svg)](https://bintray.com/tuxilero/maven/HeluVideoView)
 
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekBar views, which you can then provide to HeluVideoView.
 
 ```
-implementation 'cz.helu.android:heluvideoview:2.0.0'
+implementation 'cz.helu.android:heluvideoview:2.1.0'
 ```
 
 ![Alt text](./LibraryBuildProject/heluvideoview/extras/HeluVideoView.jpg?raw=true "HeluVideoView")

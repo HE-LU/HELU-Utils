@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.Toast
 import cz.helu.helubottombuttonsheet.HeluBottomButtonSheet
 import cz.helu.helubottombuttonsheet.entity.TextSheetItem
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
 	private fun setupVideoView() {
+		setupVideoViewWithControls()
 		val videoViewFitVideo = findViewById<HeluVideoView>(R.id.video_view_fit_video)
 		val videoViewFitView = findViewById<HeluVideoView>(R.id.video_view_fit_view)
 		val videoViewWitchCropping = findViewById<HeluVideoView>(R.id.video_view_with_cropping)
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 				.withMuteOnStart(true)
 				.withLooping(true)
 
-
 		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
 		videoViewFitVideo.initFromBuilder(builder)
 
@@ -54,6 +55,30 @@ class MainActivity : AppCompatActivity() {
 		builder.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_WITH_CROPPING)
 		videoViewWitchCropping.initFromBuilder(builder)
 		videoViewWitchCropping2.initFromBuilder(builder)
+	}
+
+
+	private fun setupVideoViewWithControls() {
+		val videoViewWithControls = findViewById<HeluVideoView>(R.id.video_view_with_controls)
+		val playView = findViewById<ImageView>(R.id.video_play)
+		val pauseView = findViewById<ImageView>(R.id.video_pause)
+		val replayView = findViewById<ImageView>(R.id.video_replay)
+		val seekBarView = findViewById<SeekBar>(R.id.video_seek_bar)
+
+		val builder = HeluVideoView.Builder(this)
+				.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
+				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
+				.withBackupVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
+				.withPlayView(playView)
+				.withPauseView(pauseView)
+				.withReplayView(replayView)
+				.withSeekBarView(seekBarView)
+				.withProgressUpdateInterval(50)
+				.withAutoPlay(false)
+				.withMuteOnStart(true)
+				.withLooping(true)
+
+		videoViewWithControls.initFromBuilder(builder)
 	}
 
 
