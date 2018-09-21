@@ -18,13 +18,13 @@ implementation 'cz.helu.android:helubottombuttonsheet:2.1.0'
 
 
 
-### [HeluCollapsingTabBar 2.0.0](./LibraryBuildProject/helucollapsingtabbar/)
+### [HeluCollapsingTabBar 2.1.0](./LibraryBuildProject/helucollapsingtabbar/)
 [![Bintray](https://api.bintray.com/packages/tuxilero/maven/HeluCollapsingTabBar/images/download.svg)](https://bintray.com/tuxilero/maven/HeluCollapsingTabBar)
 
 Create Collapsing Tab Bar with buttons easily. 
 
 ```
-implementation 'cz.helu.android:helucollapsingtabbar:2.0.0'
+implementation 'cz.helu.android:helucollapsingtabbar:2.1.0'
 ```
 
 ![Alt text](./LibraryBuildProject/helucollapsingtabbar/extras/HeluCollapsingTabBar.gif?raw=true "HeluCollapsingTabBar")

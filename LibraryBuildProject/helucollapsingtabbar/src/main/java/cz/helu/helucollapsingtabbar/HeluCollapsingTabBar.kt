@@ -3,6 +3,7 @@ package cz.helu.helucollapsingtabbar
 import android.animation.LayoutTransition
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.Gravity
@@ -22,7 +23,7 @@ class HeluCollapsingTabBar : LinearLayout {
 	private var bgDrawable: Drawable? = null
 	var isCollapsed = false
 		private set
-	private var mSelectedItem = 0
+	private var selectedPosition = 0
 
 
 	@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
@@ -44,21 +45,24 @@ class HeluCollapsingTabBar : LinearLayout {
 	}
 
 
-	fun setSelectedItem(position: Int) {
+	fun setSelectedPosition(position: Int) {
 		if (position >= childCount)
 			return
 
-		mSelectedItem = position
+		selectedPosition = position
 
 		collapseView()
 	}
 
 
+	fun getSelectedPosition(): Int = selectedPosition
+
+
 	fun collapseView() {
-		if (getChildAt(mSelectedItem) !is ImageView)
+		if (getChildAt(selectedPosition) !is ImageView)
 			return
 
-		val view = getChildAt(mSelectedItem) as ImageView
+		val view = getChildAt(selectedPosition) as ImageView
 
 		for (i in 0 until childCount) {
 			if (getChildAt(i) !is ImageView)
@@ -72,7 +76,7 @@ class HeluCollapsingTabBar : LinearLayout {
 				val params = view.layoutParams as LinearLayout.LayoutParams
 				params.gravity = Gravity.CENTER
 				clearViewMargins(params, view)
-				mSelectedItem = i
+				selectedPosition = i
 			}
 		}
 		isCollapsed = true
@@ -80,10 +84,10 @@ class HeluCollapsingTabBar : LinearLayout {
 
 
 	fun expandView() {
-		if (getChildAt(mSelectedItem) !is ImageView)
+		if (getChildAt(selectedPosition) !is ImageView)
 			return
 
-		val view = getChildAt(mSelectedItem) as ImageView
+		val view = getChildAt(selectedPosition) as ImageView
 		val params = view.layoutParams as LinearLayout.LayoutParams
 		params.gravity = Gravity.CENTER
 		setupViewMargins(params, view)
@@ -95,7 +99,7 @@ class HeluCollapsingTabBar : LinearLayout {
 			val child = getChildAt(i) as ImageView
 			child.visibility = View.VISIBLE
 
-			if (i != mSelectedItem)
+			if (i != selectedPosition)
 				child.setImageDrawable(buttonsList[i].inactiveIcon)
 		}
 
@@ -120,7 +124,7 @@ class HeluCollapsingTabBar : LinearLayout {
 			buttonImageView.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
 			buttonImageView.setImageDrawable(button.icon)
 			buttonImageView.setOnClickListener { view ->
-				mSelectedItem = indexOfChild(view)
+				selectedPosition = indexOfChild(view)
 				onButtonClicked()
 			}
 
@@ -133,8 +137,8 @@ class HeluCollapsingTabBar : LinearLayout {
 		if (isCollapsed) {
 			expandView()
 		} else {
-			val view = getChildAt(mSelectedItem) as ImageView
-			buttonsList[mSelectedItem].onClickListener?.onClick(view)
+			val view = getChildAt(selectedPosition) as ImageView
+			buttonsList[selectedPosition].onClickListener?.onClick(view)
 			collapseView()
 		}
 	}
@@ -159,9 +163,9 @@ class HeluCollapsingTabBar : LinearLayout {
 
 	class Builder(val context: Context) {
 		companion object {
-			private const val DEFAULT_BUTTON_SIZE = 56
-			private const val DEFAULT_BUTTON_PADDING = 16
-			private const val DEFAULT_BUTTON_SPACING = 12
+			private const val DEFAULT_BUTTON_SIZE = 48
+			private const val DEFAULT_BUTTON_PADDING = 12
+			private const val DEFAULT_BUTTON_SPACING = 16
 		}
 
 
@@ -173,10 +177,10 @@ class HeluCollapsingTabBar : LinearLayout {
 
 
 		init {
-
 			buttonSize = convertDpToPx(DEFAULT_BUTTON_SIZE)
 			buttonPadding = convertDpToPx(DEFAULT_BUTTON_PADDING)
 			buttonSpacing = convertDpToPx(DEFAULT_BUTTON_SPACING)
+			background = ContextCompat.getDrawable(context, R.drawable.shape_collapsing_tab_bar)
 		}
 
 

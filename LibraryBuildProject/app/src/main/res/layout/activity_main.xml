@@ -21,6 +21,128 @@
 				android:orientation="vertical"
 				android:background="#fff">
 
+				<!-- TT HeluCollapsingTabBar -->
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Helu Collapsing Tab Bar" />
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/kitten" />
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/kitten" />
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/kitten" />
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/kitten" />
+
+
+				<!-- TT HeluBottomButtonSheet -->
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Helu Bottom Button Sheet" />
+
+				<Button
+					android:id="@+id/bottom_button_sheet_button"
+					android:layout_width="match_parent"
+					android:layout_height="48dp"
+					android:text="Show Sheet" />
+
+				<Button
+					android:id="@+id/bottom_button_sheet_simple_button"
+					android:layout_width="match_parent"
+					android:layout_height="48dp"
+					android:text="Show Sheet Simple" />
+
+				<Button
+					android:id="@+id/bottom_button_sheet_complex_button"
+					android:layout_width="match_parent"
+					android:layout_height="48dp"
+					android:text="Show Sheet Complex" />
+
+
+				<!-- TT HeluParallaxView-->
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_160"
+					android:gravity="center"
+					android:textColor="#fff"
+					android:background="#181818"
+					android:textSize="34sp"
+					android:text="Helu Parallax View" />
+
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:src="@drawable/kitten"
+					app:interpolation="bounce" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:id="@+id/parallax_image_view_wide"
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:src="@drawable/ic_helu"
+					app:scale="1.5" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:id="@+id/parallax_image_view_tall"
+					android:layout_width="match_parent"
+					android:layout_height="450dp"
+					android:src="@drawable/ic_helu"
+					app:scale="1.5" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+				<cz.helu.heluparallaxview.HeluParallaxView
+					android:id="@+id/parallax_image_disabled"
+					android:layout_width="match_parent"
+					android:layout_height="450dp"
+					android:src="@drawable/ic_helu"
+					app:scale="0.25" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/global_spacing_16"
+					android:background="#000" />
+
+
 				<!-- TT HeluVideoView SCALE_TO_FIT_VIDEO -->
 				<TextView
 					android:layout_width="match_parent"
@@ -160,74 +282,16 @@
 					android:layout_height="@dimen/global_spacing_16"
 					android:background="#000" />
 
-
-				<!-- TT HeluParallaxView-->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Helu Parallax View" />
-
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:src="@drawable/kitten"
-					app:interpolation="bounce" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_view_wide"
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:src="@drawable/ic_helu"
-					app:scale="1.5" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_view_tall"
-					android:layout_width="match_parent"
-					android:layout_height="450dp"
-					android:src="@drawable/ic_helu"
-					app:scale="1.5" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_disabled"
-					android:layout_width="match_parent"
-					android:layout_height="450dp"
-					android:src="@drawable/ic_helu"
-					app:scale="0.25" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
 				<!-- TT Others-->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Others" />
+				<!--<TextView-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="@dimen/global_spacing_160"-->
+				<!--android:gravity="center"-->
+				<!--android:textColor="#fff"-->
+				<!--android:background="#181818"-->
+				<!--android:textSize="34sp"-->
+				<!--android:text="Others" />-->
+
 			</LinearLayout>
 		</android.support.v4.widget.NestedScrollView>
 

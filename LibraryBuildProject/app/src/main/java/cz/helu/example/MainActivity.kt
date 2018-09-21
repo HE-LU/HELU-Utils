@@ -9,10 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.animation.OvershootInterpolator
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.Toast
+import android.widget.*
 import cz.helu.helubottombuttonsheet.HeluBottomButtonSheet
 import cz.helu.helubottombuttonsheet.entity.TextSheetItem
 import cz.helu.helucollapsingtabbar.HeluCollapsingTabBar
@@ -28,9 +25,61 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		setupVideoView()
-		setupImageView()
 		setupTabBar()
+		setupImageView()
+		setupBottomButtonSheet()
+		setupVideoView()
+	}
+
+
+	private fun setupTabBar() {
+		val bar = findViewById<HeluCollapsingTabBar>(R.id.helu_tab_bar)
+
+		// Setup drawables
+		val alignLeft = ContextCompat.getDrawable(this, R.drawable.ic_align_left)!!
+		val alignLeftSelected = ContextCompat.getDrawable(this, R.drawable.ic_align_left_selected)!!
+		val alignCenter = ContextCompat.getDrawable(this, R.drawable.ic_align_center)!!
+		val alignCenterSelected = ContextCompat.getDrawable(this, R.drawable.ic_align_center_selected)!!
+		val alignRight = ContextCompat.getDrawable(this, R.drawable.ic_align_right)!!
+		val alignRightSelected = ContextCompat.getDrawable(this, R.drawable.ic_align_right_selected)!!
+
+		// Add buttons
+		val builder = HeluCollapsingTabBar.Builder(this)
+		builder.addButton(alignLeftSelected, alignLeft, View.OnClickListener { showToast("Left") })
+		builder.addButton(alignCenterSelected, alignCenter, View.OnClickListener { showToast("Center") })
+		builder.addButton(alignRightSelected, alignRight, View.OnClickListener { showToast("Right") })
+
+		// Setup bar
+		bar.initFromBuilder(builder)
+		bar.setSelectedPosition(1)
+
+		// Customize animation using LayoutTransition
+		bar.layoutTransition.setDuration(150) // Translation duration
+		bar.layoutTransition.setDuration(LayoutTransition.CHANGE_APPEARING, 200) // Translation duration
+		bar.layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 125) // Start Delay
+		bar.layoutTransition.setStartDelay(LayoutTransition.APPEARING, 100) // Start Delay
+		bar.layoutTransition.setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator())
+	}
+
+
+	private fun setupImageView() {
+		Handler().postDelayed({
+			val parallaxDisabled = findViewById<HeluParallaxView>(R.id.parallax_image_disabled)
+			parallaxDisabled.scaleType = ImageView.ScaleType.CENTER_INSIDE
+			parallaxDisabled.scale = 0.15f
+			parallaxDisabled.disableParallax()
+		}, 5000)
+	}
+
+
+	private fun setupBottomButtonSheet() {
+		val sheetButton = findViewById<Button>(R.id.bottom_button_sheet_button)
+		val sheetSimpleButton = findViewById<Button>(R.id.bottom_button_sheet_simple_button)
+		val sheetComplexButton = findViewById<Button>(R.id.bottom_button_sheet_complex_button)
+
+		sheetButton.setOnClickListener { showBottomButtonSheet() }
+		sheetSimpleButton.setOnClickListener { showBottomButtonSheetSimple() }
+		sheetComplexButton.setOnClickListener { showBottomButtonSheetComplex() }
 	}
 
 
@@ -84,49 +133,31 @@ class MainActivity : AppCompatActivity() {
 	}
 
 
-	private fun setupImageView() {
-		Handler().postDelayed({
-			val parallaxDisabled = findViewById<HeluParallaxView>(R.id.parallax_image_disabled)
-			parallaxDisabled.scaleType = ImageView.ScaleType.CENTER_INSIDE
-			parallaxDisabled.scale = 0.15f
-			parallaxDisabled.disableParallax()
-		}, 5000)
-	}
+	@SuppressLint("InflateParams")
+	private fun showBottomButtonSheet() {
+		// Crete Bottom Button Sheet
+		val sheet = HeluBottomButtonSheet.Builder(this).withTitle("Bottom button sheet title").build()
+		val button = TextSheetItem("Test Button value: $counter", View.OnClickListener { showToast("Test Button clicked!") })
 
+		// Create custom view
+		val customView = layoutInflater.inflate(R.layout.bottom_button_sheet_custom_view, null)
+		customView.findViewById<View>(R.id.button_decrease).setOnClickListener {
+			counter--
+			button.text = "Test Button value: $counter"
+			sheet.invalidate()
+		}
+		customView.findViewById<View>(R.id.button_increase).setOnClickListener {
+			counter++
+			button.text = "Test Button value: $counter"
+			sheet.invalidate()
+		}
 
-	private fun setupTabBar() {
-		val bar = findViewById<HeluCollapsingTabBar>(R.id.helu_tab_bar)
-		val builder = HeluCollapsingTabBar.Builder(this)
+		sheet.retainInstance = true
+		sheet.addCustomView(customView)
+		sheet.addDivider()
+		sheet.addButton(button)
 
-		// Setup drawables
-		val arrowLeftSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left_selected)
-		val arrowLeft = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left)
-		val arrowRightSelected = ContextCompat.getDrawable(this, R.drawable.ic_arrow_right_selected)
-		val arrowRight = ContextCompat.getDrawable(this, R.drawable.ic_arrow_right)
-		val pauseSelected = ContextCompat.getDrawable(this, R.drawable.ic_pause_selected)
-		val pause = ContextCompat.getDrawable(this, R.drawable.ic_pause)
-
-		// Setup builder
-		builder.withBackground(ContextCompat.getDrawable(this, R.drawable.shape_collapsing_tab_bar)!!)
-		builder.withButtonSize(R.dimen.global_spacing_48)
-		builder.withButtonPadding(R.dimen.global_spacing_12)
-		builder.withButtonSpacing(R.dimen.global_spacing_16)
-
-		// Add buttons
-		builder.addButton(arrowLeftSelected!!, arrowLeft!!, View.OnClickListener { showBottomButtonSheetSimple() })
-		builder.addButton(pauseSelected!!, pause!!, View.OnClickListener { showBottomButtonSheetComplex() })
-		builder.addButton(arrowRightSelected!!, arrowRight!!, View.OnClickListener { showBottomButtonSheet() })
-
-		// Setup bar
-		bar.initFromBuilder(builder)
-		bar.setSelectedItem(0)
-
-		// Customize animation using LayoutTransition
-		bar.layoutTransition.setDuration(150) // Translation duration
-		bar.layoutTransition.setDuration(LayoutTransition.CHANGE_APPEARING, 200) // Translation duration
-		bar.layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 125) // Start Delay
-		bar.layoutTransition.setStartDelay(LayoutTransition.APPEARING, 100) // Start Delay
-		bar.layoutTransition.setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator())
+		sheet.show(supportFragmentManager)
 	}
 
 
@@ -157,34 +188,6 @@ class MainActivity : AppCompatActivity() {
 		sheet.addButton(R.drawable.ic_delete, "Delete", View.OnClickListener { /* click */ })
 		sheet.addDivider()
 		sheet.addCustomView(EditText(this).apply { hint = "Custom EditText view" })
-
-		sheet.show(supportFragmentManager)
-	}
-
-
-	@SuppressLint("InflateParams")
-	private fun showBottomButtonSheet() {
-		// Crete Bottom Button Sheet
-		val sheet = HeluBottomButtonSheet.Builder(this).withTitle("Bottom button sheet title").build()
-		val button = TextSheetItem("Test Button value: $counter", View.OnClickListener { showToast("Test Button clicked!") })
-
-		// Create custom view
-		val customView = layoutInflater.inflate(R.layout.bottom_button_sheet_custom_view, null)
-		customView.findViewById<View>(R.id.button_decrease).setOnClickListener {
-			counter--
-			button.text = "Test Button value: $counter"
-			sheet.invalidate()
-		}
-		customView.findViewById<View>(R.id.button_increase).setOnClickListener {
-			counter++
-			button.text = "Test Button value: $counter"
-			sheet.invalidate()
-		}
-
-		sheet.retainInstance = true
-		sheet.addCustomView(customView)
-		sheet.addDivider()
-		sheet.addButton(button)
 
 		sheet.show(supportFragmentManager)
 	}
