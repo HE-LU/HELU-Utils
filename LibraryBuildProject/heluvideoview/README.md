@@ -1,4 +1,4 @@
-# HeluVideoView 2.1.0
+# HeluVideoView 2.1.1
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
@@ -9,7 +9,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluvideoview:2.1.0'
+implementation 'cz.helu.android:heluvideoview:2.1.1'
 ```
 
 
@@ -109,6 +109,9 @@ implementation 'cz.helu.android:heluvideoview:2.1.0'
   
 * **reCreate()**
   In case you called destroy() and you want to use this view again, you can call this method to initialize MediaPlayer again.
+  
+* **recomputeLayout(newMaxWidth: Int?, newMaxHeight: Int?)**
+  You can call this method to recompute the size of the HeluVideoView.
   
 * **play()**
   Start video playback.

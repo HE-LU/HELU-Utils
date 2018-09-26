@@ -115,6 +115,7 @@ class HeluVideoView : FrameLayout {
 	}
 
 
+	@Suppress("MemberVisibilityCanBePrivate")
 	fun initFromBuilder(builder: Builder) {
 		if (playerState != PlayerState.NOT_INITIALIZED && playerState != PlayerState.DESTROYED)
 			return
@@ -239,6 +240,14 @@ class HeluVideoView : FrameLayout {
 	fun hideVolumeButton() {
 		viewMuteOn?.visibility = View.GONE
 		viewMuteOff?.visibility = View.GONE
+	}
+
+
+	@Suppress("unused")
+	fun recomputeLayout(newMaxWidth: Int? = null, newMaxHeight: Int? = null) {
+		if (scalingMode == ScaleType.SCALE_TO_FIT_VIDEO)
+			recalculateViewSize(newMaxWidth, newMaxHeight)
+		else throw IllegalStateException("You can recompute layout only with scalingMode set to ScaleType.SCALE_TO_FIT_VIDEO")
 	}
 
 
@@ -542,13 +551,13 @@ class HeluVideoView : FrameLayout {
 	}
 
 
-	private fun recalculateViewSize() {
+	private fun recalculateViewSize(newMaxWidth: Int? = null, newMaxHeight: Int? = null) {
 		if (mediaPlayer == null || textureView == null)
 			return
 
-		val maxWidth = width
-		var maxHeight = maxVideoHeight
-		if (maxVideoHeight <= 0)
+		val maxWidth = newMaxWidth ?: width
+		var maxHeight = newMaxHeight ?: maxVideoHeight
+		if (maxHeight <= 0)
 			maxHeight = -1
 
 		var scale = maxWidth.toDouble() / (mediaPlayer?.videoWidth ?: 1).toDouble()
