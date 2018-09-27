@@ -7,6 +7,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
@@ -48,7 +49,6 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 	private var title: String? = null
 	private val itemList = ArrayList<BaseSheetItem>()
 	private var contentLayout: LinearLayout? = null
-	private var savedInstanceStateDone: Boolean = false
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,24 +73,6 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 	}
 
 
-	override fun onResume() {
-		super.onResume()
-		savedInstanceStateDone = false
-	}
-
-
-	override fun onStart() {
-		super.onStart()
-		savedInstanceStateDone = false
-	}
-
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		savedInstanceStateDone = true
-	}
-
-
 	@SuppressLint("RestrictedApi")
 	override fun setupDialog(dialog: Dialog, style: Int) {
 		super.setupDialog(dialog, style)
@@ -107,8 +89,20 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 
 
 	fun show(manager: FragmentManager?) {
-		if (!savedInstanceStateDone && manager != null)
+		if (manager == null)
+			return
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			if (manager.isStateSaved()) {
+				return
+			}
+		}
+
+		try {
 			show(manager, tag)
+		} catch (e: IllegalStateException) {
+			e.printStackTrace()
+		}
 	}
 
 
