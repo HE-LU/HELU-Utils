@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LibraryBuildProject.iml" filepath="$PROJECT_DIR$/LibraryBuildProject.iml" />
-      <module fileurl="file:///media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/app/app.iml" filepath="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/app/app.iml" />
-      <module fileurl="file:///media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helubottombuttonsheet/helubottombuttonsheet.iml" filepath="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helubottombuttonsheet/helubottombuttonsheet.iml" />
-      <module fileurl="file:///media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helucollapsingtabbar/helucollapsingtabbar.iml" filepath="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helucollapsingtabbar/helucollapsingtabbar.iml" />
-      <module fileurl="file:///media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluparallaxview/heluparallaxview.iml" filepath="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluparallaxview/heluparallaxview.iml" />
-      <module fileurl="file:///media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluvideoview/heluvideoview.iml" filepath="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluvideoview/heluvideoview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/helubottombuttonsheet/helubottombuttonsheet.iml" filepath="$PROJECT_DIR$/helubottombuttonsheet/helubottombuttonsheet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/helucollapsingtabbar/helucollapsingtabbar.iml" filepath="$PROJECT_DIR$/helucollapsingtabbar/helucollapsingtabbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/heluparallaxview/heluparallaxview.iml" filepath="$PROJECT_DIR$/heluparallaxview/heluparallaxview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/heluvideoview/heluvideoview.iml" filepath="$PROJECT_DIR$/heluvideoview/heluvideoview.iml" />
     </modules>
   </component>
 </project>

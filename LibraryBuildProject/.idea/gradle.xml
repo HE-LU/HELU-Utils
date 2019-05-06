@@ -3,17 +3,16 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1" />
         <option name="modules">
           <set>
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject" />
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/app" />
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helubottombuttonsheet" />
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/helucollapsingtabbar" />
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluparallaxview" />
-            <option value="/media/linuxData/Linux Data/Projects/Android/Android-Utils/LibraryBuildProject/heluvideoview" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/helubottombuttonsheet" />
+            <option value="$PROJECT_DIR$/helucollapsingtabbar" />
+            <option value="$PROJECT_DIR$/heluparallaxview" />
+            <option value="$PROJECT_DIR$/heluvideoview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

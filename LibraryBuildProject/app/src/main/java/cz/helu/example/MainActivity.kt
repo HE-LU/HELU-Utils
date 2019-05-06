@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 		val videoViewWitchCropping2 = findViewById<HeluVideoView>(R.id.video_view_with_cropping_2)
 
 		val builder = HeluVideoView.Builder(this)
-				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
+				.withVideoUrl("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
 				.withBackupVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
 				.withAutoPlay(true)
 				.withMuteOnStart(true)
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
 		val builder = HeluVideoView.Builder(this)
 				.withScalingMode(HeluVideoView.ScaleType.SCALE_TO_FIT_VIDEO)
-				.withVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
+				.withVideoUrl("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
 				.withBackupVideoUrl("http://techslides.com/demos/sample-videos/small.mp4")
 				.withPlayView(playView)
 				.withPauseView(pauseView)
@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity() {
 				.withAutoPlay(false)
 				.withMuteOnStart(true)
 				.withLooping(true)
+				.withAudioFocusHandling(true)
 
 		videoViewWithControls.initFromBuilder(builder)
 	}

@@ -4,20 +4,26 @@ package cz.helu.heluvideoview
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.SurfaceTexture
+import android.media.AudioFocusRequest
+import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Handler
 import android.support.annotation.DimenRes
 import android.util.AttributeSet
-import android.view.*
+import android.view.Gravity
+import android.view.Surface
+import android.view.TextureView
+import android.view.View
 import android.view.View.OnClickListener
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import java.io.IOException
 
 
-class HeluVideoView : FrameLayout {
-	private var textureView: TextureView? = null
+class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 	var mediaPlayer: MediaPlayer? = null
+	private var textureView: TextureView? = null
 	private var surface: Surface? = null
 	private var playerState = PlayerState.NOT_INITIALIZED
 	private var videoUrl: String? = null
@@ -33,6 +39,7 @@ class HeluVideoView : FrameLayout {
 	private var scalingMode: ScaleType? = null
 	private var attachPolicy: AttachPolicy? = null
 	private var autoPlay: Boolean = false
+	private var audioFocusHandlingEnabled: Boolean = false
 	private var pauseOnVisibilityChange: Boolean = false
 	private var isMuted: Boolean = false
 	private var looping: Boolean = false
@@ -115,6 +122,23 @@ class HeluVideoView : FrameLayout {
 	}
 
 
+	override fun onAudioFocusChange(focusChange: Int) {
+		if (!audioFocusHandlingEnabled)
+			return
+
+		when (focusChange) {
+			AudioManager.AUDIOFOCUS_LOSS -> {
+				if (playerState == PlayerState.PLAYING)
+					pause()
+			}
+			AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+				if (playerState == PlayerState.PLAYING)
+					pause()
+			}
+		}
+	}
+
+
 	@Suppress("MemberVisibilityCanBePrivate")
 	fun initFromBuilder(builder: Builder) {
 		if (playerState != PlayerState.NOT_INITIALIZED && playerState != PlayerState.DESTROYED)
@@ -133,6 +157,7 @@ class HeluVideoView : FrameLayout {
 		this.scalingMode = builder.scalingMode
 		this.attachPolicy = builder.attachPolicy
 		this.autoPlay = builder.autoPlay
+		this.audioFocusHandlingEnabled = builder.audioFocusEnabled
 		this.pauseOnVisibilityChange = builder.pauseOnVisibilityChange
 		this.isMuted = builder.mutedOnStart
 		this.looping = builder.looping
@@ -175,6 +200,8 @@ class HeluVideoView : FrameLayout {
 		progressHandler.postDelayed(progressRunnable, progressUpdateInterval.toLong())
 		playerState = PlayerState.PLAYING
 
+		requestAudioFocus()
+
 		checkControlsVisibility()
 	}
 
@@ -200,6 +227,8 @@ class HeluVideoView : FrameLayout {
 		playerStateChangeListener?.onPause()
 		playerState = PlayerState.PAUSED
 
+		releaseAudioFocus()
+
 		checkControlsVisibility()
 	}
 
@@ -224,6 +253,7 @@ class HeluVideoView : FrameLayout {
 
 	@Suppress("MemberVisibilityCanBePrivate")
 	fun destroy() {
+		releaseAudioFocus()
 		mediaPlayer?.release()
 		mediaPlayer = null
 		playerState = PlayerState.DESTROYED
@@ -570,13 +600,13 @@ class HeluVideoView : FrameLayout {
 			newHeight = maxHeight
 		}
 
-		val paramsTextureView = textureView?.layoutParams as FrameLayout.LayoutParams
+		val paramsTextureView = textureView?.layoutParams as LayoutParams
 		paramsTextureView.width = newWidth
 		paramsTextureView.height = newHeight
 		paramsTextureView.gravity = Gravity.CENTER
 		textureView?.layoutParams = paramsTextureView
 
-		val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
+		val layoutParams = layoutParams as MarginLayoutParams
 		layoutParams.width = newWidth
 		layoutParams.height = newHeight
 		setLayoutParams(layoutParams)
@@ -601,7 +631,7 @@ class HeluVideoView : FrameLayout {
 		if (maxHeight >= newHeight)
 			scale = maxHeight.toFloat() / (mediaPlayer?.videoHeight ?: 1).toFloat()
 
-		val paramsTextureView = textureView?.layoutParams as FrameLayout.LayoutParams
+		val paramsTextureView = textureView?.layoutParams as LayoutParams
 		paramsTextureView.width = ((mediaPlayer?.videoWidth ?: 1) * scale).toInt()
 		paramsTextureView.height = ((mediaPlayer?.videoHeight ?: 1) * scale).toInt()
 		paramsTextureView.gravity = Gravity.CENTER
@@ -610,6 +640,41 @@ class HeluVideoView : FrameLayout {
 		invalidate()
 		textureView?.invalidate()
 	}
+
+
+	@Suppress("DEPRECATION")
+	private fun requestAudioFocus() {
+		if (!audioFocusHandlingEnabled)
+			return
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			getAudioManager().requestAudioFocus(
+					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+							.setOnAudioFocusChangeListener(this)
+							.build())
+		} else {
+			getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+		}
+	}
+
+
+	@Suppress("DEPRECATION")
+	private fun releaseAudioFocus() {
+		if (!audioFocusHandlingEnabled)
+			return
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			getAudioManager().abandonAudioFocusRequest(
+					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+							.setOnAudioFocusChangeListener(this)
+							.build())
+		} else {
+			getAudioManager().abandonAudioFocus(this)
+		}
+	}
+
+
+	private fun getAudioManager() = (context.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
 
 
 	@Suppress("unused")
@@ -627,6 +692,7 @@ class HeluVideoView : FrameLayout {
 		internal var attachPolicy = AttachPolicy.PAUSE
 		internal var scalingMode = ScaleType.SCALE_TO_FIT_VIEW
 		internal var autoPlay = false
+		internal var audioFocusEnabled = false
 		internal var mutedOnStart = false
 		internal var pauseOnVisibilityChange = true
 		internal var looping = false
@@ -708,6 +774,12 @@ class HeluVideoView : FrameLayout {
 
 		fun withAutoPlay(autoPlay: Boolean): Builder {
 			this.autoPlay = autoPlay
+			return this
+		}
+
+
+		fun withAudioFocusHandling(audioFocus: Boolean): Builder {
+			this.audioFocusEnabled = audioFocus
 			return this
 		}
 

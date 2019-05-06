@@ -14,7 +14,7 @@ ext {
 	siteUrl = 'https://github.com/Tuxilero/Android-Utils'
 	gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
 
-	libraryVersion = '2.1.1'
+	libraryVersion = '2.1.2'
 
 	developerId = 'tuxilero'
 	developerName = 'Lukas Hermann'
@@ -31,15 +31,15 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.1.4'
-		classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+		classpath 'com.android.tools.build:gradle:3.5.0-alpha13'
+		classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4"
+		classpath "com.github.dcendents:android-maven-gradle-plugin:1.4.1"
 	}
 }
 
 android {
 	compileSdkVersion 27
-	buildToolsVersion "28.0.2"
+	buildToolsVersion "28.0.3"
 
 	defaultConfig {
 		minSdkVersion 16
@@ -56,9 +56,9 @@ android {
 }
 
 dependencies {
-	implementation 'com.android.support:appcompat-v7:27.1.1'
-	implementation 'com.android.support:design:27.1.1'
-	implementation 'com.android.support:support-annotations:27.1.1'
+	implementation "com.android.support:appcompat-v7:27.1.1"
+	implementation "com.android.support:design:27.1.1"
+	implementation "com.android.support:support-annotations:27.1.1"
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
