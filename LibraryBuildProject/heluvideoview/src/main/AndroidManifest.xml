@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="cz.helu.heluvideoview">
+          package="cz.helu.heluvideoview">
 
-	<application
-		android:allowBackup="false"
-		android:supportsRtl="true" />
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true" />
 </manifest>

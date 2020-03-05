@@ -1,308 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/activity_main"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<android.support.design.widget.CoordinatorLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-		<android.support.v4.widget.NestedScrollView
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:background="#fff">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#fff">
 
-				<!-- TT HeluCollapsingTabBar -->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Helu Collapsing Tab Bar" />
+                <!-- TT HeluCollapsingTabBar -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_160"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#181818"
+                    android:textSize="34sp"
+                    android:text="Helu Collapsing Tab Bar" />
 
-				<ImageView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/kitten" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kitten" />
 
-				<ImageView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/kitten" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kitten" />
 
-				<ImageView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/kitten" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kitten" />
 
-				<ImageView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/kitten" />
-
-
-				<!-- TT HeluBottomButtonSheet -->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Helu Bottom Button Sheet" />
-
-				<Button
-					android:id="@+id/bottom_button_sheet_button"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:text="Show Sheet" />
-
-				<Button
-					android:id="@+id/bottom_button_sheet_simple_button"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:text="Show Sheet Simple" />
-
-				<Button
-					android:id="@+id/bottom_button_sheet_complex_button"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:text="Show Sheet Complex" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kitten" />
 
 
-				<!-- TT HeluParallaxView-->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Helu Parallax View" />
+                <!-- TT HeluBottomButtonSheet -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_160"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#181818"
+                    android:textSize="34sp"
+                    android:text="Helu Bottom Button Sheet" />
 
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:src="@drawable/kitten"
-					app:interpolation="bounce" />
+                <Button
+                    android:id="@+id/bottom_button_sheet_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Show Sheet" />
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
+                <Button
+                    android:id="@+id/bottom_button_sheet_simple_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Show Sheet Simple" />
 
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_view_wide"
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:src="@drawable/ic_helu"
-					app:scale="1.5" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_view_tall"
-					android:layout_width="match_parent"
-					android:layout_height="450dp"
-					android:src="@drawable/ic_helu"
-					app:scale="1.5" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
-
-				<cz.helu.heluparallaxview.HeluParallaxView
-					android:id="@+id/parallax_image_disabled"
-					android:layout_width="match_parent"
-					android:layout_height="450dp"
-					android:src="@drawable/ic_helu"
-					app:scale="0.25" />
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
+                <Button
+                    android:id="@+id/bottom_button_sheet_complex_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Show Sheet Complex" />
 
 
-				<!-- TT HeluVideoView SCALE_TO_FIT_VIDEO -->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_160"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#181818"
-					android:textSize="34sp"
-					android:text="Helu Video View" />
+                <!-- TT HeluParallaxView-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_160"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#181818"
+                    android:textSize="34sp"
+                    android:text="Helu Parallax View" />
 
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_48"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#363636"
-					android:textSize="17sp"
-					android:text="Video with controls" />
+                <cz.helu.heluparallaxview.HeluParallaxView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/kitten"
+                    app:interpolation="bounce" />
 
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view_with_controls"
-					android:layout_width="match_parent"
-					android:layout_height="160dp"
-					android:layout_gravity="center" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:orientation="horizontal"
-					android:gravity="center">
+                <cz.helu.heluparallaxview.HeluParallaxView
+                    android:id="@+id/parallax_image_view_wide"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/ic_helu"
+                    app:scale="1.5" />
 
-					<ImageView
-						android:id="@+id/video_replay"
-						android:layout_width="48dp"
-						android:layout_height="48dp"
-						android:background="#cccccc"
-						android:src="@drawable/ic_replay" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-					<FrameLayout
-						android:layout_width="48dp"
-						android:layout_height="48dp"
-						android:layout_marginStart="48dp">
+                <cz.helu.heluparallaxview.HeluParallaxView
+                    android:id="@+id/parallax_image_view_tall"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:src="@drawable/ic_helu"
+                    app:scale="1.5" />
 
-						<ImageView
-							android:id="@+id/video_play"
-							android:layout_width="48dp"
-							android:layout_height="48dp"
-							android:background="#cccccc"
-							android:src="@drawable/ic_play" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-						<ImageView
-							android:id="@+id/video_pause"
-							android:layout_width="48dp"
-							android:layout_height="48dp"
-							android:background="#cccccc"
-							android:src="@drawable/ic_pause" />
+                <cz.helu.heluparallaxview.HeluParallaxView
+                    android:id="@+id/parallax_image_disabled"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:src="@drawable/ic_helu"
+                    app:scale="0.25" />
 
-					</FrameLayout>
-
-				</LinearLayout>
-
-				<SeekBar
-					android:id="@+id/video_seek_bar"
-					android:layout_width="match_parent"
-					android:layout_height="48dp"
-					android:background="#bbbbbb" />
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_48"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#363636"
-					android:textSize="17sp"
-					android:text="SCALE_TO_FIT_VIDEO" />
-
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view_fit_video"
-					android:layout_width="match_parent"
-					android:layout_height="160dp"
-					android:layout_gravity="center" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
 
-				<!-- TT HeluVideoView SCALE_TO_FIT_VIEW -->
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
+                <!-- TT HeluVideoView SCALE_TO_FIT_VIDEO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_160"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#181818"
+                    android:textSize="34sp"
+                    android:text="Helu Video View" />
 
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_48"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#363636"
-					android:textSize="17sp"
-					android:text="SCALE_TO_FIT_VIEW" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_48"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#363636"
+                    android:textSize="17sp"
+                    android:text="Video with controls" />
 
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view_fit_view"
-					android:layout_width="match_parent"
-					android:layout_height="160dp" />
+                <cz.helu.heluvideoview.HeluVideoView
+                    android:id="@+id/video_view_with_controls"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/video_replay"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="#cccccc"
+                        android:src="@drawable/ic_replay" />
+
+                    <FrameLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="48dp">
+
+                        <ImageView
+                            android:id="@+id/video_play"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="#cccccc"
+                            android:src="@drawable/ic_play" />
+
+                        <ImageView
+                            android:id="@+id/video_pause"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="#cccccc"
+                            android:src="@drawable/ic_pause" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/video_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#bbbbbb" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_48"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#363636"
+                    android:textSize="17sp"
+                    android:text="SCALE_TO_FIT_VIDEO" />
+
+                <cz.helu.heluvideoview.HeluVideoView
+                    android:id="@+id/video_view_fit_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center" />
 
 
-				<!-- TT HeluVideoView SCALE_TO_FIT_WITH_CROPPING -->
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
+                <!-- TT HeluVideoView SCALE_TO_FIT_VIEW -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_48"
-					android:gravity="center"
-					android:textColor="#fff"
-					android:background="#363636"
-					android:textSize="17sp"
-					android:text="SCALE_TO_FIT_WITH_CROPPING" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_48"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#363636"
+                    android:textSize="17sp"
+                    android:text="SCALE_TO_FIT_VIEW" />
 
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view_with_cropping"
-					android:layout_width="match_parent"
-					android:layout_height="160dp" />
+                <cz.helu.heluvideoview.HeluVideoView
+                    android:id="@+id/video_view_fit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
 
-				<cz.helu.heluvideoview.HeluVideoView
-					android:id="@+id/video_view_with_cropping_2"
-					android:layout_width="match_parent"
-					android:layout_height="400dp" />
+                <!-- TT HeluVideoView SCALE_TO_FIT_WITH_CROPPING -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/global_spacing_16"
-					android:background="#000" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_48"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:background="#363636"
+                    android:textSize="17sp"
+                    android:text="SCALE_TO_FIT_WITH_CROPPING" />
 
-				<!-- TT Others-->
-				<!--<TextView-->
-				<!--android:layout_width="match_parent"-->
-				<!--android:layout_height="@dimen/global_spacing_160"-->
-				<!--android:gravity="center"-->
-				<!--android:textColor="#fff"-->
-				<!--android:background="#181818"-->
-				<!--android:textSize="34sp"-->
-				<!--android:text="Others" />-->
+                <cz.helu.heluvideoview.HeluVideoView
+                    android:id="@+id/video_view_with_cropping"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
 
-			</LinearLayout>
-		</android.support.v4.widget.NestedScrollView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
 
-		<cz.helu.helucollapsingtabbar.HeluCollapsingTabBar
-			android:id="@+id/helu_tab_bar"
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/global_spacing_48"
-			android:layout_marginBottom="@dimen/global_spacing_12"
-			android:layout_gravity="center_horizontal|bottom"
-			android:orientation="horizontal"
-			app:layout_behavior="cz.helu.example.behavior.HeluTabBarBehavior" />
+                <cz.helu.heluvideoview.HeluVideoView
+                    android:id="@+id/video_view_with_cropping_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp" />
 
-	</android.support.design.widget.CoordinatorLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/global_spacing_16"
+                    android:background="#000" />
+
+                <!-- TT Others-->
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/global_spacing_160"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#fff"-->
+                <!--android:background="#181818"-->
+                <!--android:textSize="34sp"-->
+                <!--android:text="Others" />-->
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <cz.helu.helucollapsingtabbar.HeluCollapsingTabBar
+            android:id="@+id/helu_tab_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/global_spacing_48"
+            android:layout_marginBottom="@dimen/global_spacing_12"
+            android:layout_gravity="center_horizontal|bottom"
+            android:orientation="horizontal"
+            app:layout_behavior="cz.helu.example.behavior.HeluTabBarBehavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

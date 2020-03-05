@@ -2,65 +2,65 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 ext {
-	bintrayRepo = 'maven'
-	bintrayName = 'HeluCollapsingTabBar'
+    bintrayRepo = 'maven'
+    bintrayName = 'HeluCollapsingTabBar'
 
-	publishedGroupId = 'cz.helu.android'
-	libraryName = 'HeluCollapsingTabBar'
-	artifact = 'helucollapsingtabbar'
+    publishedGroupId = 'cz.helu.android'
+    libraryName = 'HeluCollapsingTabBar'
+    artifact = 'helucollapsingtabbar'
 
-	libraryDescription = 'Create Collapsing Tab Bar easily.'
+    libraryDescription = 'Create Collapsing Tab Bar easily.'
 
-	siteUrl = 'https://github.com/Tuxilero/Android-Utils'
-	gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
+    siteUrl = 'https://github.com/Tuxilero/Android-Utils'
+    gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
 
-	libraryVersion = '2.1.0'
+    libraryVersion = '2.1.0'
 
-	developerId = 'tuxilero'
-	developerName = 'Lukas Hermann'
-	developerEmail = 'hermann@helu.cz'
+    developerId = 'tuxilero'
+    developerName = 'Lukas Hermann'
+    developerEmail = 'hermann@helu.cz'
 
-	licenseName = 'The Apache Software License, Version 2.0'
-	licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-	allLicenses = ["Apache-2.0"]
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 buildscript {
-	repositories {
-		google()
-		jcenter()
-	}
-	dependencies {
-		classpath "com.android.tools.build:gradle:$gradle_plugin_version"
-		classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4"
-		classpath "com.github.dcendents:android-maven-gradle-plugin:1.4.1"
-	}
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_plugin_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:1.4.1"
+    }
 }
 
 android {
-	compileSdkVersion compile_SDK
-	buildToolsVersion "28.0.3"
+    compileSdkVersion compile_SDK
+    buildToolsVersion "28.0.3"
 
-	defaultConfig {
-		minSdkVersion 16
-		targetSdkVersion target_SDK
-		versionCode 1
-		versionName "1.0"
-	}
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-		}
-	}
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion target_SDK
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-	implementation "com.android.support:appcompat-v7:27.1.1"
-	implementation "com.android.support:design:27.1.1"
-	implementation "com.android.support:support-annotations:28.0.0"
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:27.1.1"
+    implementation "com.android.support:design:27.1.1"
+    implementation "com.android.support:support-annotations:28.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // Place it at the end of the file
@@ -68,5 +68,5 @@ apply from: '../install.gradle'
 apply from: '../bintray.gradle'
 
 tasks.withType(Javadoc).all {
-	enabled = false
+    enabled = false
 }

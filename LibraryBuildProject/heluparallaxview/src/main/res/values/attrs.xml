@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<declare-styleable name="HeluParallaxView">
-		<attr name="reverse">
-			<enum name="none" value="1" />
-			<enum name="reverseX" value="2" />
-			<enum name="reverseY" value="3" />
-			<enum name="reverseBoth" value="4" />
-		</attr>
+    <declare-styleable name="HeluParallaxView">
+        <attr name="reverse">
+            <enum name="none" value="1" />
+            <enum name="reverseX" value="2" />
+            <enum name="reverseY" value="3" />
+            <enum name="reverseBoth" value="4" />
+        </attr>
 
-		<attr name="scale" format="float" />
-		<attr name="blockParallaxX" format="boolean" />
-		<attr name="blockParallaxY" format="boolean" />
-		<attr name="normalize" format="boolean" />
+        <attr name="scale" format="float" />
+        <attr name="blockParallaxX" format="boolean" />
+        <attr name="blockParallaxY" format="boolean" />
+        <attr name="normalize" format="boolean" />
 
-		<attr name="interpolation">
-			<enum name="linear" value="0" />
-			<enum name="accelerateDecelerate" value="1" />
-			<enum name="accelerate" value="2" />
-			<enum name="anticipate" value="3" />
-			<enum name="anticipateOvershoot" value="4" />
-			<enum name="bounce" value="5" />
-			<enum name="decelerate" value="6" />
-			<enum name="overshoot" value="7" />
-		</attr>
-	</declare-styleable>
+        <attr name="interpolation">
+            <enum name="linear" value="0" />
+            <enum name="accelerateDecelerate" value="1" />
+            <enum name="accelerate" value="2" />
+            <enum name="anticipate" value="3" />
+            <enum name="anticipateOvershoot" value="4" />
+            <enum name="bounce" value="5" />
+            <enum name="decelerate" value="6" />
+            <enum name="overshoot" value="7" />
+        </attr>
+    </declare-styleable>
 </resources>
