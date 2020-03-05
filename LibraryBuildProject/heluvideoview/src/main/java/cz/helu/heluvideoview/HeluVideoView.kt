@@ -1,6 +1,5 @@
 package cz.helu.heluvideoview
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.SurfaceTexture
@@ -21,7 +20,7 @@ import android.widget.SeekBar
 import java.io.IOException
 
 
-class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
+open class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 	var mediaPlayer: MediaPlayer? = null
 	private var textureView: TextureView? = null
 	private var surface: Surface? = null
@@ -41,7 +40,8 @@ class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 	private var autoPlay: Boolean = false
 	private var audioFocusHandlingEnabled: Boolean = false
 	private var pauseOnVisibilityChange: Boolean = false
-	private var isMuted: Boolean = false
+	var isMuted: Boolean = false
+		private set
 	private var looping: Boolean = false
 	private var progressUpdateInterval: Int = 1000
 	private var maxVideoHeight = -1
@@ -227,8 +227,6 @@ class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 		playerStateChangeListener?.onPause()
 		playerState = PlayerState.PAUSED
 
-		releaseAudioFocus()
-
 		checkControlsVisibility()
 	}
 
@@ -278,6 +276,38 @@ class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 		if (scalingMode == ScaleType.SCALE_TO_FIT_VIDEO)
 			recalculateViewSize(newMaxWidth, newMaxHeight)
 		else throw IllegalStateException("You can recompute layout only with scalingMode set to ScaleType.SCALE_TO_FIT_VIDEO")
+	}
+
+
+	open fun requestAudioFocus() {
+		if (!audioFocusHandlingEnabled)
+			return
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			getAudioManager().requestAudioFocus(
+					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+							.setOnAudioFocusChangeListener(this)
+							.build())
+		} else {
+			@Suppress("DEPRECATION")
+			getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+		}
+	}
+
+
+	open fun releaseAudioFocus() {
+		if (!audioFocusHandlingEnabled)
+			return
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			getAudioManager().abandonAudioFocusRequest(
+					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+							.setOnAudioFocusChangeListener(this)
+							.build())
+		} else {
+			@Suppress("DEPRECATION")
+			getAudioManager().abandonAudioFocus(this)
+		}
 	}
 
 
@@ -639,38 +669,6 @@ class HeluVideoView : FrameLayout, AudioManager.OnAudioFocusChangeListener {
 
 		invalidate()
 		textureView?.invalidate()
-	}
-
-
-	@Suppress("DEPRECATION")
-	private fun requestAudioFocus() {
-		if (!audioFocusHandlingEnabled)
-			return
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			getAudioManager().requestAudioFocus(
-					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-							.setOnAudioFocusChangeListener(this)
-							.build())
-		} else {
-			getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
-		}
-	}
-
-
-	@Suppress("DEPRECATION")
-	private fun releaseAudioFocus() {
-		if (!audioFocusHandlingEnabled)
-			return
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			getAudioManager().abandonAudioFocusRequest(
-					AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-							.setOnAudioFocusChangeListener(this)
-							.build())
-		} else {
-			getAudioManager().abandonAudioFocus(this)
-		}
 	}
 
 
