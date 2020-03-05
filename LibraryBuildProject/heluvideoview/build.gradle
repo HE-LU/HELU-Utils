@@ -31,19 +31,19 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.5.0-alpha13'
+		classpath "com.android.tools.build:gradle:$gradle_plugin_version"
 		classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4"
 		classpath "com.github.dcendents:android-maven-gradle-plugin:1.4.1"
 	}
 }
 
 android {
-	compileSdkVersion 27
+	compileSdkVersion compile_SDK
 	buildToolsVersion "28.0.3"
 
 	defaultConfig {
 		minSdkVersion 16
-		targetSdkVersion 27
+		targetSdkVersion target_SDK
 		versionCode 1
 		versionName "1.0"
 	}

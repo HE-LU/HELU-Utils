@@ -48,7 +48,7 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 	private var dividerColor: Int = 0
 	private var title: String? = null
 	private val itemList = ArrayList<BaseSheetItem>()
-	private var contentLayout: LinearLayout? = null
+	private lateinit var contentLayout: LinearLayout
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +79,8 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 
 		// Setup View
 		contentLayout = LinearLayout(context)
-		contentLayout?.orientation = LinearLayout.VERTICAL
-		contentLayout?.setBackgroundColor(sheetBackgroundColor)
+		contentLayout.orientation = LinearLayout.VERTICAL
+		contentLayout.setBackgroundColor(sheetBackgroundColor)
 
 		inflateViews()
 
@@ -160,7 +160,7 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 
 
 	fun invalidate() {
-		contentLayout?.removeAllViews()
+		contentLayout.removeAllViews()
 		inflateViews()
 	}
 
@@ -235,20 +235,20 @@ class HeluBottomButtonSheet : BottomSheetDialogFragment() {
 
 	private fun inflateViews() {
 		if (title?.isNotEmpty() == true) {
-			contentLayout?.setPadding(0, 0, 0, paddingVertical)
-			contentLayout?.addView(createTitleView())
+			contentLayout.setPadding(0, 0, 0, paddingVertical)
+			contentLayout.addView(createTitleView())
 		} else {
-			contentLayout?.setPadding(0, paddingVertical, 0, paddingVertical)
+			contentLayout.setPadding(0, paddingVertical, 0, paddingVertical)
 		}
 
 		for (entity in itemList) {
 			if (entity is DividerSheetItem) {
-				contentLayout?.addView(createDividerItemView())
+				contentLayout.addView(createDividerItemView())
 			} else if (entity is TextSheetItem) {
-				contentLayout?.addView(createTextItemView(entity))
+				contentLayout.addView(createTextItemView(entity))
 			} else if (entity is CustomViewSheetItem) {
 				if (entity.customView.parent == null)
-					contentLayout?.addView(entity.customView)
+					contentLayout.addView(entity.customView)
 			}
 		}
 	}
