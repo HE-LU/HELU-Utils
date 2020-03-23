@@ -71,6 +71,10 @@ open class HeluParallaxView : android.support.v7.widget.AppCompatImageView {
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
+        // Remove old listener before trying to add a new one.
+        // Looks like onAttachedToWindow can get called multiple times. This could lead to memmory leaks.
+        viewTreeObserver.removeOnDrawListener(onDrawListener)
+
         onDrawListener = ViewTreeObserver.OnDrawListener { applyParallax() }
         viewTreeObserver.addOnDrawListener(onDrawListener)
 

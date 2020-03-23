@@ -1,4 +1,4 @@
-# HeluVideoView 2.1.2
+# HeluVideoView 2.1.3
 This library provides you very easy to use and intuitive API to create new Video View. You can create your own play, mute, placeholder, seekbar views, which you can then provide to HeluVideoView.
 
 You need to use provided Builder class to create new HeluVideoView.
@@ -9,7 +9,7 @@ You need to use provided Builder class to create new HeluVideoView.
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluvideoview:2.1.2'
+implementation 'cz.helu.android:heluvideoview:2.1.3'
 ```
 
 
@@ -146,7 +146,10 @@ implementation 'cz.helu.android:heluvideoview:2.1.2'
 		fun onProgressChange(i: Int)
 	}
   ```
-
+  
+* **isMuted**
+  Field of type `Boolean` to check if the player is muted or not.
+  
 ## Usage
 You have to use the Builder class for creating or initializing new HeluVideoView.
 

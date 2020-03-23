@@ -1,10 +1,10 @@
-# HeluParallaxView 2.0.0 (API 16+)
+# HeluParallaxView 2.0.1 (API 16+)
 ![Alt text](./extras/HeluParallaxView.gif?raw=true "HeluParallaxView")
 
 
 ## Gradle:
 ```groovy
-implementation 'cz.helu.android:heluparallaxview:2.0.0'
+implementation 'cz.helu.android:heluparallaxview:2.0.1'
 ```
 
 
@@ -102,3 +102,7 @@ Glide.with(imageView.context).load(url)
 	})
 	.into(imageView)
 ```
+
+## Changelog
+###2.0.1
+- Fixed possible memmory leak in `onDrawListener`

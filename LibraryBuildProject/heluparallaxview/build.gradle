@@ -14,7 +14,7 @@ ext {
     siteUrl = 'https://github.com/Tuxilero/Android-Utils'
     gitUrl = 'https://github.com/Tuxilero/Android-Utils.git'
 
-    libraryVersion = '2.0.0'
+    libraryVersion = '2.0.1'
 
     developerId = 'tuxilero'
     developerName = 'Lukas Hermann'
